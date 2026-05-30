@@ -624,3 +624,1058 @@ Parsing ecmascript source code failed
 
     at <unknown> (Error: ./app/login/page.tsx:22:13)
     at <unknown> (Error: (./app/login/page.tsx:22:13)
+⨯ ./app/page.tsx:6:3
+Return statement is not allowed here
+  [90m 4 |[0m
+  [90m 5 |[0m
+[31m[1m>[0m [90m 6 |[0m   [36mreturn[0m (
+  [90m   |[0m   [31m[1m^^^^^^^[0m
+[31m[1m>[0m [90m 7 |[0m     <div className=[32m"bg-background text-on-background min-h-screen antialiased w-full"[0m>
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m 8 |[0m       <[33mHeroSection[0m />
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m 9 |[0m       <[33mProblemSection[0m />
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m10 |[0m       <[33mWorkspaceSection[0m />
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m11 |[0m
+  [90m   |[0m [31m[1m^[0m
+[31m[1m>[0m [90m12 |[0m     </div>
+  [90m   |[0m [31m[1m^^^^^^^^^^[0m
+[31m[1m>[0m [90m13 |[0m   );
+  [90m   |[0m [31m[1m^^^^[0m
+  [90m14 |[0m }
+  [90m15 |[0m
+  [90m16 |[0m
+
+Parsing ecmascript source code failed
+
+
+[browser] Uncaught Error: ./app/page.tsx:6:3
+Return statement is not allowed here
+   4 |
+   5 |
+>  6 |   return (
+     |   ^^^^^^^
+>  7 |     <div className="bg-background text-on-background min-h-screen antialiased w-full">
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>  8 |       <HeroSection />
+     | ^^^^^^^^^^^^^^^^^^^^^
+>  9 |       <ProblemSection />
+     | ^^^^^^^^^^^^^^^^^^^^^^^^
+> 10 |       <WorkspaceSection />
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 11 |
+     | ^
+> 12 |     </div>
+     | ^^^^^^^^^^
+> 13 |   );
+     | ^^^^
+  14 | }
+  15 |
+  16 |
+
+Parsing ecmascript source code failed
+
+
+    at <unknown> (Error: ./app/page.tsx:6:3)
+    at <unknown> (Error: (./app/page.tsx:6:3)
+[browser] ./app/page.tsx:6:3
+Return statement is not allowed here
+   4 |
+   5 |
+>  6 |   return (
+     |   ^^^^^^^
+>  7 |     <div className="bg-background text-on-background min-h-screen antialiased w-full">
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>  8 |       <HeroSection />
+     | ^^^^^^^^^^^^^^^^^^^^^
+>  9 |       <ProblemSection />
+     | ^^^^^^^^^^^^^^^^^^^^^^^^
+> 10 |       <WorkspaceSection />
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 11 |
+     | ^
+> 12 |     </div>
+     | ^^^^^^^^^^
+> 13 |   );
+     | ^^^^
+  14 | }
+  15 |
+  16 |
+
+Parsing ecmascript source code failed 
+[browser] ./app/page.tsx:6:3
+Return statement is not allowed here
+   4 |
+   5 |
+>  6 |   return (
+     |   ^^^^^^^
+>  7 |     <div className="bg-background text-on-background min-h-screen antialiased w-full">
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>  8 |       <HeroSection />
+     | ^^^^^^^^^^^^^^^^^^^^^
+>  9 |       <ProblemSection />
+     | ^^^^^^^^^^^^^^^^^^^^^^^^
+> 10 |       <WorkspaceSection />
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 11 |
+     | ^
+> 12 |     </div>
+     | ^^^^^^^^^^
+> 13 |   );
+     | ^^^^
+  14 | }
+  15 |
+  16 |
+
+Parsing ecmascript source code failed 
+[browser] ./app/page.tsx:6:3
+Return statement is not allowed here
+   4 |
+   5 |
+>  6 |   return (
+     |   ^^^^^^^
+>  7 |     <div className="bg-background text-on-background min-h-screen antialiased w-full">
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>  8 |       <HeroSection />
+     | ^^^^^^^^^^^^^^^^^^^^^
+>  9 |       <ProblemSection />
+     | ^^^^^^^^^^^^^^^^^^^^^^^^
+> 10 |       <WorkspaceSection />
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 11 |
+     | ^
+> 12 |     </div>
+     | ^^^^^^^^^^
+> 13 |   );
+     | ^^^^
+  14 | }
+  15 |
+  16 |
+
+Parsing ecmascript source code failed 
+⨯ ReferenceError: handleLogin is not defined
+    at Navbar (components\layout\Navbar.tsx:114:20)
+  112 |
+  113 |         <button
+> 114 |           onClick={handleLogin}
+      |                    ^
+  115 |           className="hidden md:inline-flex items-center justify-center px-4 py-2 rounded-...
+  116 |         >
+  117 |           Begin Journey {
+  digest: '815442689'
+}
+[browser] Uncaught ReferenceError: handleLogin is not defined
+    at Navbar (file://C:/Projects/Nyaya-AI/frontend/.next/dev/static/chunks/_03unlqc._.js:202:34)
+    at RootLayout (app\layout.tsx:51:9)
+  49 |       </head>
+  50 |       <body className="min-h-full flex flex-col font-body-md text-body-md">
+> 51 |         <Navbar />
+     |         ^
+  52 |         {children}
+  53 |       </body>
+  54 |     </html>
+⨯ ReferenceError: handleLogin is not defined
+    at Navbar (components\layout\Navbar.tsx:114:20)
+  112 |
+  113 |         <button
+> 114 |           onClick={handleLogin}
+      |                    ^
+  115 |           className="hidden md:inline-flex items-center justify-center px-4 py-2 rounded-...
+  116 |         >
+  117 |           Begin Journey {
+  digest: '815442689'
+}
+[browser] Uncaught ReferenceError: handleLogin is not defined
+    at Navbar (file://C:/Projects/Nyaya-AI/frontend/.next/dev/static/chunks/_03unlqc._.js:202:34)
+    at RootLayout (app\layout.tsx:51:9)
+  49 |       </head>
+  50 |       <body className="min-h-full flex flex-col font-body-md text-body-md">
+> 51 |         <Navbar />
+     |         ^
+  52 |         {children}
+  53 |       </body>
+  54 |     </html>
+⨯ ReferenceError: handleLogin is not defined
+    at Navbar (components\layout\Navbar.tsx:114:20)
+  112 |
+  113 |         <button
+> 114 |           onClick={handleLogin}
+      |                    ^
+  115 |           className="hidden md:inline-flex items-center justify-center px-4 py-2 rounded-...
+  116 |         >
+  117 |           Begin Journey {
+  digest: '815442689'
+}
+⨯ ./app/layout.tsx:51:28
+Expression expected
+  [90m49 |[0m       </head>
+  [90m50 |[0m       <body className=[32m"min-h-full flex flex-col font-body-md text-body-md"[0m>
+[31m[1m>[0m [90m51 |[0m         <[33mNavbar[0m session={} />
+  [90m   |[0m                            [31m[1m^[0m
+  [90m52 |[0m         {children}
+  [90m53 |[0m       </body>
+  [90m54 |[0m     </html>
+
+Parsing ecmascript source code failed
+
+
+
+./app/layout.tsx:51:29
+Expression expected
+  [90m49 |[0m       </head>
+  [90m50 |[0m       <body className=[32m"min-h-full flex flex-col font-body-md text-body-md"[0m>
+[31m[1m>[0m [90m51 |[0m         <[33mNavbar[0m session={} />
+  [90m   |[0m                             [31m[1m^[0m
+  [90m52 |[0m         {children}
+  [90m53 |[0m       </body>
+  [90m54 |[0m     </html>
+
+Parsing ecmascript source code failed
+
+
+
+./app/layout.tsx:53:8
+Unterminated regexp literal
+  [90m51 |[0m         <[33mNavbar[0m session={} />
+  [90m52 |[0m         {children}
+[31m[1m>[0m [90m53 |[0m       </body>
+  [90m   |[0m        [31m[1m^^^^^^[0m
+  [90m54 |[0m     </html>
+  [90m55 |[0m   );
+  [90m56 |[0m }
+
+Parsing ecmascript source code failed
+
+
+
+./app/layout.tsx
+Code generation for chunk item errored
+An error occurred while generating the chunk item [project]/app/layout.tsx [app-rsc] (ecmascript)
+
+Caused by:
+- CJS module can't be async.
+
+Debug info:
+- An error occurred while generating the chunk item [project]/app/layout.tsx [app-rsc] (ecmascript)
+- Execution of <EcmascriptModuleAsset as EcmascriptChunkPlaceable>::chunk_item_content failed
+- Execution of EcmascriptChunkItemContent::new failed
+- CJS module can't be async.
+
+
+[browser] Uncaught Error: ./app/layout.tsx:51:29
+Expression expected
+  49 |       </head>
+  50 |       <body className="min-h-full flex flex-col font-body-md text-body-md">
+> 51 |         <Navbar session={} />
+     |                             ^
+  52 |         {children}
+  53 |       </body>
+  54 |     </html>
+
+Parsing ecmascript source code failed
+
+
+    at <unknown> (Error: ./app/layout.tsx:51:29)
+    at <unknown> (Error: (./app/layout.tsx:51:29)
+⨯ ReferenceError: handle is not defined
+    at RootLayout (app\layout.tsx:51:26)
+  49 |       </head>
+  50 |       <body className="min-h-full flex flex-col font-body-md text-body-md">
+> 51 |         <Navbar session={handle} />
+     |                          ^
+  52 |         {children}
+  53 |       </body>
+  54 |     </html> {
+  digest: '3706699761'
+}
+⨯ ReferenceError: handleLo is not defined
+    at RootLayout (app\layout.tsx:51:26)
+  49 |       </head>
+  50 |       <body className="min-h-full flex flex-col font-body-md text-body-md">
+> 51 |         <Navbar session={handleLo} />
+     |                          ^
+  52 |         {children}
+  53 |       </body>
+  54 |     </html> {
+  digest: '2754267857'
+}
+[browser] Uncaught ReferenceError: handleLo is not defined
+    at RootLayout (app\layout.tsx:51:26)
+  49 |       </head>
+  50 |       <body className="min-h-full flex flex-col font-body-md text-body-md">
+> 51 |         <Navbar session={handleLo} />
+     |                          ^
+  52 |         {children}
+  53 |       </body>
+  54 |     </html>
+⨯ ReferenceError: handle is not defined
+    at RootLayout (app\layout.tsx:51:26)
+  49 |       </head>
+  50 |       <body className="min-h-full flex flex-col font-body-md text-body-md">
+> 51 |         <Navbar session={handle} />
+     |                          ^
+  52 |         {children}
+  53 |       </body>
+  54 |     </html> {
+  digest: '3706699761'
+}
+[browser] Uncaught ReferenceError: handle is not defined
+    at RootLayout (app\layout.tsx:51:26)
+  49 |       </head>
+  50 |       <body className="min-h-full flex flex-col font-body-md text-body-md">
+> 51 |         <Navbar session={handle} />
+     |                          ^
+  52 |         {children}
+  53 |       </body>
+  54 |     </html>
+⨯ ./app/layout.tsx:51:28
+Expression expected
+  [90m49 |[0m       </head>
+  [90m50 |[0m       <body className=[32m"min-h-full flex flex-col font-body-md text-body-md"[0m>
+[31m[1m>[0m [90m51 |[0m         <[33mNavbar[0m session={} />
+  [90m   |[0m                            [31m[1m^[0m
+  [90m52 |[0m         {children}
+  [90m53 |[0m       </body>
+  [90m54 |[0m     </html>
+
+Parsing ecmascript source code failed
+
+
+
+./app/layout.tsx:51:29
+Expression expected
+  [90m49 |[0m       </head>
+  [90m50 |[0m       <body className=[32m"min-h-full flex flex-col font-body-md text-body-md"[0m>
+[31m[1m>[0m [90m51 |[0m         <[33mNavbar[0m session={} />
+  [90m   |[0m                             [31m[1m^[0m
+  [90m52 |[0m         {children}
+  [90m53 |[0m       </body>
+  [90m54 |[0m     </html>
+
+Parsing ecmascript source code failed
+
+
+
+./app/layout.tsx:53:8
+Unterminated regexp literal
+  [90m51 |[0m         <[33mNavbar[0m session={} />
+  [90m52 |[0m         {children}
+[31m[1m>[0m [90m53 |[0m       </body>
+  [90m   |[0m        [31m[1m^^^^^^[0m
+  [90m54 |[0m     </html>
+  [90m55 |[0m   );
+  [90m56 |[0m }
+
+Parsing ecmascript source code failed
+
+
+
+./app/layout.tsx
+Code generation for chunk item errored
+An error occurred while generating the chunk item [project]/app/layout.tsx [app-rsc] (ecmascript)
+
+Caused by:
+- CJS module can't be async.
+
+Debug info:
+- An error occurred while generating the chunk item [project]/app/layout.tsx [app-rsc] (ecmascript)
+- Execution of <EcmascriptModuleAsset as EcmascriptChunkPlaceable>::chunk_item_content failed
+- Execution of EcmascriptChunkItemContent::new failed
+- CJS module can't be async.
+
+
+[browser] ./app/layout.tsx:51:29
+Expression expected
+  49 |       </head>
+  50 |       <body className="min-h-full flex flex-col font-body-md text-body-md">
+> 51 |         <Navbar session={} />
+     |                             ^
+  52 |         {children}
+  53 |       </body>
+  54 |     </html>
+
+Parsing ecmascript source code failed 
+[browser] ./app/layout.tsx:53:8
+Unterminated regexp literal
+  51 |         <Navbar session={} />
+  52 |         {children}
+> 53 |       </body>
+     |        ^^^^^^
+  54 |     </html>
+  55 |   );
+  56 | }
+
+Parsing ecmascript source code failed 
+[browser] ./app/layout.tsx
+Code generation for chunk item errored
+An error occurred while generating the chunk item [project]/app/layout.tsx [app-rsc] (ecmascript)
+
+Caused by:
+- CJS module can't be async.
+
+Debug info:
+- An error occurred while generating the chunk item [project]/app/layout.tsx [app-rsc] (ecmascript)
+- Execution of <EcmascriptModuleAsset as EcmascriptChunkPlaceable>::chunk_item_content failed
+- Execution of EcmascriptChunkItemContent::new failed
+- CJS module can't be async. 
+[browser] ./app/layout.tsx:51:29
+Expression expected
+  49 |       </head>
+  50 |       <body className="min-h-full flex flex-col font-body-md text-body-md">
+> 51 |         <Navbar session={} />
+     |                             ^
+  52 |         {children}
+  53 |       </body>
+  54 |     </html>
+
+Parsing ecmascript source code failed 
+[browser] ./app/layout.tsx:53:8
+Unterminated regexp literal
+  51 |         <Navbar session={} />
+  52 |         {children}
+> 53 |       </body>
+     |        ^^^^^^
+  54 |     </html>
+  55 |   );
+  56 | }
+
+Parsing ecmascript source code failed 
+[browser] ./app/layout.tsx
+Code generation for chunk item errored
+An error occurred while generating the chunk item [project]/app/layout.tsx [app-rsc] (ecmascript)
+
+Caused by:
+- CJS module can't be async.
+
+Debug info:
+- An error occurred while generating the chunk item [project]/app/layout.tsx [app-rsc] (ecmascript)
+- Execution of <EcmascriptModuleAsset as EcmascriptChunkPlaceable>::chunk_item_content failed
+- Execution of EcmascriptChunkItemContent::new failed
+- CJS module can't be async. 
+[browser] Uncaught Error: ./app/layout.tsx:51:29
+Expression expected
+  49 |       </head>
+  50 |       <body className="min-h-full flex flex-col font-body-md text-body-md">
+> 51 |         <Navbar session={} />
+     |                             ^
+  52 |         {children}
+  53 |       </body>
+  54 |     </html>
+
+Parsing ecmascript source code failed
+
+
+    at <unknown> (Error: ./app/layout.tsx:51:29)
+    at <unknown> (Error: (./app/layout.tsx:51:29)
+[browser] ./app/layout.tsx:51:29
+Expression expected
+  49 |       </head>
+  50 |       <body className="min-h-full flex flex-col font-body-md text-body-md">
+> 51 |         <Navbar session={} />
+     |                             ^
+  52 |         {children}
+  53 |       </body>
+  54 |     </html>
+
+Parsing ecmascript source code failed 
+[browser] ./app/layout.tsx:53:8
+Unterminated regexp literal
+  51 |         <Navbar session={} />
+  52 |         {children}
+> 53 |       </body>
+     |        ^^^^^^
+  54 |     </html>
+  55 |   );
+  56 | }
+
+Parsing ecmascript source code failed 
+[browser] ./app/layout.tsx
+Code generation for chunk item errored
+An error occurred while generating the chunk item [project]/app/layout.tsx [app-rsc] (ecmascript)
+
+Caused by:
+- CJS module can't be async.
+
+Debug info:
+- An error occurred while generating the chunk item [project]/app/layout.tsx [app-rsc] (ecmascript)
+- Execution of <EcmascriptModuleAsset as EcmascriptChunkPlaceable>::chunk_item_content failed
+- Execution of EcmascriptChunkItemContent::new failed
+- CJS module can't be async. 
+[browser] ./app/layout.tsx:51:29
+Expression expected
+  49 |       </head>
+  50 |       <body className="min-h-full flex flex-col font-body-md text-body-md">
+> 51 |         <Navbar session={} />
+     |                             ^
+  52 |         {children}
+  53 |       </body>
+  54 |     </html>
+
+Parsing ecmascript source code failed 
+[browser] ./app/layout.tsx:53:8
+Unterminated regexp literal
+  51 |         <Navbar session={} />
+  52 |         {children}
+> 53 |       </body>
+     |        ^^^^^^
+  54 |     </html>
+  55 |   );
+  56 | }
+
+Parsing ecmascript source code failed 
+[browser] ./app/layout.tsx
+Code generation for chunk item errored
+An error occurred while generating the chunk item [project]/app/layout.tsx [app-rsc] (ecmascript)
+
+Caused by:
+- CJS module can't be async.
+
+Debug info:
+- An error occurred while generating the chunk item [project]/app/layout.tsx [app-rsc] (ecmascript)
+- Execution of <EcmascriptModuleAsset as EcmascriptChunkPlaceable>::chunk_item_content failed
+- Execution of EcmascriptChunkItemContent::new failed
+- CJS module can't be async. 
+[browser] ./app/layout.tsx:51:29
+Expression expected
+  49 |       </head>
+  50 |       <body className="min-h-full flex flex-col font-body-md text-body-md">
+> 51 |         <Navbar session={} />
+     |                             ^
+  52 |         {children}
+  53 |       </body>
+  54 |     </html>
+
+Parsing ecmascript source code failed 
+[browser] ./app/layout.tsx:53:8
+Unterminated regexp literal
+  51 |         <Navbar session={} />
+  52 |         {children}
+> 53 |       </body>
+     |        ^^^^^^
+  54 |     </html>
+  55 |   );
+  56 | }
+
+Parsing ecmascript source code failed 
+[browser] ./app/layout.tsx
+Code generation for chunk item errored
+An error occurred while generating the chunk item [project]/app/layout.tsx [app-rsc] (ecmascript)
+
+Caused by:
+- CJS module can't be async.
+
+Debug info:
+- An error occurred while generating the chunk item [project]/app/layout.tsx [app-rsc] (ecmascript)
+- Execution of <EcmascriptModuleAsset as EcmascriptChunkPlaceable>::chunk_item_content failed
+- Execution of EcmascriptChunkItemContent::new failed
+- CJS module can't be async. 
+[browser] ./app/layout.tsx:51:29
+Expression expected
+  49 |       </head>
+  50 |       <body className="min-h-full flex flex-col font-body-md text-body-md">
+> 51 |         <Navbar session={} />
+     |                             ^
+  52 |         {children}
+  53 |       </body>
+  54 |     </html>
+
+Parsing ecmascript source code failed 
+[browser] ./app/layout.tsx:53:8
+Unterminated regexp literal
+  51 |         <Navbar session={} />
+  52 |         {children}
+> 53 |       </body>
+     |        ^^^^^^
+  54 |     </html>
+  55 |   );
+  56 | }
+
+Parsing ecmascript source code failed 
+[browser] ./app/layout.tsx
+Code generation for chunk item errored
+An error occurred while generating the chunk item [project]/app/layout.tsx [app-rsc] (ecmascript)
+
+Caused by:
+- CJS module can't be async.
+
+Debug info:
+- An error occurred while generating the chunk item [project]/app/layout.tsx [app-rsc] (ecmascript)
+- Execution of <EcmascriptModuleAsset as EcmascriptChunkPlaceable>::chunk_item_content failed
+- Execution of EcmascriptChunkItemContent::new failed
+- CJS module can't be async. 
+⨯ ReferenceError: handleLogin is not defined
+    at Navbar (components\layout\Navbar.tsx:114:20)
+  112 |
+  113 |         <button
+> 114 |           onClick={handleLogin}
+      |                    ^
+  115 |           className="hidden md:inline-flex items-center justify-center px-4 py-2 rounded-...
+  116 |         >
+  117 |           Begin Journey {
+  digest: '815442689'
+}
+[browser] Uncaught ReferenceError: handleLogin is not defined
+    at Navbar (file://C:/Projects/Nyaya-AI/frontend/.next/dev/static/chunks/_03unlqc._.js:202:34)
+    at RootLayout (app\layout.tsx:51:9)
+  49 |       </head>
+  50 |       <body className="min-h-full flex flex-col font-body-md text-body-md">
+> 51 |         <Navbar />
+     |         ^
+  52 |         {children}
+  53 |       </body>
+  54 |     </html>
+⨯ ReferenceError: handleSession is not defined
+    at RootLayout (app\layout.tsx:51:26)
+  49 |       </head>
+  50 |       <body className="min-h-full flex flex-col font-body-md text-body-md">
+> 51 |         <Navbar session={handleSession} />
+     |                          ^
+  52 |         {children}
+  53 |       </body>
+  54 |     </html> {
+  digest: '1065559505'
+}
+[browser] Uncaught ReferenceError: handleSession is not defined
+    at RootLayout (app\layout.tsx:51:26)
+  49 |       </head>
+  50 |       <body className="min-h-full flex flex-col font-body-md text-body-md">
+> 51 |         <Navbar session={handleSession} />
+     |                          ^
+  52 |         {children}
+  53 |       </body>
+  54 |     </html>
+⨯ ReferenceError: handleLogin is not defined
+    at Navbar (components\layout\Navbar.tsx:114:20)
+  112 |
+  113 |         <button
+> 114 |           onClick={handleLogin}
+      |                    ^
+  115 |           className="hidden md:inline-flex items-center justify-center px-4 py-2 rounded-...
+  116 |         >
+  117 |           Begin Journey {
+  digest: '815442689'
+}
+[browser] Uncaught ReferenceError: handleLogin is not defined
+    at Navbar (file://C:/Projects/Nyaya-AI/frontend/.next/dev/static/chunks/_03unlqc._.js:202:34)
+    at RootLayout (app\layout.tsx:51:9)
+  49 |       </head>
+  50 |       <body className="min-h-full flex flex-col font-body-md text-body-md">
+> 51 |         <Navbar />
+     |         ^
+  52 |         {children}
+  53 |       </body>
+  54 |     </html>
+⨯ ReferenceError: handleLogin is not defined
+    at Navbar (components\layout\Navbar.tsx:114:20)
+  112 |
+  113 |         <button
+> 114 |           onClick={handleLogin}
+      |                    ^
+  115 |           className="hidden md:inline-flex items-center justify-center px-4 py-2 rounded-...
+  116 |         >
+  117 |           Begin Journey {
+  digest: '815442689'
+}
+[browser] Uncaught ReferenceError: handleLogin is not defined
+    at Navbar (file://C:/Projects/Nyaya-AI/frontend/.next/dev/static/chunks/_03unlqc._.js:202:34)
+    at RootLayout (app\layout.tsx:51:9)
+  49 |       </head>
+  50 |       <body className="min-h-full flex flex-col font-body-md text-body-md">
+> 51 |         <Navbar />
+     |         ^
+  52 |         {children}
+  53 |       </body>
+  54 |     </html>
+⨯ ./app/layout.tsx:51:28
+Expression expected
+  [90m49 |[0m       </head>
+  [90m50 |[0m       <body className=[32m"min-h-full flex flex-col font-body-md text-body-md"[0m>
+[31m[1m>[0m [90m51 |[0m         <[33mNavbar[0m session={} />
+  [90m   |[0m                            [31m[1m^[0m
+  [90m52 |[0m         {children}
+  [90m53 |[0m       </body>
+  [90m54 |[0m     </html>
+
+Parsing ecmascript source code failed
+
+
+
+./app/layout.tsx:51:29
+Expression expected
+  [90m49 |[0m       </head>
+  [90m50 |[0m       <body className=[32m"min-h-full flex flex-col font-body-md text-body-md"[0m>
+[31m[1m>[0m [90m51 |[0m         <[33mNavbar[0m session={} />
+  [90m   |[0m                             [31m[1m^[0m
+  [90m52 |[0m         {children}
+  [90m53 |[0m       </body>
+  [90m54 |[0m     </html>
+
+Parsing ecmascript source code failed
+
+
+
+./app/layout.tsx:53:8
+Unterminated regexp literal
+  [90m51 |[0m         <[33mNavbar[0m session={} />
+  [90m52 |[0m         {children}
+[31m[1m>[0m [90m53 |[0m       </body>
+  [90m   |[0m        [31m[1m^^^^^^[0m
+  [90m54 |[0m     </html>
+  [90m55 |[0m   );
+  [90m56 |[0m }
+
+Parsing ecmascript source code failed
+
+
+
+./app/layout.tsx
+Code generation for chunk item errored
+An error occurred while generating the chunk item [project]/app/layout.tsx [app-rsc] (ecmascript)
+
+Caused by:
+- CJS module can't be async.
+
+Debug info:
+- An error occurred while generating the chunk item [project]/app/layout.tsx [app-rsc] (ecmascript)
+- Execution of <EcmascriptModuleAsset as EcmascriptChunkPlaceable>::chunk_item_content failed
+- Execution of EcmascriptChunkItemContent::new failed
+- CJS module can't be async.
+
+
+[browser] Uncaught Error: ./app/layout.tsx:51:29
+Expression expected
+  49 |       </head>
+  50 |       <body className="min-h-full flex flex-col font-body-md text-body-md">
+> 51 |         <Navbar session={} />
+     |                             ^
+  52 |         {children}
+  53 |       </body>
+  54 |     </html>
+
+Parsing ecmascript source code failed
+
+
+    at <unknown> (Error: ./app/layout.tsx:51:29)
+    at <unknown> (Error: (./app/layout.tsx:51:29)
+⨯ ReferenceError: handleLogi is not defined
+    at RootLayout (app\layout.tsx:51:26)
+  49 |       </head>
+  50 |       <body className="min-h-full flex flex-col font-body-md text-body-md">
+> 51 |         <Navbar session={handleLogi} />
+     |                          ^
+  52 |         {children}
+  53 |       </body>
+  54 |     </html> {
+  digest: '741819345'
+}
+⨯ ReferenceError: handleLogin is not defined
+    at Navbar (components\layout\Navbar.tsx:114:20)
+  112 |
+  113 |         <button
+> 114 |           onClick={handleLogin}
+      |                    ^
+  115 |           className="hidden md:inline-flex items-center justify-center px-4 py-2 rounded-...
+  116 |         >
+  117 |           Begin Journey {
+  digest: '815442689'
+}
+⨯ ReferenceError: handleLogin is not defined
+    at Navbar (components\layout\Navbar.tsx:114:20)
+  112 |
+  113 |         <button
+> 114 |           onClick={handleLogin}
+      |                    ^
+  115 |           className="hidden md:inline-flex items-center justify-center px-4 py-2 rounded-...
+  116 |         >
+  117 |           Begin Journey {
+  digest: '815442689'
+}
+⨯ ReferenceError: handleSession is not defined
+    at RootLayout (app\layout.tsx:51:26)
+  49 |       </head>
+  50 |       <body className="min-h-full flex flex-col font-body-md text-body-md">
+> 51 |         <Navbar session={handleSession} />
+     |                          ^
+  52 |         {children}
+  53 |       </body>
+  54 |     </html> {
+  digest: '1065559505'
+}
+⨯ ReferenceError: NavbarSession is not defined
+    at RootLayout (app\layout.tsx:51:26)
+  49 |       </head>
+  50 |       <body className="min-h-full flex flex-col font-body-md text-body-md">
+> 51 |         <Navbar session={NavbarSession} />
+     |                          ^
+  52 |         {children}
+  53 |       </body>
+  54 |     </html> {
+  digest: '1123764497'
+}
+[browser] Uncaught ReferenceError: NavbarSession is not defined
+    at RootLayout (app\layout.tsx:51:26)
+  49 |       </head>
+  50 |       <body className="min-h-full flex flex-col font-body-md text-body-md">
+> 51 |         <Navbar session={NavbarSession} />
+     |                          ^
+  52 |         {children}
+  53 |       </body>
+  54 |     </html>
+⚠ Fast Refresh had to perform a full reload due to a runtime error.
+⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[browser] Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+⨯ ./app/signup/page.tsx:20:24
+Unterminated string constant
+  [90m18 |[0m ...[32mlex"[0m>
+  [90m19 |[0m ...[32msparent_32%)]"[0m />
+[31m[1m>[0m [90m20 |[0m ...[32m/svg%22%3E%3Cfilter_id=%22n%22%3E%3CfeTurbulence_type=%22fractalNoise%22_baseFrequency=...[0m
+  [90m   |[0m    [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+
+Parsing ecmascript source code failed
+
+
+[browser] ./app/signup/page.tsx:20:24
+Unterminated string constant
+  18 | ...lex">
+  19 | ...sparent_32%)]" />
+> 20 | .../svg%22%3E%3Cfilter_id=%22n%22%3E%3CfeTurbulence_type=%22fractalNoise%22_baseFrequency=...
+     |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Parsing ecmascript source code failed 
+⨯ ./app/signup/page.tsx:20:24
+Unterminated string constant
+  [90m18 |[0m ...[32mlex"[0m>
+  [90m19 |[0m ...[32msparent_32%)]"[0m />
+[31m[1m>[0m [90m20 |[0m ...[32m/svg%22%3E%3Cfilter_id=%22n%22%3E%3CfeTurbulence_type=%22fractalNoise%22_baseFrequency=...[0m
+  [90m   |[0m    [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+
+Parsing ecmascript source code failed
+
+
+⨯ ./app/signup/page.tsx:20:24
+Unterminated string constant
+  [90m18 |[0m ...[32mlex"[0m>
+  [90m19 |[0m ...[32msparent_32%)]"[0m />
+[31m[1m>[0m [90m20 |[0m ...[32m/svg%22%3E%3Cfilter_id=%22n%22%3E%3CfeTurbulence_type=%22fractalNoise%22_baseFrequency=...[0m
+  [90m   |[0m    [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+
+Parsing ecmascript source code failed
+
+
+⨯ ./app/signup/page.tsx:20:24
+Unterminated string constant
+  [90m18 |[0m ...[32mlex"[0m>
+  [90m19 |[0m ...[32msparent_32%)]"[0m />
+[31m[1m>[0m [90m20 |[0m ...[32m/svg%22%3E%3Cfilter_id=%22n%22%3E%3CfeTurbulence_type=%22fractalNoise%22_baseFrequency=...[0m
+  [90m   |[0m    [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+
+Parsing ecmascript source code failed
+
+
+⨯ ./app/signup/page.tsx:20:24
+Unterminated string constant
+  [90m18 |[0m ...[32mlex"[0m>
+  [90m19 |[0m ...[32msparent_32%)]"[0m />
+[31m[1m>[0m [90m20 |[0m ...[32m/svg%22%3E%3Cfilter_id=%22n%22%3E%3CfeTurbulence_type=%22fractalNoise%22_baseFrequency=...[0m
+  [90m   |[0m    [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+
+Parsing ecmascript source code failed
+
+
+[browser] Uncaught Error: ./app/signup/page.tsx:20:24
+Unterminated string constant
+  18 | ...lex">
+  19 | ...sparent_32%)]" />
+> 20 | .../svg%22%3E%3Cfilter_id=%22n%22%3E%3CfeTurbulence_type=%22fractalNoise%22_baseFrequency=...
+     |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Parsing ecmascript source code failed
+
+
+    at <unknown> (Error: ./app/signup/page.tsx:20:24)
+    at <unknown> (Error: (./app/signup/page.tsx:20:24)
+[browser] ./app/signup/page.tsx:20:24
+Unterminated string constant
+  18 | ...lex">
+  19 | ...sparent_32%)]" />
+> 20 | .../svg%22%3E%3Cfilter_id=%22n%22%3E%3CfeTurbulence_type=%22fractalNoise%22_baseFrequency=...
+     |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Parsing ecmascript source code failed 
+[browser] ./app/signup/page.tsx:20:24
+Unterminated string constant
+  18 | ...lex">
+  19 | ...sparent_32%)]" />
+> 20 | .../svg%22%3E%3Cfilter_id=%22n%22%3E%3CfeTurbulence_type=%22fractalNoise%22_baseFrequency=...
+     |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Parsing ecmascript source code failed 
+⨯ ./app/signup/page.tsx:38:17
+Expected '</', got 'jsx text'
+  [90m36 |[0m           </div>
+  [90m37 |[0m         </div>
+[31m[1m>[0m [90m38 |[0m       </section>
+  [90m   |[0m                 [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m39 |[0m
+  [90m   |[0m [31m[1m^[0m
+[31m[1m>[0m [90m40 |[0m       <section className=[32m"relative flex h-dvh items-center justify-center overflow-hidden ...[0m
+  [90m   |[0m [31m[1m^^^^^^[0m
+  [90m41 |[0m         <div className=[32m"absolute left-margin-mobile top-margin-mobile font-instrument text...[0m
+  [90m42 |[0m           [33mNyaya[0m [33mAI[0m
+  [90m43 |[0m         </div>
+
+Parsing ecmascript source code failed
+
+
+
+./app/signup/page.tsx
+Code generation for chunk item errored
+An error occurred while generating the chunk item [project]/app/signup/page.tsx [app-rsc] (ecmascript)
+
+Caused by:
+- CJS module can't be async.
+
+Debug info:
+- An error occurred while generating the chunk item [project]/app/signup/page.tsx [app-rsc] (ecmascript)
+- Execution of <EcmascriptModuleAsset as EcmascriptChunkPlaceable>::chunk_item_content failed
+- Execution of EcmascriptChunkItemContent::new failed
+- CJS module can't be async.
+
+
+⨯ ./app/signup/page.tsx:38:17
+Expected '</', got 'jsx text'
+  [90m36 |[0m           </div>
+  [90m37 |[0m         </div>
+[31m[1m>[0m [90m38 |[0m       </section>
+  [90m   |[0m                 [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m39 |[0m
+  [90m   |[0m [31m[1m^[0m
+[31m[1m>[0m [90m40 |[0m       <section className=[32m"relative flex h-dvh items-center justify-center overflow-hidden ...[0m
+  [90m   |[0m [31m[1m^^^^^^[0m
+  [90m41 |[0m         <div className=[32m"absolute left-margin-mobile top-margin-mobile font-instrument text...[0m
+  [90m42 |[0m           [33mNyaya[0m [33mAI[0m
+  [90m43 |[0m         </div>
+
+Parsing ecmascript source code failed
+
+
+
+./app/signup/page.tsx
+Code generation for chunk item errored
+An error occurred while generating the chunk item [project]/app/signup/page.tsx [app-rsc] (ecmascript)
+
+Caused by:
+- CJS module can't be async.
+
+Debug info:
+- An error occurred while generating the chunk item [project]/app/signup/page.tsx [app-rsc] (ecmascript)
+- Execution of <EcmascriptModuleAsset as EcmascriptChunkPlaceable>::chunk_item_content failed
+- Execution of EcmascriptChunkItemContent::new failed
+- CJS module can't be async.
+
+
+[browser] Uncaught Error: ./app/signup/page.tsx:38:17
+Expected '</', got 'jsx text'
+  36 |           </div>
+  37 |         </div>
+> 38 |       </section>
+     |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 39 |
+     | ^
+> 40 |       <section className="relative flex h-dvh items-center justify-center overflow-hidden ...
+     | ^^^^^^
+  41 |         <div className="absolute left-margin-mobile top-margin-mobile font-instrument text...
+  42 |           Nyaya AI
+  43 |         </div>
+
+Parsing ecmascript source code failed
+
+
+    at <unknown> (Error: ./app/signup/page.tsx:38:17)
+    at <unknown> (Error: (./app/signup/page.tsx:38:17)
+[browser] Uncaught Error: ./app/login/page.tsx:24:13
+Expression expected
+  22 |             <h2 className="font-instrument text-[4.5rem] font-normal leading-[1.03] text-w...
+  23 |               Welcome to  <br
+> 24 |             </h2>
+     |             ^
+  25 |             <h2 className="font-instrument text-[4.5rem] font-normal leading-[1.03] text-w...
+  26 |               Welcome to 
+  27 |             </h2>
+
+Parsing ecmascript source code failed
+
+
+    at <unknown> (Error: ./app/login/page.tsx:24:13)
+    at <unknown> (Error: (./app/login/page.tsx:24:13)
+[browser] ./app/login/page.tsx:24:13
+Expression expected
+  22 |             <h2 className="font-instrument text-[4.5rem] font-normal leading-[1.03] text-w...
+  23 |               Welcome to  <br
+> 24 |             </h2>
+     |             ^
+  25 |             <h2 className="font-instrument text-[4.5rem] font-normal leading-[1.03] text-w...
+  26 |               Welcome to 
+  27 |             </h2>
+
+Parsing ecmascript source code failed 
+[browser] ./app/login/page.tsx:24:14
+Unterminated regexp literal
+  22 |             <h2 className="font-instrument text-[4.5rem] font-normal leading-[1.03] text-w...
+  23 |               Welcome to  <br
+> 24 |             </h2>
+     |              ^^^^
+  25 |             <h2 className="font-instrument text-[4.5rem] font-normal leading-[1.03] text-w...
+  26 |               Welcome to 
+  27 |             </h2>
+
+Parsing ecmascript source code failed 
+[browser] ./app/login/page.tsx
+Code generation for chunk item errored
+An error occurred while generating the chunk item [project]/app/login/page.tsx [app-rsc] (ecmascript)
+
+Caused by:
+- CJS module can't be async.
+
+Debug info:
+- An error occurred while generating the chunk item [project]/app/login/page.tsx [app-rsc] (ecmascript)
+- Execution of <EcmascriptModuleAsset as EcmascriptChunkPlaceable>::chunk_item_content failed
+- Execution of EcmascriptChunkItemContent::new failed
+- CJS module can't be async. 
+[browser] ./app/login/page.tsx:24:13
+Expression expected
+  22 |             <h2 className="font-instrument text-[4.5rem] font-normal leading-[1.03] text-w...
+  23 |               Welcome to  <br
+> 24 |             </h2>
+     |             ^
+  25 |             <h2 className="font-instrument text-[4.5rem] font-normal leading-[1.03] text-w...
+  26 |               Welcome to 
+  27 |             </h2>
+
+Parsing ecmascript source code failed 
+[browser] ./app/login/page.tsx:24:14
+Unterminated regexp literal
+  22 |             <h2 className="font-instrument text-[4.5rem] font-normal leading-[1.03] text-w...
+  23 |               Welcome to  <br
+> 24 |             </h2>
+     |              ^^^^
+  25 |             <h2 className="font-instrument text-[4.5rem] font-normal leading-[1.03] text-w...
+  26 |               Welcome to 
+  27 |             </h2>
+
+Parsing ecmascript source code failed 
+[browser] ./app/login/page.tsx
+Code generation for chunk item errored
+An error occurred while generating the chunk item [project]/app/login/page.tsx [app-rsc] (ecmascript)
+
+Caused by:
+- CJS module can't be async.
+
+Debug info:
+- An error occurred while generating the chunk item [project]/app/login/page.tsx [app-rsc] (ecmascript)
+- Execution of <EcmascriptModuleAsset as EcmascriptChunkPlaceable>::chunk_item_content failed
+- Execution of EcmascriptChunkItemContent::new failed
+- CJS module can't be async. 
+[browser] Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior

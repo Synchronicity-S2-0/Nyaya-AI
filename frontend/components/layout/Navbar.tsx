@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { navItems } from "@/constants";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 type NavbarSession = {
   user?: {
@@ -17,10 +17,10 @@ type NavbarSession = {
 export function Navbar({ session }: { session: NavbarSession }) {
   const [activeId, setActiveId] = useState("/");
   const pathname = usePathname();
-
+  const router = useRouter();
 
   const isCasesRoute = pathname.startsWith("/cases");
-  const isAuthRoute = pathname.startsWith("/login");
+  const isAuthRoute = pathname.startsWith("/login") || pathname.startsWith("/signup");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -101,17 +101,14 @@ export function Navbar({ session }: { session: NavbarSession }) {
 
       <div className="flex gap-4 items-center">
         <button
-          onClick={async () => {
-            const { loginAsMockUser } = await import("@/app/cases/actions");
-            await loginAsMockUser();
-          }}
+          onClick={() => router.push("/login")}
           className="hidden md:inline-flex items-center justify-center px-4 py-2 rounded-full border border-gray-300 bg-white text-gray-700 font-body-md text-[13px] leading-[20px] hover:bg-gray-50 transition-all cursor-pointer font-medium"
         >
-          Dev Login (Bypass Auth)
+          Sign In
         </button>
 
         <button
-          onClick={handleLogin}
+          onClick={() => router.push("/signup")}
           className="hidden md:inline-flex items-center justify-center px-4 py-2 rounded-full bg-primary text-on-primary font-body-md text-[13px] leading-[20px] hover:scale-[1.02] transition-transform duration-300 ease-out cursor-pointer"
         >
           Begin Journey

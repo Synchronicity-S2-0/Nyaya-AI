@@ -4,7 +4,7 @@ import { auth } from "@/lib/auth";
 import { AuthForm } from "@/components/auth/AuthForm";
 import { headers } from "next/headers";
 
-export default async function LoginPage() {
+export default async function SignupPage() {
   const session = await auth.api.getSession({
     headers: await headers(),
   });
