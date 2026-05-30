@@ -1,3 +1,6 @@
+import { images } from "@/constants/image";
+import Image from "next/image";
+
 export function ProblemSection() {
   return (
     <section
@@ -14,7 +17,7 @@ export function ProblemSection() {
           {/* Left Column — 5 cols, text, appears second on mobile */}
           <div className="md:col-span-5 flex flex-col justify-center order-2 md:order-1 text-left">
             <h2
-              className="font-instrument text-display-lg-mobile md:text-display-lg text-black mb-8"
+              className="font-instrument text-[56px] md:text-[90px] text-black mb-8"
               style={{ lineHeight: 1.1, letterSpacing: "0.02em" }}
             >
               <span className="text-primary italic">Most legal problems</span>{" "}
@@ -35,10 +38,12 @@ export function ProblemSection() {
 
           {/* Right Column — 7 cols, image, appears first on mobile */}
           <div className="md:col-span-7 order-1 md:order-2 flex justify-center">
-            <img
+            <Image
               alt="Abstract legal scales and pillars"
               className="w-full h-auto object-cover rounded-[2rem]"
-              src="https://lh3.googleusercontent.com/aida/ADBb0uh2tnoFWUN2vUTTW9qKUYa2AObAlsMgmQTHgE73FhTdq-1RcC5mNPc9UtuFTBP8d0PvjOjXabJqpnvub-QGTB8ziburYaDQjjnjIfVfWm2nBu9MzYfXmmGDrNtUEkfVaRIh5l1uI7Y3zw538r10nW0vAsQSX2jgVvNIY1f5uarH9MeDP0CwT1h2wd8sRVa2_kMMxc-uNfTU0zELoaOWEZx11bkUBXrxAoPwb9ErhMgWh3UYK4W22m3nvg0"
+              src={images.problemImage}
+              width={900}
+              height={600}
             />
           </div>
 
