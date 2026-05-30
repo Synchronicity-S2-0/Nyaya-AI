@@ -7,9 +7,9 @@ This scaffold avoids paid model/API dependencies by default. It uses local parsi
 ## What Works Now
 
 - Upload legal documents as `.txt`, `.pdf`, or image files.
-- Create persistent legal cases for follow-up timelines.
-- Save uploaded/pasted documents under a case.
-- Ask case-specific follow-up questions from saved case history.
+- Analyze documents for persistent legal cases managed by the frontend/Prisma app.
+- Return Prisma-saveable document, message, case update, and timeline event suggestions.
+- Answer case-specific follow-up questions from case history supplied by the frontend.
 - Extract text from text/PDF files.
 - Optionally run local Tesseract OCR for images.
 - Classify common legal document types.
@@ -46,25 +46,27 @@ pytest
 
 ## Follow-Up Case API
 
-Create the Supabase tables and storage bucket from `supabase_schema.sql`, then set:
+Cases, users, timeline rows, and file metadata are owned by the frontend stack:
 
-```powershell
-SUPABASE_URL=...
-SUPABASE_SERVICE_ROLE_KEY=...
-SUPABASE_STORAGE_BUCKET=case-documents
-LOCAL_KNOWLEDGE_PATH=app/data/legal_knowledge.txt
-```
+- Better Auth for authentication.
+- Prisma + Neon Postgres for database persistence.
+- Cloudinary for original uploaded files.
+- FastAPI for parsing, OCR hooks, AI analysis, drafting, translation, and grounded case answers.
 
 Case-aware endpoints:
 
-- `POST /api/v1/cases`
-- `GET /api/v1/cases?user_id=...`
-- `GET /api/v1/cases/{case_id}?user_id=...`
 - `POST /api/v1/cases/{case_id}/documents/analyze`
 - `POST /api/v1/cases/{case_id}/documents/analyze-text`
 - `POST /api/v1/cases/{case_id}/messages`
 
-If Supabase env vars are missing, the backend uses in-memory case storage for local tests only.
+The document endpoints return:
+
+- `analysis`: the normal legal workflow output.
+- `suggested_document`: fields the frontend can save as `CaseDocument`.
+- `suggested_events`: timeline rows the frontend can save as `CaseEvent`.
+- `case_update`: fields the frontend can patch onto `Case`.
+
+The message endpoint accepts saved case history from Prisma and returns `user_message`, `assistant_message`, and `suggested_events` for the frontend to save.
 
 For Gemini on Railway, set `GEMINI_API_KEY` and use `GEMINI_MODEL=gemini-2.5-flash` unless you intentionally choose another supported Gemini model. If analysis still falls back, open `/health/ai?live=true` to see the live Gemini status without exposing secrets.
 
