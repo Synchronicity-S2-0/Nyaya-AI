@@ -1,4 +1,4 @@
-from typing import Literal
+from typing import Any, Literal
 
 from pydantic import BaseModel, Field
 
@@ -24,6 +24,25 @@ class AnalyzeTextRequest(BaseModel):
     text: str = Field(..., min_length=1)
     target_language: str = "en"
     draft_type: DraftType | None = None
+
+
+class CaseAnalyzeTextRequest(BaseModel):
+    user_id: str = Field(..., min_length=1)
+    text: str = Field(..., min_length=1)
+    target_language: str = "en"
+    draft_type: DraftType | None = None
+    document_id: str | None = None
+    file_url: str | None = None
+    file_name: str | None = None
+
+
+class CaseMessageRequest(BaseModel):
+    user_id: str = Field(..., min_length=1)
+    message: str = Field(..., min_length=1)
+    target_language: str = "en"
+    documents: list[dict[str, Any]] = Field(default_factory=list)
+    messages: list[dict[str, Any]] = Field(default_factory=list)
+    events: list[dict[str, Any]] = Field(default_factory=list)
 
 
 class ParsedDocument(BaseModel):
@@ -112,6 +131,17 @@ class TranslationResult(BaseModel):
     translated_next_steps: list[str]
 
 
+class ProcessingTrace(BaseModel):
+    classifier: str
+    extraction: str
+    rag: str
+    reasoning: str
+    recommendation: str
+    defense: str
+    drafting: str | None = None
+    translation: str | None = None
+
+
 class AnalysisResponse(BaseModel):
     parsed: ParsedDocument
     classification: ClassificationResult
@@ -122,6 +152,7 @@ class AnalysisResponse(BaseModel):
     defense: DefenseAnalysis | None = None
     draft: DraftResult | None = None
     translation: TranslationResult | None = None
+    processing: ProcessingTrace
     disclaimer: str
 
 
@@ -129,3 +160,51 @@ class SupportedOptions(BaseModel):
     document_types: list[str]
     languages: dict[str, str]
     draft_types: list[str]
+
+
+class SuggestedCaseDocument(BaseModel):
+    case_id: str
+    user_id: str
+    source_type: str
+    file_url: str | None = None
+    file_name: str | None = None
+    extracted_text: str
+    analysis_json: dict[str, Any]
+    document_type: str
+
+
+class SuggestedCaseMessage(BaseModel):
+    case_id: str
+    user_id: str
+    role: Literal["user", "assistant"]
+    message: str
+
+
+class SuggestedCaseEvent(BaseModel):
+    case_id: str
+    user_id: str
+    event_type: Literal[
+        "document_uploaded",
+        "text_submitted",
+        "analysis_completed",
+        "user_question",
+        "assistant_response",
+    ]
+    summary: str
+    metadata_json: dict[str, Any] = Field(default_factory=dict)
+
+
+class CaseAnalysisResponse(BaseModel):
+    case_id: str
+    document_id: str | None = None
+    analysis: AnalysisResponse
+    suggested_document: SuggestedCaseDocument
+    suggested_events: list[SuggestedCaseEvent]
+    case_update: dict[str, str]
+
+
+class CaseMessageResponse(BaseModel):
+    case_id: str
+    user_message: SuggestedCaseMessage
+    assistant_message: SuggestedCaseMessage
+    suggested_events: list[SuggestedCaseEvent]

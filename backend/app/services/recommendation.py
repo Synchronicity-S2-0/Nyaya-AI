@@ -6,6 +6,9 @@ from app.models.schemas import ActionRecommendation, ClassificationResult, Extra
 
 
 class ActionRecommendationAgent:
+    def __init__(self) -> None:
+        self.last_source = "fallback"
+
     def recommend(
         self,
         classification: ClassificationResult,
@@ -64,6 +67,7 @@ class ActionRecommendationAgent:
                 )
 
                 result_dict = self._call_gemini_api(prompt, schema, api_key, settings.gemini_model)
+                self.last_source = "llm:gemini"
                 return ActionRecommendation(
                     next_steps=result_dict.get("next_steps", []),
                     required_documents=result_dict.get("required_documents", []),
@@ -72,11 +76,13 @@ class ActionRecommendationAgent:
                     urgency=result_dict.get("urgency", "medium")
                 )
             except Exception as e:
+                self.last_source = "fallback:rules"
                 logging.getLogger("uvicorn.error").warning(
                     f"Gemini action recommendation failed, falling back to static logic: {e}"
                 )
 
         # Fallback to original static dictionary-based recommendations
+        self.last_source = "fallback:rules"
         doc_type = classification.document_type
         next_steps = [
             "Save a clean copy of the document and note the date/time of receipt.",
@@ -158,8 +164,8 @@ class ActionRecommendationAgent:
                 }
             ],
             "generationConfig": {
-                "response_mime_type": "application/json",
-                "response_schema": schema,
+                "responseMimeType": "application/json",
+                "responseJsonSchema": schema,
                 "temperature": 0.1
             }
         }

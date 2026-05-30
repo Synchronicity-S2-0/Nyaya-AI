@@ -16,7 +16,8 @@ class Settings(BaseSettings):
     
     gemini_api_key: str | None = None
     sarvam_api_key: str | None = None
-    gemini_model: str = "gemini-1.5-flash"
+    gemini_model: str = "gemini-2.5-flash"
+    local_knowledge_path: str = "app/data/legal_knowledge.txt"
 
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
 

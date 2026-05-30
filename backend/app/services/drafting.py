@@ -6,6 +6,9 @@ from app.models.schemas import ClassificationResult, DraftResult, DraftType, Ext
 
 
 class DraftingAgent:
+    def __init__(self) -> None:
+        self.last_source = "not_requested"
+
     def draft(
         self,
         draft_type: DraftType,
@@ -58,6 +61,7 @@ class DraftingAgent:
                 )
 
                 result_dict = self._call_gemini_api(prompt, schema, api_key, settings.gemini_model)
+                self.last_source = "llm:gemini"
                 return DraftResult(
                     draft_type=result_dict.get("draft_type", draft_type),
                     title=result_dict.get("title", f"Draft {draft_type.capitalize()}"),
@@ -65,11 +69,13 @@ class DraftingAgent:
                     placeholders=result_dict.get("placeholders", [])
                 )
             except Exception as e:
+                self.last_source = "fallback:template"
                 logging.getLogger("uvicorn.error").warning(
                     f"Gemini drafting failed, falling back to static templates: {e}"
                 )
 
         # Fallback to original static template-based drafting
+        self.last_source = "fallback:template"
         doc_label = classification.document_type.replace("_", " ")
         if draft_type == "reply":
             title = "Draft Reply"
@@ -170,8 +176,8 @@ class DraftingAgent:
                 }
             ],
             "generationConfig": {
-                "response_mime_type": "application/json",
-                "response_schema": schema,
+                "responseMimeType": "application/json",
+                "responseJsonSchema": schema,
                 "temperature": 0.1
             }
         }

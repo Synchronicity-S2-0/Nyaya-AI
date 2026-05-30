@@ -6,6 +6,9 @@ from app.models.schemas import ClassificationResult, ExplanationResult, Extracti
 
 
 class LegalReasoningAgent:
+    def __init__(self) -> None:
+        self.last_source = "fallback"
+
     def explain(
         self,
         text: str,
@@ -53,17 +56,20 @@ class LegalReasoningAgent:
                 )
 
                 result_dict = self._call_gemini_api(prompt, schema, api_key, settings.gemini_model)
+                self.last_source = "llm:gemini"
                 return ExplanationResult(
                     summary=result_dict.get("summary", ""),
                     simple_explanation=result_dict.get("simple_explanation", []),
                     caveats=result_dict.get("caveats", [])
                 )
             except Exception as e:
+                self.last_source = "fallback:template"
                 logging.getLogger("uvicorn.error").warning(
                     f"Gemini reasoning failed, falling back to template-based explanation: {e}"
                 )
 
         # Fallback to template-based explanation
+        self.last_source = "fallback:template"
         doc_label = classification.document_type.replace("_", " ")
         summary = (
             f"This appears to be a {doc_label} with {classification.confidence:.0%} confidence."
@@ -108,8 +114,8 @@ class LegalReasoningAgent:
                 }
             ],
             "generationConfig": {
-                "response_mime_type": "application/json",
-                "response_schema": schema,
+                "responseMimeType": "application/json",
+                "responseJsonSchema": schema,
                 "temperature": 0.1
             }
         }

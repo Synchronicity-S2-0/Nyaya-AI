@@ -24,6 +24,9 @@ class ExtractionAgent:
         r"\b(?:Mr\.|Mrs\.|Ms\.|Shri|Smt\.|Kumari|Advocate|Dr\.)\s+[A-Z][A-Za-z]+(?:\s+[A-Z][A-Za-z]+){0,3}\b"
     )
 
+    def __init__(self) -> None:
+        self.last_source = "fallback"
+
     def extract(self, text: str) -> ExtractionResult:
         settings = get_settings()
         api_key = settings.gemini_api_key
@@ -103,6 +106,7 @@ class ExtractionAgent:
                     for e in result_dict.get("entities", [])
                 ]
                 
+                self.last_source = "llm:gemini"
                 return ExtractionResult(
                     names=result_dict.get("names", []),
                     dates=result_dict.get("dates", []),
@@ -114,11 +118,13 @@ class ExtractionAgent:
                     entities=entities
                 )
             except Exception as e:
+                self.last_source = "fallback:regex"
                 logging.getLogger("uvicorn.error").warning(
                     f"Gemini structured extraction failed, falling back to Regex extractor: {e}"
                 )
 
         # Fallback to original Regex-based extraction
+        self.last_source = "fallback:regex"
         sentences = self._sentences(text)
         dates = self._unique(self.DATE_PATTERN.findall(text))
         legal_sections = self._unique(self.SECTION_PATTERN.findall(text))
@@ -190,8 +196,8 @@ class ExtractionAgent:
                 }
             ],
             "generationConfig": {
-                "response_mime_type": "application/json",
-                "response_schema": schema,
+                "responseMimeType": "application/json",
+                "responseJsonSchema": schema,
                 "temperature": 0.1
             }
         }

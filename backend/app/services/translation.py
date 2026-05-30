@@ -29,9 +29,13 @@ class TranslationAgent:
         },
     }
 
+    def __init__(self) -> None:
+        self.last_source = "not_requested"
+
     def translate(self, language: str, summary: str, next_steps: list[str]) -> TranslationResult | None:
         normalized = language.lower()
         if normalized == "en":
+            self.last_source = "not_requested"
             return None
 
         settings = get_settings()
@@ -51,6 +55,7 @@ class TranslationAgent:
                     for step in next_steps:
                         translated_steps.append(self._call_sarvam_api(step, "en-IN", target_code, api_key))
                     
+                    self.last_source = "api:sarvam"
                     return TranslationResult(
                         language=self.LANGUAGE_NAMES.get(normalized, language),
                         mode="sarvam_api",
@@ -58,6 +63,7 @@ class TranslationAgent:
                         translated_next_steps=translated_steps,
                     )
             except Exception as e:
+                self.last_source = "fallback:phrasebook"
                 # Log the error internally and continue to the fallback phrasebook
                 import logging
                 logging.getLogger("uvicorn.error").warning(
@@ -67,6 +73,7 @@ class TranslationAgent:
         # Fallback to local phrasebook
         phrasebook = self.PHRASEBOOK.get(normalized)
         if not phrasebook:
+            self.last_source = "fallback:not_available"
             return TranslationResult(
                 language=language,
                 mode="not_available",
@@ -74,6 +81,7 @@ class TranslationAgent:
                 translated_next_steps=next_steps,
             )
 
+        self.last_source = "fallback:phrasebook"
         translated_summary = summary
         for source, target in phrasebook.items():
             translated_summary = translated_summary.replace(source, target)
