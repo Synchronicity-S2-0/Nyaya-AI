@@ -303,8 +303,8 @@ class DefenseAgent:
         payload = {
             "contents": [{"parts": [{"text": prompt}]}],
             "generationConfig": {
-                "response_mime_type": "application/json",
-                "response_schema": _DEFENSE_SCHEMA,
+                "responseMimeType": "application/json",
+                "responseJsonSchema": _DEFENSE_SCHEMA,
                 "temperature": 0.15,
             },
         }

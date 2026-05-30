@@ -16,7 +16,7 @@ class Settings(BaseSettings):
     
     gemini_api_key: str | None = None
     sarvam_api_key: str | None = None
-    gemini_model: str = "gemini-1.5-flash"
+    gemini_model: str = "gemini-2.5-flash"
     supabase_url: str | None = None
     supabase_service_role_key: str | None = None
     supabase_storage_bucket: str = "case-documents"
