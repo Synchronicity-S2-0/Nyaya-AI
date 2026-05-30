@@ -2,8 +2,13 @@ from __future__ import annotations
 
 from fastapi import UploadFile
 
-from app.models.schemas import AnalysisResponse, DraftType
-from app.services.case_store import CaseAccessError, CaseNotFoundError, CaseStore
+from app.models.schemas import (
+    AnalysisResponse,
+    DraftType,
+    SuggestedCaseDocument,
+    SuggestedCaseEvent,
+    SuggestedCaseMessage,
+)
 from app.services.document_parser import DocumentParser
 from app.services.orchestration import LegalWorkflowOrchestrator
 
@@ -11,30 +16,11 @@ from app.services.orchestration import LegalWorkflowOrchestrator
 class CaseWorkflowService:
     def __init__(
         self,
-        store: CaseStore,
         parser: DocumentParser,
         orchestrator: LegalWorkflowOrchestrator,
     ) -> None:
-        self.store = store
         self.parser = parser
         self.orchestrator = orchestrator
-
-    def create_case(self, user_id: str, title: str | None) -> tuple[dict, dict]:
-        case = self.store.create_case(user_id, title)
-        event = self.store.add_event(
-            case["id"],
-            user_id,
-            "case_created",
-            f"Case created: {case['title']}",
-            {"case_id": case["id"]},
-        )
-        return case, event
-
-    def list_cases(self, user_id: str) -> list[dict]:
-        return self.store.list_cases(user_id)
-
-    def get_case_detail(self, case_id: str, user_id: str) -> dict:
-        return self.store.get_case_detail(case_id, user_id)
 
     async def analyze_file(
         self,
@@ -43,19 +29,16 @@ class CaseWorkflowService:
         upload: UploadFile,
         target_language: str = "en",
         draft_type: DraftType | None = None,
-    ) -> tuple[dict, list[dict], AnalysisResponse]:
-        self.store.get_case(case_id, user_id)
-        content = await upload.read()
-        file_name = upload.filename or "uploaded-document"
-        content_type = upload.content_type or "application/octet-stream"
-        file_url = self.store.upload_file(case_id, file_name, content, content_type)
-        upload.file.seek(0)
+        document_id: str | None = None,
+        file_url: str | None = None,
+    ) -> tuple[SuggestedCaseDocument, list[SuggestedCaseEvent], AnalysisResponse]:
         parsed = await self.parser.parse_upload(upload)
         if not parsed.text.strip():
             parsed.warnings.append("No readable text was found; orchestration will return limited guidance.")
 
         analysis = self.orchestrator.run(parsed, target_language=target_language, draft_type=draft_type)
-        document = self._save_analysis_document(
+        file_name = upload.filename or "uploaded-document"
+        document = self._suggest_document(
             case_id=case_id,
             user_id=user_id,
             source_type=parsed.source_type,
@@ -64,15 +47,21 @@ class CaseWorkflowService:
             file_name=file_name,
             file_url=file_url,
         )
-        upload_event = self.store.add_event(
-            case_id,
-            user_id,
-            "document_uploaded",
-            f"Uploaded {file_name}",
-            {"document_id": document["id"], "file_name": file_name, "file_url": file_url},
-        )
-        analysis_event = self._add_analysis_event(case_id, user_id, document, analysis)
-        return document, [upload_event, analysis_event], analysis
+        events = [
+            SuggestedCaseEvent(
+                case_id=case_id,
+                user_id=user_id,
+                event_type="document_uploaded",
+                summary=f"Uploaded {file_name}",
+                metadata_json={
+                    "document_id": document_id,
+                    "file_name": file_name,
+                    "file_url": file_url,
+                },
+            ),
+            self._analysis_event(case_id, user_id, document_id, analysis),
+        ]
+        return document, events, analysis
 
     def analyze_text(
         self,
@@ -81,49 +70,74 @@ class CaseWorkflowService:
         text: str,
         target_language: str = "en",
         draft_type: DraftType | None = None,
-    ) -> tuple[dict, list[dict], AnalysisResponse]:
-        self.store.get_case(case_id, user_id)
+        document_id: str | None = None,
+        file_url: str | None = None,
+        file_name: str | None = None,
+    ) -> tuple[SuggestedCaseDocument, list[SuggestedCaseEvent], AnalysisResponse]:
         parsed = self.parser.parse_text(text)
         analysis = self.orchestrator.run(parsed, target_language=target_language, draft_type=draft_type)
-        document = self._save_analysis_document(
+        document = self._suggest_document(
             case_id=case_id,
             user_id=user_id,
             source_type="text",
             extracted_text=text,
             analysis=analysis,
+            file_name=file_name,
+            file_url=file_url,
         )
-        text_event = self.store.add_event(
-            case_id,
-            user_id,
-            "text_submitted",
-            "Pasted legal text submitted",
-            {"document_id": document["id"]},
-        )
-        analysis_event = self._add_analysis_event(case_id, user_id, document, analysis)
-        return document, [text_event, analysis_event], analysis
+        events = [
+            SuggestedCaseEvent(
+                case_id=case_id,
+                user_id=user_id,
+                event_type="text_submitted",
+                summary="Pasted legal text submitted",
+                metadata_json={"document_id": document_id, "file_url": file_url},
+            ),
+            self._analysis_event(case_id, user_id, document_id, analysis),
+        ]
+        return document, events, analysis
 
-    def answer_question(self, case_id: str, user_id: str, message: str) -> tuple[dict, dict, list[dict]]:
-        detail = self.store.get_case_detail(case_id, user_id)
-        user_message = self.store.add_message(case_id, user_id, "user", message)
-        question_event = self.store.add_event(
-            case_id,
-            user_id,
-            "user_question",
-            message[:180],
-            {"message_id": user_message["id"]},
+    def answer_question(
+        self,
+        case_id: str,
+        user_id: str,
+        message: str,
+        documents: list[dict],
+        messages: list[dict],
+        events: list[dict],
+    ) -> tuple[SuggestedCaseMessage, SuggestedCaseMessage, list[SuggestedCaseEvent]]:
+        user_message = SuggestedCaseMessage(
+            case_id=case_id,
+            user_id=user_id,
+            role="user",
+            message=message,
         )
-        answer = self._build_case_answer(detail, message)
-        assistant_message = self.store.add_message(case_id, user_id, "assistant", answer)
-        answer_event = self.store.add_event(
-            case_id,
-            user_id,
-            "assistant_response",
-            answer[:180],
-            {"message_id": assistant_message["id"]},
+        answer = self._build_case_answer(documents, message)
+        assistant_message = SuggestedCaseMessage(
+            case_id=case_id,
+            user_id=user_id,
+            role="assistant",
+            message=answer,
         )
-        return user_message, assistant_message, [question_event, answer_event]
+        suggested_events = [
+            SuggestedCaseEvent(
+                case_id=case_id,
+                user_id=user_id,
+                event_type="user_question",
+                summary=message[:180],
+                metadata_json={"prior_message_count": len(messages), "prior_event_count": len(events)},
+            ),
+            SuggestedCaseEvent(
+                case_id=case_id,
+                user_id=user_id,
+                event_type="assistant_response",
+                summary=answer[:180],
+                metadata_json={},
+            ),
+        ]
+        return user_message, assistant_message, suggested_events
 
-    def _save_analysis_document(
+    def _suggest_document(
         self,
         case_id: str,
         user_id: str,
@@ -132,55 +146,49 @@ class CaseWorkflowService:
         analysis: AnalysisResponse,
         file_name: str | None = None,
         file_url: str | None = None,
-    ) -> dict:
-        analysis_json = analysis.model_dump(mode="json")
-        document_type = analysis.classification.document_type
-        urgency = analysis.recommendations.urgency
-        document = self.store.add_document(
+    ) -> SuggestedCaseDocument:
+        return SuggestedCaseDocument(
             case_id=case_id,
             user_id=user_id,
             source_type=source_type,
-            extracted_text=extracted_text,
-            analysis_json=analysis_json,
-            document_type=document_type,
-            file_name=file_name,
             file_url=file_url,
+            file_name=file_name,
+            extracted_text=extracted_text,
+            analysis_json=analysis.model_dump(mode="json"),
+            document_type=analysis.classification.document_type,
         )
-        self.store.update_case_after_analysis(case_id, document_type, urgency)
-        return document
 
-    def _add_analysis_event(
+    def _analysis_event(
         self,
         case_id: str,
         user_id: str,
-        document: dict,
+        document_id: str | None,
         analysis: AnalysisResponse,
-    ) -> dict:
+    ) -> SuggestedCaseEvent:
         doc_label = analysis.classification.document_type.replace("_", " ")
         urgency = analysis.recommendations.urgency
-        return self.store.add_event(
-            case_id,
-            user_id,
-            "analysis_completed",
-            f"Analysis completed: {doc_label} with {urgency} urgency",
-            {
-                "document_id": document["id"],
+        return SuggestedCaseEvent(
+            case_id=case_id,
+            user_id=user_id,
+            event_type="analysis_completed",
+            summary=f"Analysis completed: {doc_label} with {urgency} urgency",
+            metadata_json={
+                "document_id": document_id,
                 "document_type": analysis.classification.document_type,
                 "urgency": urgency,
             },
         )
 
-    def _build_case_answer(self, detail: dict, question: str) -> str:
-        documents = detail["documents"]
+    def _build_case_answer(self, documents: list[dict], question: str) -> str:
         if not documents:
             return (
-                "I do not see any analyzed document in this case yet. Upload or paste the latest "
-                "notice/document first, then I can answer using the case history. "
+                "I do not see any analyzed document in the supplied case context yet. "
+                "Analyze the latest notice/document first, then ask again with the saved documents. "
                 "This is first-level legal triage, not final legal advice."
             )
 
         latest = documents[-1]
-        analysis = latest["analysis_json"]
+        analysis = latest.get("analysis_json") or latest.get("analysisJson") or latest.get("analysis") or {}
         classification = analysis.get("classification", {})
         recommendations = analysis.get("recommendations", {})
         defense = analysis.get("defense") or {}
@@ -192,7 +200,7 @@ class CaseWorkflowService:
         loopholes = defense.get("detected_loopholes", [])
 
         parts = [
-            f"Based on the saved case history, the latest document is classified as {classification.get('document_type', 'unknown')}.",
+            f"Based on the supplied case history, the latest document is classified as {classification.get('document_type', 'unknown')}.",
             f"Your question was: {question}",
         ]
         if deadlines:

@@ -26,22 +26,23 @@ class AnalyzeTextRequest(BaseModel):
     draft_type: DraftType | None = None
 
 
-class CaseCreateRequest(BaseModel):
-    user_id: str = Field(..., min_length=1)
-    title: str | None = None
-
-
 class CaseAnalyzeTextRequest(BaseModel):
     user_id: str = Field(..., min_length=1)
     text: str = Field(..., min_length=1)
     target_language: str = "en"
     draft_type: DraftType | None = None
+    document_id: str | None = None
+    file_url: str | None = None
+    file_name: str | None = None
 
 
 class CaseMessageRequest(BaseModel):
     user_id: str = Field(..., min_length=1)
     message: str = Field(..., min_length=1)
     target_language: str = "en"
+    documents: list[dict[str, Any]] = Field(default_factory=list)
+    messages: list[dict[str, Any]] = Field(default_factory=list)
+    events: list[dict[str, Any]] = Field(default_factory=list)
 
 
 class ParsedDocument(BaseModel):
@@ -161,19 +162,7 @@ class SupportedOptions(BaseModel):
     draft_types: list[str]
 
 
-class CaseRecord(BaseModel):
-    id: str
-    user_id: str
-    title: str
-    case_type: str | None = None
-    status: str = "open"
-    latest_urgency: str | None = None
-    created_at: str
-    updated_at: str
-
-
-class CaseDocumentRecord(BaseModel):
-    id: str
+class SuggestedCaseDocument(BaseModel):
     case_id: str
     user_id: str
     source_type: str
@@ -182,24 +171,19 @@ class CaseDocumentRecord(BaseModel):
     extracted_text: str
     analysis_json: dict[str, Any]
     document_type: str
-    created_at: str
 
 
-class CaseMessageRecord(BaseModel):
-    id: str
+class SuggestedCaseMessage(BaseModel):
     case_id: str
     user_id: str
     role: Literal["user", "assistant"]
     message: str
-    created_at: str
 
 
-class CaseEventRecord(BaseModel):
-    id: str
+class SuggestedCaseEvent(BaseModel):
     case_id: str
     user_id: str
     event_type: Literal[
-        "case_created",
         "document_uploaded",
         "text_submitted",
         "analysis_completed",
@@ -208,34 +192,19 @@ class CaseEventRecord(BaseModel):
     ]
     summary: str
     metadata_json: dict[str, Any] = Field(default_factory=dict)
-    created_at: str
-
-
-class CaseCreateResponse(BaseModel):
-    case_id: str
-    case: CaseRecord
-
-
-class CaseListResponse(BaseModel):
-    cases: list[CaseRecord]
-
-
-class CaseDetailResponse(BaseModel):
-    case: CaseRecord
-    documents: list[CaseDocumentRecord]
-    messages: list[CaseMessageRecord]
-    events: list[CaseEventRecord]
 
 
 class CaseAnalysisResponse(BaseModel):
     case_id: str
-    document_id: str
-    event_ids: list[str]
+    document_id: str | None = None
     analysis: AnalysisResponse
+    suggested_document: SuggestedCaseDocument
+    suggested_events: list[SuggestedCaseEvent]
+    case_update: dict[str, str]
 
 
 class CaseMessageResponse(BaseModel):
     case_id: str
-    user_message: CaseMessageRecord
-    assistant_message: CaseMessageRecord
-    event_ids: list[str]
+    user_message: SuggestedCaseMessage
+    assistant_message: SuggestedCaseMessage
+    suggested_events: list[SuggestedCaseEvent]
