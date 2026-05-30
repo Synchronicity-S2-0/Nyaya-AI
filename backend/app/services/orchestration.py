@@ -1,4 +1,5 @@
 from app.models.schemas import AnalysisResponse, DraftType, ParsedDocument, ProcessingTrace
+from app.services.bns_lookup import BNSLookupService
 from app.services.classifier import ClassificationAgent
 from app.services.defense import DefenseAgent
 from app.services.drafting import DraftingAgent
@@ -20,6 +21,7 @@ class LegalWorkflowOrchestrator:
         self,
         classifier: ClassificationAgent,
         extractor: ExtractionAgent,
+        bns_lookup: BNSLookupService,
         rag: RAGService,
         reasoning: LegalReasoningAgent,
         recommender: ActionRecommendationAgent,
@@ -29,6 +31,7 @@ class LegalWorkflowOrchestrator:
     ):
         self.classifier = classifier
         self.extractor = extractor
+        self.bns_lookup = bns_lookup
         self.rag = rag
         self.reasoning = reasoning
         self.recommender = recommender
@@ -44,8 +47,14 @@ class LegalWorkflowOrchestrator:
     ) -> AnalysisResponse:
         classification = self.classifier.classify(parsed.text)
         extraction = self.extractor.extract(parsed.text)
+
+        # ── BNS Lookup: fetch live statute text for extracted legal sections ──
+        statutory_sources = self.bns_lookup.lookup(extraction.legal_sections)
+
         knowledge = self.rag.retrieve(parsed.text, classification, extraction)
-        explanation = self.reasoning.explain(parsed.text, classification, extraction, knowledge)
+        explanation = self.reasoning.explain(
+            parsed.text, classification, extraction, knowledge, statutory_sources
+        )
         recommendations = self.recommender.recommend(classification, extraction, knowledge)
         defense = self.defense_agent.analyze(parsed.text, classification, extraction, knowledge)
         draft = self.drafter.draft(draft_type, classification, extraction) if draft_type else None
@@ -59,6 +68,7 @@ class LegalWorkflowOrchestrator:
         processing = ProcessingTrace(
             classifier=self.classifier.last_source,
             extraction=self.extractor.last_source,
+            bns_lookup=self.bns_lookup.last_source,
             rag=self.rag.last_source,
             reasoning=self.reasoning.last_source,
             recommendation=self.recommender.last_source,
@@ -73,6 +83,7 @@ class LegalWorkflowOrchestrator:
             extraction=extraction,
             explanation=explanation,
             knowledge=knowledge,
+            statutory_sources=statutory_sources,
             recommendations=recommendations,
             defense=defense,
             draft=draft,

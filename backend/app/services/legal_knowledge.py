@@ -4,9 +4,10 @@ LEGAL_KNOWLEDGE = [
         "content": (
             "For an FIR, verify the police station, FIR number, sections invoked, "
             "incident date, accused details, complainant details, and whether immediate "
-            "protective or bail-related steps are needed."
+            "protective or bail-related steps are needed. From July 2024, the Bharatiya "
+            "Nagarik Suraksha Sanhita (BNSS) replaced the CrPC for all procedural matters."
         ),
-        "tags": ["fir", "police", "criminal", "ipc", "bnss"],
+        "tags": ["fir", "police", "criminal", "ipc", "bnss", "bns"],
     },
     {
         "title": "Legal notice response",
@@ -62,4 +63,36 @@ LEGAL_KNOWLEDGE = [
         ),
         "tags": ["summons", "court", "appearance", "deadline"],
     },
+    {
+        "title": "BNS 2023 — New Criminal Law (replaces IPC)",
+        "content": (
+            "The Bharatiya Nyaya Sanhita (BNS) 2023 came into force on 1 July 2024, "
+            "replacing the Indian Penal Code (IPC) 1860. All FIRs from July 2024 reference "
+            "BNS sections. Common equivalents: IPC 302 → BNS 103 (murder); IPC 420 → "
+            "BNS 318 (cheating); IPC 376 → BNS 64 (rape). BNS adds organised crime "
+            "(Section 111), terrorism (Section 113), and enhanced victim compensation."
+        ),
+        "tags": ["bns", "ipc", "criminal", "fir", "sections", "new_laws"],
+    },
+    {
+        "title": "BNSS 2023 — New Procedure Law (replaces CrPC)",
+        "content": (
+            "The Bharatiya Nagarik Suraksha Sanhita (BNSS) 2023 replaced the CrPC from "
+            "1 July 2024. Police must produce an arrested person before a magistrate within "
+            "24 hours (Section 57 BNSS). Section 479 BNSS allows bail for undertrials who "
+            "have served half the maximum sentence. Trial timelines are stricter."
+        ),
+        "tags": ["bnss", "crpc", "fir", "bail", "trial", "custody", "procedure"],
+    },
+    {
+        "title": "BSA 2023 — New Evidence Law (replaces Indian Evidence Act)",
+        "content": (
+            "The Bharatiya Sakshya Adhiniyam (BSA) 2023 replaced the Indian Evidence Act "
+            "1872 from 1 July 2024. Electronic records and digital documents are admissible "
+            "without special certification in many circumstances (Section 63 BSA). Courts "
+            "accept printouts, digital messages, and electronic contracts more readily."
+        ),
+        "tags": ["bsa", "evidence", "court", "proof", "documents"],
+    },
 ]
+

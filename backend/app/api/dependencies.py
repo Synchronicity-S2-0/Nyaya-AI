@@ -1,6 +1,7 @@
 from functools import lru_cache
 
 from app.core.config import get_settings
+from app.services.bns_lookup import BNSLookupService
 from app.services.case_workflow import CaseWorkflowService
 from app.services.classifier import ClassificationAgent
 from app.services.defense import DefenseAgent
@@ -21,10 +22,16 @@ def get_parser() -> DocumentParser:
 
 
 @lru_cache
+def get_bns_lookup() -> BNSLookupService:
+    return BNSLookupService()
+
+
+@lru_cache
 def get_orchestrator() -> LegalWorkflowOrchestrator:
     return LegalWorkflowOrchestrator(
         classifier=ClassificationAgent(),
         extractor=ExtractionAgent(),
+        bns_lookup=get_bns_lookup(),
         rag=RAGService(),
         reasoning=LegalReasoningAgent(),
         recommender=ActionRecommendationAgent(),
@@ -40,3 +47,4 @@ def get_case_workflow() -> CaseWorkflowService:
         parser=get_parser(),
         orchestrator=get_orchestrator(),
     )
+

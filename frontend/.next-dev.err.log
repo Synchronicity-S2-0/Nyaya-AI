@@ -482,3 +482,145 @@ https://nextjs.org/docs/messages/module-not-found
 [browser] Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
 [browser] Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
 [browser] Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+⨯ ./components/auth/AuthForm.tsx:127:23
+Expected '</', got '=>'
+  [90m125 |[0m     <div className=[32m"w-full max-w-md"[0m>
+  [90m126 |[0m       <div className=[32m"mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between"[0m>
+[31m[1m>[0m [90m127 |[0m         <div className=>
+  [90m    |[0m                       [31m[1m^^[0m
+  [90m128 |[0m           <h1 className=[32m"font-instrument text-4xl font-normal leading-tight text-primary ...[0m
+  [90m129 |[0m             {copy.title}
+  [90m130 |[0m           </h1>
+
+Parsing ecmascript source code failed
+
+Import trace:
+  Server Component:
+    ./components/auth/AuthForm.tsx
+    ./app/login/page.tsx
+
+
+
+./components/auth/AuthForm.tsx:127:23
+Expected '</', got '=>'
+  [90m125 |[0m     <div className=[32m"w-full max-w-md"[0m>
+  [90m126 |[0m       <div className=[32m"mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between"[0m>
+[31m[1m>[0m [90m127 |[0m         <div className=>
+  [90m    |[0m                       [31m[1m^^[0m
+  [90m128 |[0m           <h1 className=[32m"font-instrument text-4xl font-normal leading-tight text-primary ...[0m
+  [90m129 |[0m             {copy.title}
+  [90m130 |[0m           </h1>
+
+Parsing ecmascript source code failed
+
+Generated code of loaders [next/dist/build/babel/loader] transform of file content of components/auth/AuthForm.tsx:
+./components/auth/AuthForm.tsx:127:23
+  [90m125 |[0m     <div className=[32m"w-full max-w-md"[0m>
+  [90m126 |[0m       <div className=[32m"mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between"[0m>
+[31m[1m>[0m [90m127 |[0m         <div className=>
+  [90m    |[0m                       [31m[1m^^[0m
+  [90m128 |[0m           <h1 className=[32m"font-instrument text-4xl font-normal leading-tight text-primary ...[0m
+  [90m129 |[0m             {copy.title}
+  [90m130 |[0m           </h1>
+
+Import trace:
+  Server Component:
+    ./components/auth/AuthForm.tsx
+    ./app/login/page.tsx
+
+
+
+./components/auth/AuthForm.tsx
+Code generation for chunk item errored
+An error occurred while generating the chunk item [project]/components/auth/AuthForm.tsx [app-ssr] (ecmascript)
+
+Caused by:
+- CJS module can't be async.
+
+Debug info:
+- An error occurred while generating the chunk item [project]/components/auth/AuthForm.tsx [app-ssr] (ecmascript)
+- Execution of <EcmascriptModuleAsset as EcmascriptChunkPlaceable>::chunk_item_content failed
+- Execution of EcmascriptChunkItemContent::new failed
+- CJS module can't be async.
+
+Import trace:
+  Server Component:
+    ./components/auth/AuthForm.tsx
+    ./app/login/page.tsx
+
+
+[browser] The tag <sppan> is unrecognized in this browser. If you meant to render a React component, start its name with an uppercase letter. 
+    at Set.forEach (<anonymous>) (<anonymous>)
+[browser] Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+[browser] Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+⨯ ./app/login/page.tsx:22:13
+Expression expected
+  [90m20 |[0m         <div className=[32m"relative z-10 flex h-full w-full items-end justify-end"[0m>
+  [90m21 |[0m           <div className=[32m"mb-2 max-w-xl text-right"[0m
+[31m[1m>[0m [90m22 |[0m             <h2 className=[32m"font-instrument text-[4.5rem] font-normal leading-[1.03] text-w...[0m
+  [90m   |[0m             [31m[1m^[0m
+  [90m23 |[0m               [33mWelcome[0m to [33mNyaya[0m.[33mAI[0m
+  [90m24 |[0m             </h2>
+  [90m25 |[0m             <p className=[32m"ml-auto mt-5 max-w-md text-lg leading-8 text-white/70"[0m>
+
+Parsing ecmascript source code failed
+
+
+
+./app/login/page.tsx
+Code generation for chunk item errored
+An error occurred while generating the chunk item [project]/app/login/page.tsx [app-rsc] (ecmascript)
+
+Caused by:
+- CJS module can't be async.
+
+Debug info:
+- An error occurred while generating the chunk item [project]/app/login/page.tsx [app-rsc] (ecmascript)
+- Execution of <EcmascriptModuleAsset as EcmascriptChunkPlaceable>::chunk_item_content failed
+- Execution of EcmascriptChunkItemContent::new failed
+- CJS module can't be async.
+
+
+⨯ ./app/login/page.tsx:22:13
+Expression expected
+  [90m20 |[0m         <div className=[32m"relative z-10 flex h-full w-full items-end justify-end"[0m>
+  [90m21 |[0m           <div className=[32m"mb-2 max-w-xl text-right"[0m
+[31m[1m>[0m [90m22 |[0m             <h2 className=[32m"font-instrument text-[4.5rem] font-normal leading-[1.03] text-w...[0m
+  [90m   |[0m             [31m[1m^[0m
+  [90m23 |[0m               [33mWelcome[0m to [33mNyaya[0m.[33mAI[0m
+  [90m24 |[0m             </h2>
+  [90m25 |[0m             <p className=[32m"ml-auto mt-5 max-w-md text-lg leading-8 text-white/70"[0m>
+
+Parsing ecmascript source code failed
+
+
+
+./app/login/page.tsx
+Code generation for chunk item errored
+An error occurred while generating the chunk item [project]/app/login/page.tsx [app-rsc] (ecmascript)
+
+Caused by:
+- CJS module can't be async.
+
+Debug info:
+- An error occurred while generating the chunk item [project]/app/login/page.tsx [app-rsc] (ecmascript)
+- Execution of <EcmascriptModuleAsset as EcmascriptChunkPlaceable>::chunk_item_content failed
+- Execution of EcmascriptChunkItemContent::new failed
+- CJS module can't be async.
+
+
+[browser] Uncaught Error: ./app/login/page.tsx:22:13
+Expression expected
+  20 |         <div className="relative z-10 flex h-full w-full items-end justify-end">
+  21 |           <div className="mb-2 max-w-xl text-right"
+> 22 |             <h2 className="font-instrument text-[4.5rem] font-normal leading-[1.03] text-w...
+     |             ^
+  23 |               Welcome to Nyaya.AI
+  24 |             </h2>
+  25 |             <p className="ml-auto mt-5 max-w-md text-lg leading-8 text-white/70">
+
+Parsing ecmascript source code failed
+
+
+    at <unknown> (Error: ./app/login/page.tsx:22:13)
+    at <unknown> (Error: (./app/login/page.tsx:22:13)

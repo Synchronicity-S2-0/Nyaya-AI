@@ -116,3 +116,99 @@
  GET /login 200 in 51ms (next.js: 5ms, application-code: 45ms)
 ✓ Compiled in 631ms
  GET /login 200 in 589ms (next.js: 175ms, application-code: 414ms)
+✓ Compiled in 383ms
+ GET /login 200 in 239ms (next.js: 115ms, application-code: 124ms)
+✓ Compiled in 342ms
+✓ Compiled in 162ms
+ GET /login 200 in 175ms (next.js: 95ms, application-code: 80ms)
+✓ Compiled in 283ms
+ GET /login 200 in 284ms (next.js: 169ms, application-code: 115ms)
+✓ Compiled in 228ms
+✓ Compiled in 437ms
+ GET /login 200 in 785ms (next.js: 323ms, application-code: 462ms)
+ GET /login 200 in 272ms (next.js: 125ms, application-code: 147ms)
+✓ Compiled in 343ms
+ GET /login 200 in 318ms (next.js: 169ms, application-code: 149ms)
+✓ Compiled in 86ms
+ GET /login 500 in 2.3s (next.js: 1938ms, application-code: 400ms)
+✓ Compiled in 673ms
+ GET /login 200 in 1035ms (next.js: 362ms, application-code: 674ms)
+ GET /login 200 in 271ms (next.js: 160ms, application-code: 111ms)
+ GET /login 200 in 1024ms (next.js: 242ms, application-code: 782ms)
+ GET /login 200 in 324ms (next.js: 177ms, application-code: 147ms)
+✓ Compiled in 390ms
+ GET /login 200 in 243ms (next.js: 147ms, application-code: 96ms)
+✓ Compiled in 303ms
+ GET /login 200 in 265ms (next.js: 162ms, application-code: 104ms)
+✓ Compiled in 367ms
+ GET /login 200 in 279ms (next.js: 156ms, application-code: 124ms)
+✓ Compiled in 343ms
+ GET /login 200 in 268ms (next.js: 155ms, application-code: 113ms)
+✓ Compiled in 193ms
+ GET /login 200 in 202ms (next.js: 135ms, application-code: 67ms)
+✓ Compiled in 292ms
+ GET /login 200 in 261ms (next.js: 166ms, application-code: 95ms)
+✓ Compiled in 309ms
+ GET /login 200 in 236ms (next.js: 141ms, application-code: 95ms)
+✓ Compiled in 348ms
+ GET /login 200 in 293ms (next.js: 178ms, application-code: 115ms)
+✓ Compiled in 189ms
+ GET /login 200 in 570ms (next.js: 321ms, application-code: 249ms)
+✓ Compiled in 322ms
+ GET /login 200 in 276ms (next.js: 174ms, application-code: 102ms)
+✓ Compiled in 217ms
+ GET /login 200 in 249ms (next.js: 114ms, application-code: 135ms)
+✓ Compiled in 154ms
+ GET /login 200 in 193ms (next.js: 124ms, application-code: 69ms)
+✓ Compiled in 183ms
+ GET /login 200 in 272ms (next.js: 174ms, application-code: 98ms)
+✓ Compiled in 145ms
+ GET /login 200 in 182ms (next.js: 122ms, application-code: 60ms)
+✓ Compiled in 160ms
+ GET /login 200 in 156ms (next.js: 103ms, application-code: 54ms)
+✓ Compiled in 330ms
+ GET /login 200 in 249ms (next.js: 132ms, application-code: 117ms)
+✓ Compiled in 360ms
+ GET /login 200 in 521ms (next.js: 296ms, application-code: 225ms)
+ GET / 200 in 295ms (next.js: 43ms, application-code: 251ms)
+ GET /login 200 in 46ms (next.js: 5ms, application-code: 42ms)
+ POST /api/auth/sign-in/social 200 in 3.6s (next.js: 189ms, application-code: 3.4s)
+ GET /api/auth/callback/google?state=Ur5pZp0kW-MRKgqUjThC__796kcbu1SS&iss=https%3A%2F%2Faccounts.google.com&code=4%2F0AeoWuM94aYf7WJ2T1PJhYLCYfU9zuTwziAx7Y7GNgLRGl4d_mo8iMuE8YMT8svH38EfPNA&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+openid+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile&authuser=0&prompt=none 302 in 2.8s (next.js: 11ms, application-code: 2.8s)
+ GET /cases 200 in 3.8s (next.js: 71ms, application-code: 3.8s)
+✓ Compiled in 239ms
+ GET /cases 200 in 4.2s (next.js: 6ms, application-code: 4.2s)
+ GET /cases 200 in 4.8s (next.js: 182ms, application-code: 4.6s)
+ POST /api/auth/sign-out 200 in 1948ms (next.js: 64ms, application-code: 1883ms)
+ GET / 200 in 286ms (next.js: 33ms, application-code: 253ms)
+ GET /login 200 in 279ms (next.js: 178ms, application-code: 101ms)
+✓ Compiled in 158ms
+ GET /login 200 in 253ms (next.js: 108ms, application-code: 145ms)
+ GET /login 200 in 62ms (next.js: 5ms, application-code: 57ms)
+ GET /login 500 in 91ms (next.js: 61ms, application-code: 30ms)
+ GET /login 500 in 26ms (next.js: 11ms, application-code: 15ms)
+✓ Compiled in 46ms
+ GET /login 200 in 424ms (next.js: 190ms, application-code: 234ms)
+✓ Compiled in 53ms
+ GET /login 200 in 658ms (next.js: 254ms, application-code: 403ms)
+✓ Compiled in 49ms
+ GET /login 200 in 281ms (next.js: 164ms, application-code: 117ms)
+ GET /login 200 in 63ms (next.js: 5ms, application-code: 58ms)
+✓ Compiled in 48ms
+ GET /login 200 in 236ms (next.js: 136ms, application-code: 101ms)
+ GET /login 200 in 43ms (next.js: 2ms, application-code: 41ms)
+✓ Compiled in 46ms
+ GET /login 200 in 293ms (next.js: 125ms, application-code: 168ms)
+ GET /login 200 in 49ms (next.js: 5ms, application-code: 45ms)
+✓ Compiled in 47ms
+ GET /login 200 in 369ms (next.js: 191ms, application-code: 179ms)
+ GET /login 200 in 58ms (next.js: 6ms, application-code: 52ms)
+✓ Compiled in 56ms
+ GET /login 200 in 315ms (next.js: 182ms, application-code: 133ms)
+ GET /login 200 in 47ms (next.js: 3ms, application-code: 44ms)
+✓ Compiled in 63ms
+ GET /login 200 in 220ms (next.js: 129ms, application-code: 90ms)
+ GET /login 200 in 46ms (next.js: 4ms, application-code: 41ms)
+ GET /login 200 in 202ms (next.js: 3ms, application-code: 199ms)
+ POST /api/auth/sign-in/social 200 in 2.1s (next.js: 66ms, application-code: 2.1s)
+ GET /api/auth/callback/google?state=WaZTpJeYSh0uMOvE0-0QcoPntjBUGf7N&iss=https%3A%2F%2Faccounts.google.com&code=4%2F0AeoWuM-Afq2iBoT8yVwrfSCeBRSJ3KXyXJRIGnGujI6dy18Rli54MWPHDM3A3R5XzzvsRA&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+openid&authuser=0&prompt=none 302 in 2.5s (next.js: 23ms, application-code: 2.4s)
+ GET /cases 200 in 3.3s (next.js: 55ms, application-code: 3.2s)
