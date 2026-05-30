@@ -1,98 +1,128 @@
 "use client";
 
 import { useState } from "react";
+import { Plus, X } from "lucide-react";
 
-interface FAQItem {
-  question: string;
-  answer: string;
-}
+const faqs = [
+  {
+    q: "Is Nyaya AI legal advice?",
+    a: "No. Nyaya AI provides highly sophisticated legal research, document summarization, and predictive analysis based on vast datasets of jurisprudence. It is designed as a powerful augmentation tool for qualified legal professionals, not a replacement for certified legal counsel.",
+  },
+  {
+    q: "Does it replace lawyers?",
+    a: "Nyaya AI acts as an accelerator, automating tedious research and document structuring tasks. It amplifies the capabilities of modern lawyers, allowing them to focus on high-level strategy, client relations, and complex negotiations rather than manual discovery.",
+  },
+  {
+    q: "What documents can I upload?",
+    a: "The platform accepts a wide array of formats including PDF, DOCX, TXT, and scanned image files (processed via our proprietary OCR). You can securely upload contracts, court transcripts, briefs, and internal memos for instant contextual analysis.",
+  },
+  {
+    q: "Is my data secure?",
+    a: "Security is our foundational architecture. All data is encrypted at rest (AES-256) and in transit (TLS 1.3). We operate within SOC 2 Type II compliant isolated environments. Your uploaded documents are never used to train base public models without explicit organizational opt-in.",
+  },
+  {
+    q: "Can I use regional languages?",
+    a: "Yes. Nyaya AI natively supports over 40 global languages and numerous regional dialects relevant to international law. It seamlessly translates, analyzes, and cross-references multi-lingual jurisprudence within a single unified workspace.",
+  },
+];
 
 export default function FAQPage() {
-  const faqs: FAQItem[] = [
-    {
-      question: "Is Nyaya AI a replacement for a legal attorney?",
-      answer: "No, Nyaya AI acts as an editorial legal assistant providing structural review, highlighting procedural gaps, and drafting initial responses. It helps you prepare thoroughly but is not a substitute for formal, local legal counsel.",
-    },
-    {
-      question: "How does the notice period inconsistency detection work?",
-      answer: "When you upload an eviction notice and lease, Nyaya extracts the dates and notice requirement parameters from the agreement, compares them against the date stamp on the formal notification, and flags cases where the statutory window is violated.",
-    },
-    {
-      question: "Are my submitted documents kept private and secure?",
-      answer: "Absolutely. All documents are stored securely using industry-standard encryption standards. Data is used exclusively to facilitate your workspace case analysis and is never shared with third parties or used for training open public models.",
-    },
-    {
-      question: "Can I customize the generated drafts?",
-      answer: "Yes, every counter-notice, extension request, or complaint generated in your Workspace tab features an interactive document editor. You can edit the text directly before exporting or printing.",
-    },
-    {
-      question: "What legal domains does Nyaya AI support?",
-      answer: "Currently, our models are highly optimized for Property & Tenancy Disputes, Consumer Complaints, and Employment Contract Reviews.",
-    },
-  ];
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
 
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const toggle = (i: number) => setOpenIndex(openIndex === i ? null : i);
 
   return (
-    <main className="min-h-screen bg-[#f9f9fb] dark:bg-neutral-950 pt-[140px] pb-32 selection:bg-black selection:text-white dark:selection:bg-white dark:selection:text-black">
-      
-      {/* Header */}
-      <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop mb-20 text-center animate-fade-rise">
-        <span className="font-sans text-label-md uppercase tracking-[0.25em] text-secondary dark:text-neutral-400 font-semibold block mb-4">
-          Support
-        </span>
-        <h1 className="font-serif text-5xl md:text-7xl text-primary dark:text-white mb-6 italic tracking-tight">
-          Frequently asked questions.
-        </h1>
-        <p className="font-sans text-body-lg text-secondary dark:text-neutral-400 max-w-2xl mx-auto">
-          Get answers regarding document security, notice timeline assessments, and the scope of Nyaya AI's capabilities.
+    <section
+      id="faq"
+      className="w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-section-gap flex flex-col md:flex-row gap-gutter md:gap-32"
+    >
+      {/* ── Left column: sticky title ── */}
+      <div className="w-full md:w-1/3 md:sticky md:top-32 h-fit mb-12 md:mb-0">
+        <h2
+          className="text-primary leading-tight"
+          style={{
+            fontFamily: "var(--font-serif), 'Instrument Serif', serif",
+            fontSize: "clamp(48px, 5vw, 80px)",
+            lineHeight: "clamp(52px, 5.5vw, 88px)",
+            fontWeight: 400,
+          }}
+        >
+          Frequently Asked Questions
+        </h2>
+        <p
+          className="text-secondary mt-6 max-w-sm"
+          style={{
+            fontFamily: "var(--font-sans), Inter, sans-serif",
+            fontSize: "16px",
+            lineHeight: "24px",
+            fontWeight: 400,
+          }}
+        >
+          Clarity on our premium jurisprudence models and how they integrate
+          into your practice.
         </p>
       </div>
 
-      {/* FAQ Accordion container */}
-      <section className="max-w-3xl mx-auto px-margin-mobile">
-        <div className="space-y-4">
-          
-          {faqs.map((faq, idx) => {
-            const isOpen = openIndex === idx;
-            return (
+      {/* ── Right column: accordion ── */}
+      <div
+        className="w-full md:w-2/3 border-t"
+        style={{ borderColor: "#e2e2e4" /* surface-container-highest */ }}
+      >
+        {faqs.map((item, i) => {
+          const isOpen = openIndex === i;
+          return (
+            <div
+              key={i}
+              className="border-b group cursor-pointer"
+              style={{ borderColor: "#e2e2e4" }}
+              onClick={() => toggle(i)}
+            >
+              {/* ── Question row ── */}
+              <div className="flex justify-between items-center py-8">
+                <h3
+                  className="transition-colors duration-300 font-medium"
+                  style={{
+                    fontFamily: "var(--font-sans), Inter, sans-serif",
+                    fontSize: "clamp(16px, 1.4vw, 20px)",
+                    lineHeight: "28px",
+                    fontWeight: 500,
+                    color: isOpen ? "#5e5e5e" : "#000",
+                  }}
+                >
+                  {item.q}
+                </h3>
+
+                {/* + / × toggle icon */}
+                <span
+                  className="transition-transform duration-300 flex-shrink-0 ml-4"
+                  style={{ color: "#5e5e5e" }}
+                >
+                  {isOpen ? <X size={22} strokeWidth={1.25} /> : <Plus size={22} strokeWidth={1.25} />}
+                </span>
+              </div>
+
+              {/* ── Answer panel — animated height ── */}
               <div
-                key={idx}
-                className="border border-neutral-200/60 dark:border-neutral-800 rounded-xl overflow-hidden bg-white dark:bg-neutral-900 transition-all duration-300"
+                className="overflow-hidden transition-all duration-500 ease-in-out"
+                style={{ maxHeight: isOpen ? "400px" : "0px" }}
               >
-                <button
-                  onClick={() => setOpenIndex(isOpen ? null : idx)}
-                  className="w-full px-6 py-5 flex justify-between items-center text-left cursor-pointer focus:outline-none"
-                >
-                  <span className="font-sans text-lg font-medium text-primary dark:text-white leading-snug">
-                    {faq.question}
-                  </span>
-                  <span
-                    className={`material-symbols-outlined text-secondary dark:text-neutral-400 select-none transform transition-transform duration-300 ${
-                      isOpen ? "rotate-180" : ""
-                    }`}
-                  >
-                    keyboard_arrow_down
-                  </span>
-                </button>
-                
-                {/* Accordion panel */}
                 <div
-                  className={`transition-all duration-300 ease-in-out overflow-hidden ${
-                    isOpen ? "max-h-[200px] border-t border-neutral-100 dark:border-neutral-850" : "max-h-0"
-                  }`}
+                  className="pb-8 leading-relaxed md:w-5/6"
+                  style={{
+                    fontFamily: "var(--font-sans), Inter, sans-serif",
+                    fontSize: "16px",
+                    lineHeight: "24px",
+                    fontWeight: 400,
+                    color: "#5e5e5e",
+                  }}
                 >
-                  <p className="px-6 py-5 font-sans text-body-md text-secondary dark:text-neutral-400 leading-relaxed bg-neutral-50/50 dark:bg-neutral-950/20">
-                    {faq.answer}
-                  </p>
+                  {item.a}
                 </div>
               </div>
-            );
-          })}
-
-        </div>
-      </section>
-
-    </main>
+            </div>
+          );
+        })}
+      </div>
+    </section>
   );
 }

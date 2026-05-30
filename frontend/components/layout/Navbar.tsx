@@ -6,6 +6,16 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 
+// Explicit map from nav URL → actual section element id in the DOM
+const NAV_URL_TO_SECTION_ID: Record<string, string> = {
+  "/": "home",
+  "/problems": "the-problem",
+  "/process": "process",
+  "/workspace": "workspace",
+  "/insights": "legal-insights",
+  "/faq": "faq",
+};
+
 type NavbarSession = {
   user?: {
     id: string;
@@ -23,39 +33,50 @@ export function Navbar({ session }: { session: NavbarSession }) {
   const isAuthRoute = pathname.startsWith("/login") || pathname.startsWith("/signup");
 
   useEffect(() => {
-    const handleScroll = () => {
-      // Only do scroll spy on the home page
-      if (pathname !== "/") return;
+    // Only run scroll-spy on the home page (where all sections are mounted)
+    if (pathname !== "/") return;
 
-      const sections = navItems
-        .map((item) => {
-          const id = item.url === "/" ? "home" : (item.url === "/problem" ? "the-problem" : item.url.replace("/", ""));
-          const element = document.getElementById(id);
-          if (element) {
-            const rect = element.getBoundingClientRect();
-            // We consider a section "active" if its top is near the top of the viewport
-            return { id: item.url, top: rect.top, bottom: rect.bottom };
-          }
-          return null;
-        })
-        .filter(Boolean) as { id: string; top: number; bottom: number }[];
+    const observers: IntersectionObserver[] = [];
 
-      // Find the first section that occupies the upper part of the viewport
-      const currentSection = sections.find(
-        (section) => section && section.top <= 160 && section.bottom >= 160
-      );
+    // Track visibility ratio for each section so we can pick the most visible one
+    const visibilityMap: Record<string, number> = {};
 
-      if (currentSection) {
-        setActiveId(currentSection.id);
-      } else if (window.scrollY < 100) {
-        setActiveId("/");
+    const pickActive = () => {
+      // Choose the nav URL whose section has the highest intersection ratio
+      let bestUrl = "/";
+      let bestRatio = -1;
+      for (const [url, ratio] of Object.entries(visibilityMap)) {
+        if (ratio > bestRatio) {
+          bestRatio = ratio;
+          bestUrl = url;
+        }
       }
+      setActiveId(bestUrl);
     };
 
-    window.addEventListener("scroll", handleScroll);
-    // Initial check
-    handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
+    navItems.forEach((item) => {
+      const sectionId = NAV_URL_TO_SECTION_ID[item.url];
+      if (!sectionId) return;
+      const el = document.getElementById(sectionId);
+      if (!el) return;
+
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          visibilityMap[item.url] = entry.intersectionRatio;
+          pickActive();
+        },
+        {
+          // Fire when the section crosses 10 % / 30 % / 50 % visibility thresholds
+          threshold: [0, 0.1, 0.3, 0.5],
+          // Shrink the root viewport so items activate around the nav bar height
+          rootMargin: "-80px 0px -40% 0px",
+        }
+      );
+      observer.observe(el);
+      observers.push(observer);
+    });
+
+    return () => observers.forEach((obs) => obs.disconnect());
   }, [pathname]);
 
   const isActive = (url: string) => {
@@ -75,38 +96,26 @@ export function Navbar({ session }: { session: NavbarSession }) {
     <nav className="fixed top-0 w-full z-50 bg-white border-b border-surface-container px-[64px] py-[16px] flex justify-between items-center transition-all duration-300">
       <Link
         href="/"
-        className="font-headline-md text-[26px] leading-[32px] font-normal tracking-tight text-primary italic hover:scale-[1.02] duration-500 ease-in-out hover:text-primary transition-all font-instrument"
+        className="font-normal tracking-tight text-primary hover:text-primary transition-opacity duration-300 font-instrument italic text-headline-md"
       >
         Nyaya AI<sup className="">®</sup>
       </Link>
-      
-      <div className="hidden md:flex items-center space-x-8">
-        {navItems.map((item) => {
-          const id = item.url === "/" ? "home" : (item.url === "/problem" ? "the-problem" : item.url.replace("/", ""));
-          const href = pathname === "/" ? `#${id}` : item.url;
-          return (
-            <Link
-              key={item.id}
-              href={href}
-              className={cn(
-                "transition-opacity duration-300 font-body-md text-[13px] leading-[20px] hover:text-primary cursor-pointer",
-                isActive(item.url) ? "text-primary font-medium" : "text-secondary"
-              )}
-            >
-              {item.title}
-            </Link>
-          );
-        })}
+      <div className="hidden md:flex items-center space-x-12">
+        {navItems.map((item) => (
+          <Link
+            key={item.id}
+            href={item.url}
+            className={cn(
+              "transition-opacity duration-300 font-body-md text-body-md hover:text-primary cursor-pointer",
+              isActive(item.url) ? "text-primary font-medium" : "text-secondary"
+            )}
+          >
+            {item.title}
+          </Link>
+        ))}
       </div>
 
       <div className="flex gap-4 items-center">
-        <button
-          onClick={() => router.push("/login")}
-          className="hidden md:inline-flex items-center justify-center px-4 py-2 rounded-full border border-gray-300 bg-white text-gray-700 font-body-md text-[13px] leading-[20px] hover:bg-gray-50 transition-all cursor-pointer font-medium"
-        >
-          Sign In
-        </button>
-
         <button
           onClick={() => router.push("/signup")}
           className="hidden md:inline-flex items-center justify-center px-4 py-2 rounded-full bg-primary text-on-primary font-body-md text-[13px] leading-[20px] hover:scale-[1.02] transition-transform duration-300 ease-out cursor-pointer"

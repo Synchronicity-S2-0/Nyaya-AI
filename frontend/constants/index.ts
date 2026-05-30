@@ -7,7 +7,7 @@ export const navItems: NavItems[] = [
     {
         id: 2,
         title: "The Problem",
-        url: "/problem"
+        url: "/problems"
     },
     {
         id: 3,

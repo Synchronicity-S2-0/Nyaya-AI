@@ -8,7 +8,7 @@ import { headers } from "next/headers";
 const instrumentSerif = Instrument_Serif({
   weight: ["400"],
   style: ["normal", "italic"],
-  variable: "--font-instrument",
+  variable: "--font-serif",
   subsets: ["latin"],
 });
 
@@ -20,11 +20,15 @@ const inter = Inter({
 const literata = Literata({
   variable: "--font-literata",
   subsets: ["latin"],
+  style: ["normal", "italic"],
+  axes: ["opsz"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Nyaya AI - Premium Legal Assistant",
-  description: "Legal uncertainty, made clear.",
+  title: "Nyaya AI - Legal uncertainty, made clear.",
+  description:
+    "Describe your legal problem or upload a document. Nyaya AI guides you through risks, rights, opportunities and next steps.",
 };
 
 export default async function RootLayout({
@@ -41,13 +45,7 @@ export default async function RootLayout({
       lang="en"
       className={`${instrumentSerif.variable} ${inter.variable} ${literata.variable} h-full antialiased`}
     >
-      <head>
-        <link
-          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
-          rel="stylesheet"
-        />
-      </head>
-      <body className="min-h-full flex flex-col font-body-md text-body-md">
+      <body className="min-h-full flex flex-col font-sans bg-surface-container-lowest text-primary overflow-x-hidden antialiased">
         <Navbar session={session} />
         {children}
       </body>
