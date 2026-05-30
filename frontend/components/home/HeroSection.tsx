@@ -1,9 +1,15 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { ArrowRight, Loader2 } from "lucide-react";
+import { signIn } from "@/lib/auth-client";
+
+const PENDING_HERO_PROMPT_KEY = "nyaya.pendingHeroPrompt";
 
 export function HeroSection() {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [prompt, setPrompt] = useState("");
+  const [isSigningIn, setIsSigningIn] = useState(false);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -42,6 +48,23 @@ export function HeroSection() {
     };
   }, []);
 
+  const handleGoogleStart = async () => {
+    if (isSigningIn) return;
+
+    setIsSigningIn(true);
+    window.localStorage.setItem(PENDING_HERO_PROMPT_KEY, prompt);
+
+    try {
+      await signIn.social({
+        provider: "google",
+        callbackURL: "/cases",
+      });
+    } catch (error) {
+      console.error("Google sign-in failed:", error);
+      setIsSigningIn(false);
+    }
+  };
+
   return (
     <section id="home" className="relative w-full h-[100vh] bg-surface-container-lowest overflow-hidden flex flex-col items-center justify-center pt-[100px]">
       {/* Video Layer */}
@@ -76,12 +99,29 @@ export function HeroSection() {
               className="w-full h-16 px-8 rounded-full bg-white border border-outline-variant focus:outline-none focus:border-primary font-body-md text-body-md placeholder:text-secondary-fixed-dim text-black shadow-sm"
               placeholder="Describe your legal problem..."
               type="text"
+              value={prompt}
+              onChange={(event) => setPrompt(event.target.value)}
+              onKeyDown={(event) => {
+                if (event.key === "Enter") {
+                  event.preventDefault();
+                  handleGoogleStart();
+                }
+              }}
+              disabled={isSigningIn}
             />
           </div>
-          <button className="h-16 w-16 rounded-full bg-primary text-on-primary flex items-center justify-center hover:scale-[1.05] transition-transform duration-300 cursor-pointer">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-            </svg>
+          <button
+            type="button"
+            onClick={handleGoogleStart}
+            disabled={isSigningIn}
+            className="h-16 w-16 rounded-full bg-primary text-on-primary flex items-center justify-center hover:scale-[1.05] transition-transform duration-300 cursor-pointer disabled:cursor-wait disabled:opacity-70"
+            aria-label="Continue with Google"
+          >
+            {isSigningIn ? (
+              <Loader2 className="h-6 w-6 animate-spin" />
+            ) : (
+              <ArrowRight className="h-6 w-6" />
+            )}
           </button>
         </div>
       </div>

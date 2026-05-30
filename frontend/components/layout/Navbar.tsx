@@ -2,14 +2,25 @@
 
 import { useState, useEffect } from "react";
 import { navItems } from "@/constants";
-import { signIn } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-export function Navbar() {
+type NavbarSession = {
+  user?: {
+    id: string;
+    name?: string | null;
+    email?: string | null;
+  };
+} | null;
+
+export function Navbar({ session }: { session: NavbarSession }) {
   const [activeId, setActiveId] = useState("/");
   const pathname = usePathname();
+
+
+  const isCasesRoute = pathname.startsWith("/cases");
+  const isAuthRoute = pathname.startsWith("/login");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -47,12 +58,6 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [pathname]);
 
-  const handleLogin = async () => {
-    await signIn.social({
-      provider: "google",
-    });
-  };
-
   const isActive = (url: string) => {
     if (pathname === "/") {
       return activeId === url;
@@ -60,6 +65,12 @@ export function Navbar() {
     return pathname === url;
   };
 
+  // 1. Authenticated Cases Page Navbar View
+  if (isCasesRoute || isAuthRoute) {
+    return null;
+  }
+
+  // 2. Default Public Page Navbar View
   return (
     <nav className="fixed top-0 w-full z-50 bg-transparent backdrop-blur-xl border-b border-surface-container px-margin-desktop py-4 flex justify-between items-center transition-all duration-300">
       <Link
@@ -89,24 +100,23 @@ export function Navbar() {
       </div>
 
       <div className="flex gap-4 items-center">
-        <button
-          onClick={async () => {
-            const { loginAsMockUser } = await import("@/app/cases/actions");
-            await loginAsMockUser();
-          }}
-          className="hidden md:inline-flex items-center justify-center px-6 py-3 rounded-full border border-gray-300 bg-white text-gray-700 font-body-md text-body-md hover:bg-gray-50 transition-all cursor-pointer font-medium"
-        >
-          Dev Login (Bypass Auth)
-        </button>
-
-        <button
-          onClick={handleLogin}
-          className="hidden md:inline-flex items-center justify-center px-6 py-3 rounded-full bg-primary text-on-primary font-body-md text-body-md hover:scale-[1.02] transition-transform duration-300 ease-out scale-105 duration-500 ease-in-out cursor-pointer"
-        >
-          Begin Journey
-        </button>
+        {session ? (
+          <Link
+            href="/cases"
+            className="inline-flex items-center justify-center px-6 py-3 rounded-full bg-primary text-on-primary font-body-md text-body-md hover:scale-[1.02] transition-transform duration-300 ease-out scale-105 duration-500 ease-in-out cursor-pointer"
+          >
+            Go to Cases
+          </Link>
+        ) : (
+          <Link
+            href="/login"
+            className="inline-flex items-center justify-center px-6 py-3 rounded-full bg-primary text-on-primary font-body-md text-body-md hover:scale-[1.02] transition-transform duration-300 ease-out scale-105 duration-500 ease-in-out cursor-pointer"
+          >
+            Begin Journey
+          </Link>
+        )}
       </div>
-
     </nav>
   );
 }
+

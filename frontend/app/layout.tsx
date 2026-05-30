@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Instrument_Serif, Urbanist } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 
 const instrumentSerif = Instrument_Serif({
   weight: "400",
@@ -19,11 +21,15 @@ export const metadata: Metadata = {
   description: "Legal uncertainty, made clear.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
   return (
     <html
       lang="en"
@@ -36,9 +42,10 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-full flex flex-col font-sans">
-        <Navbar />
+        <Navbar session={session} />
         {children}
       </body>
     </html>
   );
 }
+

@@ -1,0 +1,484 @@
+(node:38804) Warning: SECURITY WARNING: The SSL modes 'prefer', 'require', and 'verify-ca' are treated as aliases for 'verify-full'.
+In the next major version (pg-connection-string v3.0.0 and pg v9.0.0), these modes will adopt standard libpq semantics, which have weaker security guarantees.
+
+To prepare for this change:
+- If you want the current behavior, explicitly use 'sslmode=verify-full'
+- If you want libpq compatibility now, use 'uselibpqcompat=true&sslmode=require'
+
+See https://www.postgresql.org/docs/current/libpq-ssl.html for libpq SSL mode definitions.
+(Use `node --trace-warnings ...` to show where the warning was created)
+⨯ ./lib/auth.ts:1:1
+Module not found: Can't resolve '@better-auth/prisma-adapter'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { prismaAdapter } [36mfrom[0m [32m"@better-auth/prisma-adapter"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m [36mimport[0m { betterAuth } [36mfrom[0m [32m"better-auth"[0m;
+  [90m3 |[0m [36mimport[0m { nextCookies } [36mfrom[0m [32m"better-auth/next-js"[0m;
+  [90m4 |[0m [36mimport[0m { prisma } [36mfrom[0m [32m"./prisma"[0m;
+
+
+
+Import traces:
+  #1 [Server Component]:
+    ./lib/auth.ts
+    ./app/layout.tsx
+
+  #2 [Server Component]:
+    ./lib/auth.ts
+    ./app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./lib/auth.ts:1:1
+Module not found: Can't resolve '@better-auth/prisma-adapter'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { prismaAdapter } [36mfrom[0m [32m"@better-auth/prisma-adapter"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m [36mimport[0m { betterAuth } [36mfrom[0m [32m"better-auth"[0m;
+  [90m3 |[0m [36mimport[0m { nextCookies } [36mfrom[0m [32m"better-auth/next-js"[0m;
+  [90m4 |[0m [36mimport[0m { prisma } [36mfrom[0m [32m"./prisma"[0m;
+
+
+
+Import traces:
+  #1 [Server Component]:
+    ./lib/auth.ts
+    ./app/layout.tsx
+
+  #2 [Server Component]:
+    ./lib/auth.ts
+    ./app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./lib/auth.ts:1:1
+Module not found: Can't resolve '@better-auth/prisma-adapter'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { prismaAdapter } [36mfrom[0m [32m"@better-auth/prisma-adapter"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m [36mimport[0m { betterAuth } [36mfrom[0m [32m"better-auth"[0m;
+  [90m3 |[0m [36mimport[0m { nextCookies } [36mfrom[0m [32m"better-auth/next-js"[0m;
+  [90m4 |[0m [36mimport[0m { prisma } [36mfrom[0m [32m"./prisma"[0m;
+
+
+
+Import traces:
+  #1 [Server Component]:
+    ./lib/auth.ts
+    ./app/layout.tsx
+
+  #2 [Server Component]:
+    ./lib/auth.ts
+    ./app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./lib/auth.ts:1:1
+Module not found: Can't resolve '@better-auth/prisma-adapter'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { prismaAdapter } [36mfrom[0m [32m"@better-auth/prisma-adapter"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m [36mimport[0m { betterAuth } [36mfrom[0m [32m"better-auth"[0m;
+  [90m3 |[0m [36mimport[0m { nextCookies } [36mfrom[0m [32m"better-auth/next-js"[0m;
+  [90m4 |[0m [36mimport[0m { prisma } [36mfrom[0m [32m"./prisma"[0m;
+
+
+
+Import traces:
+  #1 [Server Component]:
+    ./lib/auth.ts
+    ./app/layout.tsx
+
+  #2 [Server Component]:
+    ./lib/auth.ts
+    ./app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./lib/auth.ts:1:1
+Module not found: Can't resolve '@better-auth/prisma-adapter'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { prismaAdapter } [36mfrom[0m [32m"@better-auth/prisma-adapter"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m [36mimport[0m { betterAuth } [36mfrom[0m [32m"better-auth"[0m;
+  [90m3 |[0m [36mimport[0m { nextCookies } [36mfrom[0m [32m"better-auth/next-js"[0m;
+  [90m4 |[0m [36mimport[0m { prisma } [36mfrom[0m [32m"./prisma"[0m;
+
+
+
+Import traces:
+  #1 [Server Component]:
+    ./lib/auth.ts
+    ./app/layout.tsx
+
+  #2 [Server Component]:
+    ./lib/auth.ts
+    ./app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./lib/auth.ts:1:1
+Module not found: Can't resolve '@better-auth/prisma-adapter'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { prismaAdapter } [36mfrom[0m [32m"@better-auth/prisma-adapter"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m [36mimport[0m { betterAuth } [36mfrom[0m [32m"better-auth"[0m;
+  [90m3 |[0m [36mimport[0m { nextCookies } [36mfrom[0m [32m"better-auth/next-js"[0m;
+  [90m4 |[0m [36mimport[0m { prisma } [36mfrom[0m [32m"./prisma"[0m;
+
+
+
+Import traces:
+  #1 [Server Component]:
+    ./lib/auth.ts
+    ./app/layout.tsx
+
+  #2 [Server Component]:
+    ./lib/auth.ts
+    ./app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./lib/auth.ts:1:1
+Module not found: Can't resolve '@better-auth/prisma-adapter'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { prismaAdapter } [36mfrom[0m [32m"@better-auth/prisma-adapter"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m [36mimport[0m { betterAuth } [36mfrom[0m [32m"better-auth"[0m;
+  [90m3 |[0m [36mimport[0m { nextCookies } [36mfrom[0m [32m"better-auth/next-js"[0m;
+  [90m4 |[0m [36mimport[0m { prisma } [36mfrom[0m [32m"./prisma"[0m;
+
+
+
+Import traces:
+  #1 [Server Component]:
+    ./lib/auth.ts
+    ./app/layout.tsx
+
+  #2 [Server Component]:
+    ./lib/auth.ts
+    ./app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./lib/auth.ts:1:1
+Module not found: Can't resolve '@better-auth/prisma-adapter'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { prismaAdapter } [36mfrom[0m [32m"@better-auth/prisma-adapter"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m [36mimport[0m { betterAuth } [36mfrom[0m [32m"better-auth"[0m;
+  [90m3 |[0m [36mimport[0m { nextCookies } [36mfrom[0m [32m"better-auth/next-js"[0m;
+  [90m4 |[0m [36mimport[0m { prisma } [36mfrom[0m [32m"./prisma"[0m;
+
+
+
+Import traces:
+  #1 [Server Component]:
+    ./lib/auth.ts
+    ./app/layout.tsx
+
+  #2 [Server Component]:
+    ./lib/auth.ts
+    ./app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./lib/auth.ts:1:1
+Module not found: Can't resolve '@better-auth/prisma-adapter'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { prismaAdapter } [36mfrom[0m [32m"@better-auth/prisma-adapter"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m [36mimport[0m { betterAuth } [36mfrom[0m [32m"better-auth"[0m;
+  [90m3 |[0m [36mimport[0m { nextCookies } [36mfrom[0m [32m"better-auth/next-js"[0m;
+  [90m4 |[0m [36mimport[0m { prisma } [36mfrom[0m [32m"./prisma"[0m;
+
+
+
+Import traces:
+  #1 [Server Component]:
+    ./lib/auth.ts
+    ./app/layout.tsx
+
+  #2 [Server Component]:
+    ./lib/auth.ts
+    ./app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./lib/auth.ts:1:1
+Module not found: Can't resolve '@better-auth/prisma-adapter'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { prismaAdapter } [36mfrom[0m [32m"@better-auth/prisma-adapter"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m [36mimport[0m { betterAuth } [36mfrom[0m [32m"better-auth"[0m;
+  [90m3 |[0m [36mimport[0m { nextCookies } [36mfrom[0m [32m"better-auth/next-js"[0m;
+  [90m4 |[0m [36mimport[0m { prisma } [36mfrom[0m [32m"./prisma"[0m;
+
+
+
+Import traces:
+  #1 [Server Component]:
+    ./lib/auth.ts
+    ./app/layout.tsx
+
+  #2 [Server Component]:
+    ./lib/auth.ts
+    ./app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./lib/auth.ts:1:1
+Module not found: Can't resolve '@better-auth/prisma-adapter'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { prismaAdapter } [36mfrom[0m [32m"@better-auth/prisma-adapter"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m [36mimport[0m { betterAuth } [36mfrom[0m [32m"better-auth"[0m;
+  [90m3 |[0m [36mimport[0m { nextCookies } [36mfrom[0m [32m"better-auth/next-js"[0m;
+  [90m4 |[0m [36mimport[0m { prisma } [36mfrom[0m [32m"./prisma"[0m;
+
+
+
+Import traces:
+  #1 [Server Component]:
+    ./lib/auth.ts
+    ./app/cases/actions.ts
+
+  #2 [Server Component]:
+    ./lib/auth.ts
+    ./app/cases/layout.tsx
+
+  #3 [Server Component]:
+    ./lib/auth.ts
+    ./app/cases/page.tsx
+
+  #4 [Server Component]:
+    ./lib/auth.ts
+    ./app/layout.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./lib/auth.ts:1:1
+Module not found: Can't resolve '@better-auth/prisma-adapter'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { prismaAdapter } [36mfrom[0m [32m"@better-auth/prisma-adapter"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m [36mimport[0m { betterAuth } [36mfrom[0m [32m"better-auth"[0m;
+  [90m3 |[0m [36mimport[0m { nextCookies } [36mfrom[0m [32m"better-auth/next-js"[0m;
+  [90m4 |[0m [36mimport[0m { prisma } [36mfrom[0m [32m"./prisma"[0m;
+
+
+
+Import traces:
+  #1 [Server Component]:
+    ./lib/auth.ts
+    ./app/cases/actions.ts
+
+  #2 [Server Component]:
+    ./lib/auth.ts
+    ./app/cases/layout.tsx
+
+  #3 [Server Component]:
+    ./lib/auth.ts
+    ./app/cases/page.tsx
+
+  #4 [Server Component]:
+    ./lib/auth.ts
+    ./app/layout.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./lib/auth.ts:1:1
+Module not found: Can't resolve '@better-auth/prisma-adapter'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { prismaAdapter } [36mfrom[0m [32m"@better-auth/prisma-adapter"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m [36mimport[0m { betterAuth } [36mfrom[0m [32m"better-auth"[0m;
+  [90m3 |[0m [36mimport[0m { nextCookies } [36mfrom[0m [32m"better-auth/next-js"[0m;
+  [90m4 |[0m [36mimport[0m { prisma } [36mfrom[0m [32m"./prisma"[0m;
+
+
+
+Import traces:
+  #1 [Server Component]:
+    ./lib/auth.ts
+    ./app/cases/actions.ts
+
+  #2 [Server Component]:
+    ./lib/auth.ts
+    ./app/cases/layout.tsx
+
+  #3 [Server Component]:
+    ./lib/auth.ts
+    ./app/cases/page.tsx
+
+  #4 [Server Component]:
+    ./lib/auth.ts
+    ./app/layout.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./lib/auth.ts:1:1
+Module not found: Can't resolve '@better-auth/prisma-adapter'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { prismaAdapter } [36mfrom[0m [32m"@better-auth/prisma-adapter"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m [36mimport[0m { betterAuth } [36mfrom[0m [32m"better-auth"[0m;
+  [90m3 |[0m [36mimport[0m { nextCookies } [36mfrom[0m [32m"better-auth/next-js"[0m;
+  [90m4 |[0m [36mimport[0m { prisma } [36mfrom[0m [32m"./prisma"[0m;
+
+
+
+Import traces:
+  #1 [Server Component]:
+    ./lib/auth.ts
+    ./app/cases/actions.ts
+
+  #2 [Server Component]:
+    ./lib/auth.ts
+    ./app/cases/layout.tsx
+
+  #3 [Server Component]:
+    ./lib/auth.ts
+    ./app/cases/page.tsx
+
+  #4 [Server Component]:
+    ./lib/auth.ts
+    ./app/layout.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./lib/auth.ts:1:1
+Module not found: Can't resolve '@better-auth/prisma-adapter'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { prismaAdapter } [36mfrom[0m [32m"@better-auth/prisma-adapter"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m [36mimport[0m { betterAuth } [36mfrom[0m [32m"better-auth"[0m;
+  [90m3 |[0m [36mimport[0m { nextCookies } [36mfrom[0m [32m"better-auth/next-js"[0m;
+  [90m4 |[0m [36mimport[0m { prisma } [36mfrom[0m [32m"./prisma"[0m;
+
+
+
+Import traces:
+  #1 [Server Component]:
+    ./lib/auth.ts
+    ./app/cases/actions.ts
+
+  #2 [Server Component]:
+    ./lib/auth.ts
+    ./app/cases/layout.tsx
+
+  #3 [Server Component]:
+    ./lib/auth.ts
+    ./app/cases/page.tsx
+
+  #4 [Server Component]:
+    ./lib/auth.ts
+    ./app/layout.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./lib/auth.ts:1:1
+Module not found: Can't resolve '@better-auth/prisma-adapter'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { prismaAdapter } [36mfrom[0m [32m"@better-auth/prisma-adapter"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m [36mimport[0m { betterAuth } [36mfrom[0m [32m"better-auth"[0m;
+  [90m3 |[0m [36mimport[0m { nextCookies } [36mfrom[0m [32m"better-auth/next-js"[0m;
+  [90m4 |[0m [36mimport[0m { prisma } [36mfrom[0m [32m"./prisma"[0m;
+
+
+
+Import traces:
+  #1 [Server Component]:
+    ./lib/auth.ts
+    ./app/cases/actions.ts
+
+  #2 [Server Component]:
+    ./lib/auth.ts
+    ./app/cases/layout.tsx
+
+  #3 [Server Component]:
+    ./lib/auth.ts
+    ./app/cases/page.tsx
+
+  #4 [Server Component]:
+    ./lib/auth.ts
+    ./app/layout.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[browser] ./lib/auth.ts:1:1
+Module not found: Can't resolve '@better-auth/prisma-adapter'
+> 1 | import { prismaAdapter } from "@better-auth/prisma-adapter";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  2 | import { betterAuth } from "better-auth";
+  3 | import { nextCookies } from "better-auth/next-js";
+  4 | import { prisma } from "./prisma";
+
+Import traces:
+  #1 [Server Component]:
+    ./lib/auth.ts
+    ./app/layout.tsx
+
+  #2 [Server Component]:
+    ./lib/auth.ts
+    ./app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found 
+[browser] ./lib/auth.ts:1:1
+Module not found: Can't resolve '@better-auth/prisma-adapter'
+> 1 | import { prismaAdapter } from "@better-auth/prisma-adapter";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  2 | import { betterAuth } from "better-auth";
+  3 | import { nextCookies } from "better-auth/next-js";
+  4 | import { prisma } from "./prisma";
+
+Import traces:
+  #1 [Server Component]:
+    ./lib/auth.ts
+    ./app/layout.tsx
+
+  #2 [Server Component]:
+    ./lib/auth.ts
+    ./app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found 
+[browser] ./lib/auth.ts:1:1
+Module not found: Can't resolve '@better-auth/prisma-adapter'
+> 1 | import { prismaAdapter } from "@better-auth/prisma-adapter";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  2 | import { betterAuth } from "better-auth";
+  3 | import { nextCookies } from "better-auth/next-js";
+  4 | import { prisma } from "./prisma";
+
+Import traces:
+  #1 [Server Component]:
+    ./lib/auth.ts
+    ./app/layout.tsx
+
+  #2 [Server Component]:
+    ./lib/auth.ts
+    ./app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found 
+[browser] ./lib/auth.ts:1:1
+Module not found: Can't resolve '@better-auth/prisma-adapter'
+> 1 | import { prismaAdapter } from "@better-auth/prisma-adapter";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  2 | import { betterAuth } from "better-auth";
+  3 | import { nextCookies } from "better-auth/next-js";
+  4 | import { prisma } from "./prisma";
+
+Import traces:
+  #1 [Server Component]:
+    ./lib/auth.ts
+    ./app/layout.tsx
+
+  #2 [Server Component]:
+    ./lib/auth.ts
+    ./app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found 
+[browser] Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+[browser] Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+[browser] Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
