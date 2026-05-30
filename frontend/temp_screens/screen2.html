@@ -1,0 +1,622 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Nyaya AI - Workspace Showcase</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Inter:wght@300;400;500;600&amp;family=Literata:ital,opsz,wght@0,7..72,200..900;1,7..72,200..900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed": "#e2e2e2",
+                        "on-tertiary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "surface-dim": "#d9dadc",
+                        "on-primary-fixed-variant": "#474747",
+                        "on-secondary-fixed": "#1b1c1c",
+                        "on-primary": "#ffffff",
+                        "tertiary-fixed": "#e2e2e2",
+                        "primary-fixed-dim": "#c6c6c6",
+                        "inverse-on-surface": "#f0f0f2",
+                        "on-tertiary-fixed-variant": "#474747",
+                        "error": "#ba1a1a",
+                        "secondary-fixed-dim": "#c7c6c6",
+                        "secondary-container": "#e1dfdf",
+                        "inverse-primary": "#c6c6c6",
+                        "on-primary-fixed": "#1b1b1b",
+                        "on-error": "#ffffff",
+                        "tertiary-container": "#1b1b1b",
+                        "on-error-container": "#93000a",
+                        "outline": "#7e7576",
+                        "on-surface": "#1a1c1d",
+                        "on-tertiary-fixed": "#1b1b1b",
+                        "on-surface-variant": "#4c4546",
+                        "surface": "#f9f9fb",
+                        "secondary": "#5e5e5e",
+                        "primary": "#000000",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-low": "#f3f3f5",
+                        "surface-tint": "#5e5e5e",
+                        "on-secondary": "#ffffff",
+                        "surface-container-high": "#e8e8ea",
+                        "primary-container": "#1b1b1b",
+                        "on-secondary-container": "#626263",
+                        "outline-variant": "#cfc4c5",
+                        "on-tertiary-container": "#848484",
+                        "background": "#f9f9fb",
+                        "tertiary-fixed-dim": "#c6c6c6",
+                        "on-primary-container": "#848484",
+                        "on-secondary-fixed-variant": "#464747",
+                        "secondary-fixed": "#e4e2e2",
+                        "on-background": "#1a1c1d",
+                        "inverse-surface": "#2f3132",
+                        "tertiary": "#000000",
+                        "surface-bright": "#f9f9fb",
+                        "surface-variant": "#e2e2e4",
+                        "surface-container": "#eeeef0",
+                        "surface-container-highest": "#e2e2e4"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "unit": "8px",
+                        "section-gap": "160px",
+                        "gutter": "24px",
+                        "margin-desktop": "80px",
+                        "container-max": "1440px",
+                        "margin-mobile": "24px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Literata"],
+                        "headline-md": ["Literata"],
+                        "display-lg": ["Instrument Serif", "serif"],
+                        "body-lg": ["Inter"],
+                        "display-lg-mobile": ["Instrument Serif", "serif"],
+                        "label-md": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.01em", "fontWeight": "400"}],
+                        "headline-md": ["32px", {"lineHeight": "40px", "fontWeight": "400"}],
+                        "display-lg": ["80px", {"lineHeight": "88px", "letterSpacing": "-0.02em", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "letterSpacing": "0.01em", "fontWeight": "400"}],
+                        "display-lg-mobile": ["48px", {"lineHeight": "52px", "letterSpacing": "-0.01em", "fontWeight": "400"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "500"}],
+                        "label-sm": ["10px", {"lineHeight": "14px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+        }
+        .atmospheric-glow {
+            position: absolute;
+            width: 60vw;
+            height: 60vw;
+            background: radial-gradient(circle, rgba(255, 237, 213, 0.4) 0%, rgba(249, 249, 251, 0) 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        /* Nav transition styles */
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        
+        /* Tab indicator styles */
+        .tab-indicator {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 2px;
+            background-color: var(--color-primary, #000);
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), width 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        /* Animated traveling glow wrapper */
+        @property --border-angle {
+            syntax: "<angle>";
+            inherits: false;
+            initial-value: 0deg;
+        }
+
+        @keyframes bg-spin {
+            to {
+                --border-angle: 360deg;
+            }
+        }
+
+        .glow-panel-wrapper {
+            position: relative;
+            z-index: 10;
+        }
+
+        .glow-panel-wrapper::before {
+            content: "";
+            position: absolute;
+            inset: -4px;
+            border-radius: 1.25rem;
+            background: conic-gradient(
+                from var(--border-angle, 0deg),
+                transparent 0%,
+                transparent 30%,
+                rgba(255, 158, 64, 0.8) 50%,
+                transparent 70%,
+                transparent 100%
+            );
+            z-index: -1;
+            animation: bg-spin 8s linear infinite;
+            filter: blur(12px);
+            opacity: 0.9;
+        }
+
+        /* Tab Content Animation */
+        .tab-content {
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+            display: none;
+        }
+
+        .tab-content.active {
+            opacity: 1;
+            transform: translateY(0);
+            display: flex;
+        }
+
+        /* Container smooth height transition */
+        .content-container {
+            transition: height 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md antialiased overflow-x-hidden selection:bg-surface-variant selection:text-primary">
+<!-- Global Nav (Predicted Shared Component) -->
+<nav aria-label="Global Navigation" class="bg-surface/80 dark:bg-surface/80 backdrop-blur-[30px] fixed top-0 w-full z-50 border-b border-surface-container dark:border-on-surface-variant/10 flat no shadows">
+<div class="flex justify-between items-center px-margin-mobile md:px-margin-desktop py-6 max-w-container-max mx-auto">
+<a class="font-headline-md text-headline-md text-primary dark:text-primary-fixed tracking-tighter hover:opacity-80 transition-opacity" href="#">
+                Nyaya AI
+            </a>
+<div class="hidden md:flex items-center gap-8">
+<!-- Linear/transactional or purely presentational pages might suppress global nav, but keeping a simplified version here for context -->
+<a class="text-secondary dark:text-on-secondary-container hover:text-primary dark:hover:text-primary-fixed transition-colors duration-300 font-label-md text-label-md uppercase tracking-widest" href="#">Solutions</a>
+<a class="text-secondary dark:text-on-secondary-container hover:text-primary dark:hover:text-primary-fixed transition-colors duration-300 font-label-md text-label-md uppercase tracking-widest" href="#">About</a>
+</div>
+<div class="flex items-center gap-4">
+<button aria-label="Account" class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center hover:scale-105 transition-transform duration-300">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 0;">account_circle</span>
+</button>
+</div>
+</div>
+</nav>
+<main class="relative min-h-screen pt-[120px] pb-section-gap flex flex-col items-center justify-center">
+<!-- Atmospheric Background -->
+<div class="atmospheric-glow"></div>
+<section class="relative z-10 w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop flex flex-col items-center" id="workspace">
+<!-- Section Header -->
+<div class="text-center max-w-3xl mx-auto mb-20 md:mb-32">
+<h2 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-primary mb-6"><i><span class="block">A single workspace</span><span class="block">for <span class="text-secondary">every legal situation.</span></span></i></h2>
+<p class="font-body-lg text-body-lg text-secondary">
+                    Everything stays inside one living case.
+                </p>
+</div>
+<!-- Application Mockup -->
+<div class="w-full max-w-5xl glow-panel-wrapper transition-transform duration-700 hover:scale-[1.01]">
+<div class="w-full glass-panel rounded-xl overflow-hidden flex flex-col shadow-2xl shadow-primary/5">
+<!-- Mockup Header / Nav -->
+<header class="w-full bg-surface-container-lowest/50 border-b border-surface-variant px-6 md:px-10 py-6 relative">
+<!-- Nav Component -->
+<div class="flex overflow-x-auto no-scrollbar gap-8 md:gap-12 pb-2 relative" id="tab-nav-container">
+<button class="nav-link font-label-md text-label-md uppercase tracking-wider whitespace-nowrap pb-2 active text-primary font-semibold" data-target="tab-summary">
+                            Summary
+                        </button>
+<button class="nav-link hover:text-primary transition-colors duration-300 font-label-md text-label-md uppercase tracking-wider whitespace-nowrap pb-2 text-secondary" data-target="tab-resolution">
+                            Resolution
+                        </button>
+<button class="nav-link hover:text-primary transition-colors duration-300 font-label-md text-label-md uppercase tracking-wider whitespace-nowrap pb-2 text-secondary" data-target="tab-insights">
+                            Legal Insights
+                        </button>
+<button class="nav-link hover:text-primary transition-colors duration-300 font-label-md text-label-md uppercase tracking-wider whitespace-nowrap pb-2 text-secondary" data-target="tab-drafts">
+                            Drafts
+                        </button>
+<button class="nav-link hover:text-primary transition-colors duration-300 font-label-md text-label-md uppercase tracking-wider whitespace-nowrap pb-2 text-secondary" data-target="tab-ask">
+                            Ask Nyaya
+                        </button>
+<button class="nav-link hover:text-primary transition-colors duration-300 font-label-md text-label-md uppercase tracking-wider whitespace-nowrap pb-2 text-secondary" data-target="tab-history">
+                            History
+                        </button>
+<div class="tab-indicator" id="tab-indicator" style="transform: translateX(0px); width: 67.7625px;"></div>
+</div>
+</header>
+<!-- Mockup Content Canvas -->
+<div class="p-6 bg-surface-container-lowest flex flex-col md:p-8 content-container" id="content-container" style="height: auto;">
+<!-- Tab 1: Summary -->
+<div class="tab-content flex-col gap-8 active" id="tab-summary">
+<div>
+<h3 class="font-headline-md text-headline-md text-primary mb-2">Summary</h3>
+<div class="h-px w-12 bg-primary"></div>
+</div>
+<div class="max-w-3xl">
+<p class="font-body-lg text-body-lg md:text-[24px] md:leading-[36px] text-on-surface">
+                Your landlord is requesting eviction. The notice period appears inconsistent with the terms outlined in the agreement.
+            </p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Card 1: Risk Level -->
+<div class="bg-surface p-6 rounded-lg flex flex-col justify-between border border-surface-variant relative overflow-hidden group">
+<div class="absolute -top-10 -right-10 w-32 h-32 bg-error/10 blur-[40px] rounded-full transition-opacity duration-500 group-hover:opacity-100"></div>
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-widest mb-4 z-10 relative">Risk Level</span>
+<div class="flex items-center gap-3 z-10 relative">
+<span class="material-symbols-outlined text-error" style="font-variation-settings: 'FILL' 1;">warning</span>
+<span class="font-headline-md text-headline-md text-primary">High</span>
+</div>
+</div>
+<!-- Card 1b: Case Type -->
+<div class="bg-surface p-6 rounded-lg flex flex-col justify-between border border-surface-variant relative overflow-hidden group">
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-widest mb-4 z-10 relative">Case Type</span>
+<div class="flex items-center gap-3 z-10 relative">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="font-headline-md text-[20px] leading-[28px] text-primary">Property Dispute</span>
+</div>
+</div>
+<!-- Card 3: Important Dates -->
+<div class="bg-surface p-6 rounded-lg flex flex-col justify-between border border-surface-variant">
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-widest mb-4">Important Dates</span>
+<ul class="flex flex-col gap-3">
+<li class="flex justify-between items-center border-b border-surface-variant pb-2">
+<span class="font-body-md text-body-md text-secondary">Hearing</span>
+<span class="font-body-md text-body-md text-primary font-medium">Oct 12</span>
+</li>
+<li class="flex justify-between items-center">
+<span class="font-body-md text-body-md text-secondary">Deadline</span>
+<span class="font-body-md text-body-md text-error font-medium">Oct 05</span>
+</li>
+</ul>
+</div>
+<!-- Card 2: Recommended Action -->
+<div class="bg-surface p-6 rounded-lg flex flex-col justify-between border border-surface-variant hover:bg-surface-container-low transition-colors duration-300 cursor-pointer group">
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-widest mb-4">Recommended Action</span>
+<div class="flex items-center justify-between">
+<span class="font-body-lg text-body-lg text-primary font-medium">Draft Response</span>
+<span class="material-symbols-outlined text-primary group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Tab 2: Resolution -->
+<div class="tab-content flex-col gap-8" id="tab-resolution">
+<div>
+<h3 class="font-headline-md text-headline-md text-primary mb-2">Resolution Path</h3>
+<div class="h-px w-12 bg-primary"></div>
+</div>
+<div class="flex flex-col md:flex-row gap-12">
+<div class="flex-1">
+<div class="relative border-l border-surface-variant ml-3 space-y-8 pb-4">
+<div class="relative pl-8">
+<div class="absolute -left-[5px] top-1 w-2.5 h-2.5 rounded-full bg-primary ring-4 ring-surface-container-lowest"></div>
+<h4 class="font-label-md text-label-md text-secondary uppercase tracking-widest mb-1">Today</h4>
+<p class="font-body-lg text-body-lg text-primary">Case Opened</p>
+</div>
+<div class="relative pl-8">
+<div class="absolute -left-[5px] top-1 w-2.5 h-2.5 rounded-full bg-surface-variant ring-4 ring-surface-container-lowest"></div>
+<h4 class="font-label-md text-label-md text-secondary uppercase tracking-widest mb-1">Pending</h4>
+<p class="font-body-lg text-body-lg text-primary">Collect Evidence</p>
+</div>
+<div class="relative pl-8">
+<div class="absolute -left-[5px] top-1 w-2.5 h-2.5 rounded-full bg-surface-variant ring-4 ring-surface-container-lowest"></div>
+<h4 class="font-label-md text-label-md text-secondary uppercase tracking-widest mb-1">Upcoming</h4>
+<p class="font-body-lg text-body-lg text-primary">Submit Response</p>
+</div>
+<div class="relative pl-8">
+<div class="absolute -left-[5px] top-1 w-2.5 h-2.5 rounded-full bg-surface-variant ring-4 ring-surface-container-lowest"></div>
+<h4 class="font-label-md text-label-md text-secondary uppercase tracking-widest mb-1">Next Phase</h4>
+<p class="font-body-lg text-body-lg text-primary">Await Review</p>
+</div>
+<div class="relative pl-8">
+<div class="absolute -left-[5px] top-1 w-2.5 h-2.5 rounded-full bg-surface-variant ring-4 ring-surface-container-lowest"></div>
+<h4 class="font-label-md text-label-md text-secondary uppercase tracking-widest mb-1">Final</h4>
+<p class="font-body-lg text-body-lg text-primary">Further Action</p>
+</div>
+</div>
+</div>
+<div class="flex-1 flex flex-col gap-4">
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-widest">Alternative Options</span>
+<div class="p-4 border border-surface-variant rounded-lg hover:bg-surface transition-colors cursor-pointer flex justify-between items-center group">
+<span class="font-body-md text-body-md text-primary">Negotiate Settlement</span>
+<span class="material-symbols-outlined text-secondary group-hover:text-primary transition-colors">arrow_forward</span>
+</div>
+<div class="p-4 border border-surface-variant rounded-lg hover:bg-surface transition-colors cursor-pointer flex justify-between items-center group">
+<span class="font-body-md text-body-md text-primary">Request Extension</span>
+<span class="material-symbols-outlined text-secondary group-hover:text-primary transition-colors">arrow_forward</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Tab 3: Insights -->
+<div class="tab-content flex-col gap-8" id="tab-insights">
+<div class="flex justify-between items-end">
+<div>
+<h3 class="font-headline-md text-headline-md text-primary mb-2">Legal Insights</h3>
+<div class="h-px w-12 bg-primary"></div>
+</div>
+<div class="text-right">
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-widest block mb-1">Case Strength</span>
+<span class="font-headline-lg text-headline-lg text-primary">72%</span>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="p-6 border border-surface-variant rounded-lg bg-surface">
+<div class="flex items-center gap-2 mb-3">
+<span class="material-symbols-outlined text-primary text-sm">lightbulb</span>
+<span class="font-label-md text-label-md text-primary uppercase tracking-widest">Opportunity Detected</span>
+</div>
+<p class="font-body-md text-body-md text-secondary">The landlord's notice was served 14 days prior, whereas the contract stipulates a 30-day minimum notice period.</p>
+</div>
+<div class="p-6 border border-surface-variant rounded-lg bg-surface">
+<div class="flex items-center gap-2 mb-3">
+<span class="material-symbols-outlined text-primary text-sm">gavel</span>
+<span class="font-label-md text-label-md text-primary uppercase tracking-widest">Procedural Concern</span>
+</div>
+<p class="font-body-md text-body-md text-secondary">Ensure all communications are formally documented; previous informal texts may not hold up as legal notice.</p>
+</div>
+<div class="p-6 border border-surface-variant rounded-lg bg-surface">
+<div class="flex items-center gap-2 mb-3">
+<span class="material-symbols-outlined text-primary text-sm">description</span>
+<span class="font-label-md text-label-md text-primary uppercase tracking-widest">Documentation Review</span>
+</div>
+<p class="font-body-md text-body-md text-secondary">Missing recent rent receipts from your records. Obtaining these will strengthen your position against eviction claims.</p>
+</div>
+<div class="p-6 border border-error/20 rounded-lg bg-error/5 relative overflow-hidden">
+<div class="flex items-center gap-2 mb-3">
+<span class="material-symbols-outlined text-error text-sm">warning</span>
+<span class="font-label-md text-label-md text-error uppercase tracking-widest">Risk Alert</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface">Failure to respond by Oct 05 will result in an automatic default judgment in favor of the landlord.</p>
+</div>
+</div>
+</div>
+<!-- Tab 4: Drafts -->
+<div class="tab-content flex-col gap-8" id="tab-drafts">
+<div class="flex justify-between items-end flex-wrap gap-4">
+<div>
+<h3 class="font-headline-md text-headline-md text-primary mb-2">Drafts</h3>
+<div class="h-px w-12 bg-primary"></div>
+</div>
+<div class="flex gap-3">
+<button class="px-4 py-2 border border-surface-variant rounded-full font-label-md text-label-md text-primary uppercase tracking-widest hover:bg-surface transition-colors">Complaint</button>
+<button class="px-4 py-2 bg-primary text-on-primary rounded-full font-label-md text-label-md uppercase tracking-widest hover:bg-primary/90 transition-colors">Generate Reply</button>
+</div>
+</div>
+<div class="border border-surface-variant rounded-lg bg-surface flex flex-col h-[400px]">
+<div class="border-b border-surface-variant p-4 flex justify-between items-center bg-surface-container-lowest rounded-t-lg">
+<span class="font-label-md text-label-md text-primary uppercase tracking-widest">Response To Eviction Notice</span>
+<span class="material-symbols-outlined text-secondary cursor-pointer hover:text-primary">more_horiz</span>
+</div>
+<div class="p-8 overflow-y-auto font-body-md text-body-md text-secondary space-y-4">
+<p class=""><strong>[Date]</strong></p>
+<p class=""><strong>To:</strong> [Landlord Name]</p>
+<p class=""><strong>Re:</strong> Notice of Eviction dated [Date of Notice]</p>
+<p class="">Dear [Landlord Name],</p>
+<p class="">I am writing in response to the eviction notice I received on [Date]. I have reviewed the terms of our lease agreement, specifically Section [X] regarding notice periods.</p>
+<p class="">The agreement clearly states that a minimum of 30 days' notice must be provided prior to any eviction proceedings. The notice I received provides only 14 days, which is in direct violation of our agreed-upon terms.</p>
+<p class="">Therefore, I consider the current notice to be invalid. I request that you retract this notice or provide a revised notice that complies with the terms of our lease agreement.</p>
+<p class="">Sincerely,</p>
+<p class="">[Your Name]</p>
+</div>
+</div>
+</div>
+<!-- Tab 5: Ask Nyaya -->
+<div class="tab-content flex-col gap-8" id="tab-ask">
+<div>
+<h3 class="font-headline-md text-headline-md text-primary mb-2">Ask Nyaya</h3>
+<div class="h-px w-12 bg-primary"></div>
+</div>
+<div class="border border-surface-variant rounded-lg bg-surface flex flex-col h-[400px]">
+<div class="flex-1 p-6 overflow-y-auto space-y-6 flex flex-col">
+<div class="self-end max-w-[80%] bg-surface-container p-4 rounded-lg rounded-tr-none">
+<p class="font-body-md text-body-md text-primary">What happens if I don't respond by the deadline?</p>
+</div>
+<div class="self-start max-w-[80%] bg-surface-container-lowest border border-surface-variant p-4 rounded-lg rounded-tl-none">
+<p class="font-body-md text-body-md text-secondary">If you fail to respond by the October 5th deadline, the landlord may file for a default judgment. This means the court could rule in their favor without hearing your side, potentially leading to immediate eviction. It is crucial to file your response before this date.</p>
+</div>
+<div class="self-end max-w-[80%] bg-surface-container p-4 rounded-lg rounded-tr-none">
+<p class="font-body-md text-body-md text-primary">Can you draft a quick extension request?</p>
+</div>
+</div>
+<div class="border-t border-surface-variant p-4 bg-surface-container-lowest rounded-b-lg flex gap-3 items-center">
+<input class="flex-1 bg-surface border-none focus:ring-0 font-body-md text-body-md placeholder:text-secondary/50 rounded-full px-4 py-2" placeholder="Ask a question about your case..." type="text">
+<button class="w-10 h-10 rounded-full bg-primary text-on-primary flex items-center justify-center hover:bg-primary/90 transition-colors">
+<span class="material-symbols-outlined" style="font-size: 20px;">send</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Tab 6: History -->
+<div class="tab-content flex-col gap-8" id="tab-history">
+<div>
+<h3 class="font-headline-md text-headline-md text-primary mb-2">Case History</h3>
+<div class="h-px w-12 bg-primary"></div>
+</div>
+<div class="space-y-4">
+<div class="p-4 border border-surface-variant rounded-lg bg-surface flex justify-between items-center group cursor-pointer hover:bg-surface-container-low transition-colors">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container-lowest flex items-center justify-center border border-surface-variant">
+<span class="material-symbols-outlined text-primary text-sm">home</span>
+</div>
+<div>
+<h4 class="font-body-md text-body-md text-primary font-medium">Property Dispute</h4>
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-widest">Opened: Sep 15, 2024</span>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<span class="font-label-sm text-label-sm text-error uppercase tracking-widest bg-error/10 px-2 py-1 rounded">High Risk</span>
+<span class="material-symbols-outlined text-secondary group-hover:text-primary transition-colors">chevron_right</span>
+</div>
+</div>
+<div class="p-4 border border-surface-variant rounded-lg bg-surface-container-lowest flex justify-between items-center group cursor-pointer hover:bg-surface-container-low transition-colors opacity-70">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center border border-surface-variant">
+<span class="material-symbols-outlined text-secondary text-sm">work</span>
+</div>
+<div>
+<h4 class="font-body-md text-body-md text-secondary font-medium">Employment Termination</h4>
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-widest">Closed: Mar 10, 2024</span>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-widest bg-surface-variant px-2 py-1 rounded">Resolved</span>
+<span class="material-symbols-outlined text-secondary group-hover:text-primary transition-colors">chevron_right</span>
+</div>
+</div>
+<div class="p-4 border border-surface-variant rounded-lg bg-surface-container-lowest flex justify-between items-center group cursor-pointer hover:bg-surface-container-low transition-colors opacity-70">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center border border-surface-variant">
+<span class="material-symbols-outlined text-secondary text-sm">shopping_cart</span>
+</div>
+<div>
+<h4 class="font-body-md text-body-md text-secondary font-medium">Consumer Complaint</h4>
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-widest">Closed: Nov 02, 2023</span>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-widest bg-surface-variant px-2 py-1 rounded">Resolved</span>
+<span class="material-symbols-outlined text-secondary group-hover:text-primary transition-colors">chevron_right</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Closing Statement -->
+<div class="text-center mt-12">
+<p class="text-headline-md text-secondary tracking-tight font-display-lg">
+                    One case. One conversation. <span class="text-primary">Complete clarity.</span>
+</p>
+</div>
+</section>
+</main>
+<!-- Footer Component -->
+<footer class="bg-surface dark:bg-surface-container-lowest w-full py-section-gap border-t border-surface-container dark:border-on-surface-variant/10 flat no shadows">
+<div class="flex flex-col md:flex-row justify-between items-center px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto gap-8 md:gap-0">
+<div class="font-headline-sm text-[24px] leading-[32px] text-primary">
+                Nyaya AI
+            </div>
+<div class="flex flex-wrap justify-center gap-6 md:gap-8">
+<a class="font-label-md text-label-md text-secondary dark:text-on-secondary-container hover:text-primary dark:hover:text-primary-fixed underline-offset-4 hover:underline transition-opacity duration-300 uppercase tracking-widest" href="#">Privacy</a>
+<a class="font-label-md text-label-md text-secondary dark:text-on-secondary-container hover:text-primary dark:hover:text-primary-fixed underline-offset-4 hover:underline transition-opacity duration-300 uppercase tracking-widest" href="#">Terms</a>
+<a class="font-label-md text-label-md text-secondary dark:text-on-secondary-container hover:text-primary dark:hover:text-primary-fixed underline-offset-4 hover:underline transition-opacity duration-300 uppercase tracking-widest" href="#">Ethical AI</a>
+<a class="font-label-md text-label-md text-secondary dark:text-on-secondary-container hover:text-primary dark:hover:text-primary-fixed underline-offset-4 hover:underline transition-opacity duration-300 uppercase tracking-widest" href="#">Contact</a>
+</div>
+<div class="font-label-md text-label-md text-secondary dark:text-on-secondary-container tracking-widest uppercase text-center md:text-right mt-8 md:mt-0">
+                © 2024 Nyaya AI. Editorial Legal Intelligence.
+            </div>
+</div>
+</footer>
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const tabContents = document.querySelectorAll('.tab-content');
+            const indicator = document.getElementById('tab-indicator');
+            const container = document.getElementById('content-container');
+            const navContainer = document.getElementById('tab-nav-container');
+
+            function updateIndicator(activeLink) {
+                const linkRect = activeLink.getBoundingClientRect();
+                const containerRect = navContainer.getBoundingClientRect();
+                
+                const leftPos = linkRect.left - containerRect.left + navContainer.scrollLeft;
+                const width = linkRect.width;
+
+                indicator.style.transform = `translateX(${leftPos}px)`;
+                indicator.style.width = `${width}px`;
+            }
+
+            function setContainerHeight(activeContent) {
+                // Temporarily set to auto to get true height, then animate
+                const currentHeight = container.offsetHeight;
+                container.style.height = 'auto';
+                const targetHeight = activeContent.offsetHeight + 64; // + padding
+                
+                // Only set fixed height during transition to allow responsiveness afterwards
+                container.style.height = `${currentHeight}px`;
+                
+                requestAnimationFrame(() => {
+                    container.style.height = `${targetHeight}px`;
+                });
+
+                // Reset height to auto after transition for responsiveness
+                setTimeout(() => {
+                    container.style.height = 'auto';
+                }, 400);
+            }
+
+            // Initialize indicator
+            const activeLink = document.querySelector('.nav-link.active');
+            if (activeLink) {
+                setTimeout(() => updateIndicator(activeLink), 100); // Small delay to ensure layout is done
+            }
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    
+                    const targetId = link.getAttribute('data-target');
+                    const targetContent = document.getElementById(targetId);
+
+                    if (!targetContent || link.classList.contains('active')) return;
+
+                    // Update Nav Links
+                    navLinks.forEach(l => {
+                        l.classList.remove('active', 'text-primary', 'font-semibold');
+                        l.classList.add('text-secondary');
+                    });
+                    
+                    link.classList.remove('text-secondary');
+                    link.classList.add('active', 'text-primary', 'font-semibold');
+
+                    updateIndicator(link);
+
+                    // Update Content
+                    tabContents.forEach(content => {
+                        content.classList.remove('active');
+                    });
+                    
+                    targetContent.classList.add('active');
+                    setContainerHeight(targetContent);
+                });
+            });
+
+            // Update indicator on resize
+            window.addEventListener('resize', () => {
+                const active = document.querySelector('.nav-link.active');
+                if (active) updateIndicator(active);
+            });
+        });
+    </script>
+
+
+
+
+</body></html>
