@@ -1,0 +1,16 @@
+services:
+  db:
+    platform: linux/amd64
+    image: postgres:16-alpine
+    restart: always
+    ports:
+      - '5432:5432' 
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: mysecretpassword
+    volumes:
+      - nyaya_ai:/var/lib/postgresql/data
+
+volumes:
+  nyaya_ai:

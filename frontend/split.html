@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en" style=""><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Nyaya AI</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Urbanist:ital,wght@0,100..900;1,100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed-dim": "#c6c6c6",
+                        "surface-dim": "#dadada",
+                        "surface-variant": "#e2e2e2",
+                        "primary-fixed": "#e2e2e2",
+                        "on-tertiary-container": "#848484",
+                        "on-error": "#ffffff",
+                        "outline-variant": "#cfc4c5",
+                        "tertiary-fixed": "#e2e2e2",
+                        "on-primary-fixed-variant": "#474747",
+                        "on-background": "#1a1c1c",
+                        "secondary-fixed": "#e4e2e2",
+                        "secondary": "#5e5e5e",
+                        "tertiary-fixed-dim": "#c6c6c6",
+                        "background": "#f9f9f9",
+                        "outline": "#7e7576",
+                        "inverse-surface": "#2f3131",
+                        "surface-tint": "#5e5e5e",
+                        "surface-container-highest": "#e2e2e2",
+                        "primary-container": "#1b1b1b",
+                        "secondary-fixed-dim": "#c7c6c6",
+                        "error-container": "#ffdad6",
+                        "surface": "#f9f9f9",
+                        "on-error-container": "#93000a",
+                        "on-secondary": "#ffffff",
+                        "tertiary-container": "#1b1b1b",
+                        "on-secondary-fixed": "#1b1c1c",
+                        "on-surface": "#1a1c1c",
+                        "on-tertiary-fixed-variant": "#474747",
+                        "surface-container-low": "#f3f3f3",
+                        "on-primary-container": "#848484",
+                        "surface-container-high": "#e8e8e8",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "surface-container": "#eeeeee",
+                        "on-primary-fixed": "#1b1b1b",
+                        "secondary-container": "#e1dfdf",
+                        "surface-bright": "#f9f9f9",
+                        "inverse-on-surface": "#f1f1f1",
+                        "inverse-primary": "#c6c6c6",
+                        "on-surface-variant": "#4c4546",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-fixed-variant": "#464747",
+                        "tertiary": "#000000",
+                        "error": "#ba1a1a",
+                        "primary": "#000000",
+                        "on-tertiary-fixed": "#1b1b1b",
+                        "on-secondary-container": "#626263"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-max": "1440px",
+                        "margin-tablet": "32px",
+                        "unit": "8px",
+                        "gutter": "32px",
+                        "margin-desktop": "64px",
+                        "margin-mobile": "20px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Instrument Serif"],
+                        "headline-lg-mobile": ["Instrument Serif"],
+                        "display-lg": ["Instrument Serif"],
+                        "display-md": ["Instrument Serif"],
+                        "label-md": ["Urbanist"],
+                        "headline-md": ["Instrument Serif"],
+                        "body-lg": ["Urbanist"],
+                        "body-md": ["Urbanist"],
+                        "label-caps": ["Urbanist"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["48px", { "lineHeight": "56px", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["32px", { "lineHeight": "40px", "fontWeight": "400" }],
+                        "display-lg": ["84px", { "lineHeight": "92px", "letterSpacing": "-0.02em", "fontWeight": "400" }],
+                        "display-md": ["64px", { "lineHeight": "72px", "letterSpacing": "-0.01em", "fontWeight": "400" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "fontWeight": "500" }],
+                        "headline-md": ["32px", { "lineHeight": "40px", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "32px", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .fade-rise {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeRiseAnim 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        @keyframes fadeRiseAnim {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-400 { animation-delay: 0.4s; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen antialiased selection:bg-primary selection:text-on-primary">
+<!-- Top Navigation (Shared Component) -->
+<nav class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-desktop py-8 bg-transparent">
+<div class="font-display-md text-[1.875rem] font-headline-md text-primary dark:text-primary-fixed">
+            Nyaya AI<sup class="text-sm">®</sup>
+</div>
+<div class="hidden md:flex items-center space-x-gutter">
+<a class="text-primary dark:text-primary-fixed border-b border-primary dark:border-primary-fixed pb-1 font-body-md text-body-md hover:opacity-80 transition-all duration-500 ease-in-out" href="#">How It Works</a>
+<a class="text-secondary dark:text-secondary-fixed-dim hover:text-primary dark:hover:text-primary-fixed transition-colors duration-500 font-body-md text-body-md hover:opacity-80 ease-in-out" href="#">Workspace</a>
+<a class="text-secondary dark:text-secondary-fixed-dim hover:text-primary dark:hover:text-primary-fixed transition-colors duration-500 font-body-md text-body-md hover:opacity-80 ease-in-out" href="#">Legal Insights</a>
+<a class="text-secondary dark:text-secondary-fixed-dim hover:text-primary dark:hover:text-primary-fixed transition-colors duration-500 font-body-md text-body-md hover:opacity-80 ease-in-out" href="#">FAQ</a>
+</div>
+<button class="bg-primary text-on-primary font-label-caps text-label-caps px-6 py-3 hover:bg-tertiary-container transition-all duration-500 ease-in-out hidden md:block uppercase tracking-widest font-bold rounded-full">
+            BEGIN JOURNEY</button>
+<button class="md:hidden text-primary">
+<span class="material-symbols-outlined text-2xl">menu</span>
+</button>
+</nav>
+<!-- Hero Section -->
+<section class="relative min-h-screen w-full overflow-hidden bg-surface-container-lowest flex flex-col justify-start pt-48 pb-16">
+<!-- Background Video with Gradient Overlay -->
+<div class="absolute inset-0 z-0 pointer-events-none" style="top: 15vh;">
+<video class="w-full h-full object-cover opacity-0 transition-opacity duration-1000" id="heroVideo" muted="" playsinline="" style="opacity: 1;">
+<source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260328_083109_283f3553-e28f-428b-a723-d639c617eb2b.mp4" type="video/mp4"/>
+</video>
+</div>
+<div class="absolute inset-0 z-0 bg-gradient-to-b from-surface-container-lowest via-transparent to-surface-container-lowest pointer-events-none"></div>
+<!-- Content -->
+<div class="relative z-10 max-w-container-max mx-auto px-margin-desktop w-full text-center">
+<h1 class="font-display-lg text-display-lg font-headline-lg fade-rise mb-8 leading-[0.95] max-w-5xl mx-auto">Legal <span class="italic text-[#6F6F6F]">uncertainty,</span><br class=""/>made <span class="italic text-[#6F6F6F]">clear.</span></h1>
+<p class="font-body-lg text-body-lg text-secondary mx-auto fade-rise delay-200 mb-12 font-medium max-w-[540px]"><div class="">Describe your situation in your own words.</div><div class="">Nyaya AI transforms legal complexity into practical understanding.</div></p>
+<div class="fade-rise delay-400 max-w-2xl mx-auto">
+<div class="relative flex items-center bg-white rounded-full border border-gray-200 shadow-sm p-2 hover:shadow-md transition-shadow duration-300">
+<input class="flex-grow bg-transparent border-none focus:ring-0 text-body-lg px-6 py-4 placeholder-gray-400 text-primary w-full outline-none" placeholder="Describe your legal issue" type="text"/>
+<button class="flex-shrink-0 bg-primary text-white w-14 h-14 rounded-full flex items-center justify-center hover:bg-tertiary-container transition-colors duration-300">
+<span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</section><section class="bg-surface-container-lowest py-32 overflow-hidden" id="problem">
+<div class="max-w-container-max mx-auto px-margin-desktop">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-gutter items-start mb-24">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-primary leading-tight max-w-md">
+          Most legal problems begin with uncertainty.
+        </h2>
+</div>
+<div class="md:pt-4">
+<p class="font-body-lg text-body-lg text-secondary">
+          People receive notices, contracts, agreements and legal communications every day without understanding their meaning, urgency or consequences.
+        </p>
+</div>
+</div>
+<div class="w-full">
+<img alt="Artistic paper sculptures symbolizing legal document flow" class="w-full h-auto object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB0OZOnXt6AlQjiYUVIQVTxHs4P3bBcoFWrZBhPYCE-fnAzJNjv4fTpRo9GN8GQOPu1bM7VKuBn7eT-zI6iQMH_a6ZuuM6b4366W7lcR6xB3XZlJ-rfCSnaSW_qj429fB_HTRNLPaW6oO4uLD8rbrtIZuh2hqzyGnZK4o4ki2sYR_h57lvqn2VGc17BRPDM7QLZo1UgGm3VqWewKesQsuoj2S4EvmV5uqNTEpQOOc6HrKvwZtfqB-CImAYbWQQAXFT4h513zk2HC4U"/>
+</div>
+</div>
+</section>
+<!-- Script for custom video looping and fade -->
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const video = document.getElementById('heroVideo');
+            if (!video) return;
+
+            const FADE_DURATION = 0.5; // seconds
+
+            video.addEventListener('loadedmetadata', () => {
+                video.play();
+                video.style.opacity = '1';
+            });
+
+            // Manual loop logic to handle smooth transitions if needed, though simple play() usually suffices if just fading in.
+            // For true seamless, you'd need two video elements overlapping, but simple requestAnimationFrame for opacity control:
+            let lastTime = 0;
+            const checkVideoTime = () => {
+                if(video.duration > 0) {
+                    const timeLeft = video.duration - video.currentTime;
+                    if(timeLeft < FADE_DURATION) {
+                         video.style.opacity = (timeLeft / FADE_DURATION).toString();
+                    } else if (video.currentTime < FADE_DURATION) {
+                         video.style.opacity = (video.currentTime / FADE_DURATION).toString();
+                    } else {
+                         video.style.opacity = '1';
+                    }
+                    
+                    if(timeLeft < 0.05) {
+                        video.currentTime = 0;
+                        video.play();
+                    }
+                }
+                requestAnimationFrame(checkVideoTime);
+            };
+            
+            video.addEventListener('play', () => {
+                requestAnimationFrame(checkVideoTime);
+            });
+            
+            // Fallback play trigger
+            setTimeout(()=> { if(video.paused) video.play(); }, 1000);
+        });
+    </script>
+</body></html>
