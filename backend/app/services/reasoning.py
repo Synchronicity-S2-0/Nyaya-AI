@@ -2,7 +2,7 @@ import json
 import logging
 import httpx
 from app.core.config import get_settings
-from app.models.schemas import ClassificationResult, ExplanationResult, ExtractionResult, KnowledgeSnippet
+from app.models.schemas import ClassificationResult, ExplanationResult, ExtractionResult, KnowledgeSnippet, StatutorySource
 
 
 class LegalReasoningAgent:
@@ -15,6 +15,7 @@ class LegalReasoningAgent:
         classification: ClassificationResult,
         extraction: ExtractionResult,
         knowledge: list[KnowledgeSnippet],
+        statutory_sources: list[StatutorySource] | None = None,
     ) -> ExplanationResult:
         settings = get_settings()
         api_key = settings.gemini_api_key
@@ -43,15 +44,35 @@ class LegalReasoningAgent:
                 }
 
                 knowledge_context = "\n".join([f"- {k.title}: {k.content}" for k in knowledge])
-                
+
+                # Build statutory grounding block from live BNS/IPC API citations
+                statutory_context = ""
+                if statutory_sources:
+                    lines = []
+                    for s in statutory_sources:
+                        status = "✅ In Force" if s.in_force else "⚠ REPEALED (July 2024)"
+                        lines.append(
+                            f"- [{s.corpus} Section {s.section_number}] {s.title} [{status}]\n"
+                            f"  Text: {s.text_preview}\n"
+                            f"  Source: {s.source_url} | via {s.api_source}"
+                        )
+                        if s.ipc_to_bns_note:
+                            lines.append(f"  Note: {s.ipc_to_bns_note}")
+                    statutory_context = "\n".join(lines)
+
                 prompt = (
                     "You are a compassionate, clear, and objective legal accessibility assistant for common citizens in India. "
                     "Explain the provided document text in simple, everyday language. Do not use legal jargon without explaining it. "
-                    "Synthesize your explanation using the document classification, extracted entities, and relevant legal knowledge context provided.\n\n"
+                    "Synthesize your explanation using the document classification, extracted entities, verified statutory sources, and relevant legal knowledge context provided.\n\n"
                     f"Document Type: {classification.document_type} (Confidence: {classification.confidence:.0%})\n"
                     f"Extracted Sections: {', '.join(extraction.legal_sections) or 'None'}\n"
                     f"Extracted Dates & Deadlines: {', '.join(extraction.deadlines) or 'None'}\n"
-                    f"Relevant Central/State Acts Context:\n{knowledge_context or 'None'}\n\n"
+                    + (
+                        f"\n⚖ VERIFIED STATUTORY SOURCES (fetched live from Official BNS/IPC Gazette):\n{statutory_context}\n\n"
+                        if statutory_context
+                        else ""
+                    )
+                    + f"Relevant Procedural Context:\n{knowledge_context or 'None'}\n\n"
                     f"Raw Text snippet:\n{text[:3000]}"
                 )
 

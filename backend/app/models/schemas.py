@@ -82,6 +82,37 @@ class KnowledgeSnippet(BaseModel):
     score: float
 
 
+class StatutorySource(BaseModel):
+    """A verified statutory citation fetched live from InsightLaw (official Gazette text)."""
+
+    corpus: str
+    """Legal corpus: 'BNS', 'IPC', 'BNSS', 'BSA', or 'CONSTITUTION'."""
+
+    section_number: str
+    """Numeric section or article identifier (e.g. '103', '302', '21')."""
+
+    title: str
+    """Official section heading (e.g. 'Punishment for murder')."""
+
+    text_preview: str
+    """First ~300 characters of the section text from the official gazette."""
+
+    source_url: str
+    """IndiaCode.nic.in permalink — government-authoritative full text."""
+
+    api_source: str
+    """Attribution for the live-fetch API (e.g. 'insightlaw.in')."""
+
+    in_force: bool
+    """True for BNS/BNSS/BSA (current law). False for IPC/CrPC (repealed July 2024)."""
+
+    ipc_to_bns_note: str = ""
+    """Non-empty only for repealed IPC sections, advising the BNS equivalent."""
+
+    fetched_at: str
+    """ISO 8601 timestamp of when this citation was fetched from the live API."""
+
+
 class ExplanationResult(BaseModel):
     summary: str
     simple_explanation: list[str]
@@ -134,6 +165,7 @@ class TranslationResult(BaseModel):
 class ProcessingTrace(BaseModel):
     classifier: str
     extraction: str
+    bns_lookup: str
     rag: str
     reasoning: str
     recommendation: str
@@ -148,6 +180,8 @@ class AnalysisResponse(BaseModel):
     extraction: ExtractionResult
     explanation: ExplanationResult
     knowledge: list[KnowledgeSnippet]
+    statutory_sources: list[StatutorySource] = Field(default_factory=list)
+    """Live statutory citations fetched from official gazette text — for judge-level source trust."""
     recommendations: ActionRecommendation
     defense: DefenseAnalysis | None = None
     draft: DraftResult | None = None

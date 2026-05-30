@@ -9,9 +9,9 @@
 
 ---
 title: FIR first steps
-tags: fir,police,criminal,ipc,bnss
+tags: fir,police,criminal,ipc,bnss,bns
 content:
-For an FIR, verify the police station, FIR number, sections invoked, incident date, accused details, complainant details, and whether immediate protective or bail-related steps are needed. Do not ignore police notices or arrest-related risks; contact legal aid or an advocate promptly when liberty is at stake.
+For an FIR, verify the police station, FIR number, sections invoked, incident date, accused details, complainant details, and whether immediate protective or bail-related steps are needed. Do not ignore police notices or arrest-related risks; contact legal aid or an advocate promptly when liberty is at stake. From July 2024, the Bharatiya Nagarik Suraksha Sanhita (BNSS) replaced the Code of Criminal Procedure (CrPC) for all procedural matters.
 
 ---
 title: Legal notice response
@@ -48,3 +48,28 @@ title: Summons handling
 tags: summons,court,appearance,deadline
 content:
 A summons requires careful attention to court name, case number, appearance date, party role, and documents required. Missing an appearance can create procedural risk, so the recipient should verify authenticity and arrange legal representation or legal aid promptly.
+
+---
+title: BNS 2023 — New Criminal Law (replaces IPC)
+tags: bns,ipc,criminal,fir,sections,new_laws
+content:
+The Bharatiya Nyaya Sanhita (BNS) 2023 came into force on 1 July 2024, replacing the Indian Penal Code (IPC) 1860. All FIRs and criminal proceedings from July 2024 onwards reference BNS sections. Common equivalents: IPC Section 302 (murder) → BNS Section 103; IPC Section 420 (cheating) → BNS Section 318; IPC Section 376 (rape) → BNS Section 64. If a document references an old IPC section, check the BNS equivalent. BNS adds organised crime (Section 111), terrorism (Section 113), and enhanced victim compensation provisions.
+
+---
+title: BNSS 2023 — New Procedure Law (replaces CrPC)
+tags: bnss,crpc,fir,bail,trial,custody,procedure
+content:
+The Bharatiya Nagarik Suraksha Sanhita (BNSS) 2023 replaced the Code of Criminal Procedure (CrPC) 1973 from 1 July 2024. Key changes: police must produce an arrested person before a magistrate within 24 hours (Section 57 BNSS); bail provisions are in Chapter V; Section 479 BNSS allows undertrial prisoners who have served half the maximum sentence to get bail. Trial timelines are stricter and victims have greater rights to updates on investigation progress.
+
+---
+title: BSA 2023 — New Evidence Law (replaces Indian Evidence Act)
+tags: bsa,evidence,court,proof,documents
+content:
+The Bharatiya Sakshya Adhiniyam (BSA) 2023 replaced the Indian Evidence Act 1872 from 1 July 2024. It modernises evidence rules for electronic records: electronic records and digital documents are admissible without special certification in many circumstances (Section 63 BSA). Secondary electronic evidence rules are clearer. Courts now accept printouts, digital messages, and electronic contracts more readily under the new framework.
+
+---
+title: BNS organised crime and terrorism sections
+tags: bns,organised_crime,terrorism,criminal,sections
+content:
+BNS 2023 introduces specific sections not present in IPC: Section 111 covers organised crime (punishment up to life imprisonment or death); Section 113 covers terrorist acts; Section 69 covers sexual intercourse by deceitful means; Section 304 covers snatching (a new specific offence). These sections did not exist in IPC and reflect updated legislative intent.
+

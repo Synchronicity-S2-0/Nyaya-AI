@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useForm } from "@tanstack/react-form";
 import { ArrowRight, Loader2 } from "lucide-react";
 import { signIn, signUp } from "@/lib/auth-client";
@@ -37,8 +37,14 @@ function firstError(errors: unknown[]) {
 export function AuthForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const initialMode =
-    searchParams.get("mode") === "signin" ? "signin" : "signup";
+  const pathname = usePathname();
+  const initialMode = searchParams.get("mode") === "signin"
+    ? "signin"
+    : searchParams.get("mode") === "signup"
+    ? "signup"
+    : pathname === "/login"
+    ? "signin"
+    : "signup";
   const [mode, setMode] = useState<AuthMode>(initialMode);
   const [authError, setAuthError] = useState("");
   const [isGoogleLoading, setIsGoogleLoading] = useState(false);
