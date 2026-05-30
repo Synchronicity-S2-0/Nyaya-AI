@@ -1,9 +1,15 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { ArrowRight, Loader2 } from "lucide-react";
+import { signIn } from "@/lib/auth-client";
+
+const PENDING_HERO_PROMPT_KEY = "nyaya.pendingHeroPrompt";
 
 export function HeroSection() {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [prompt, setPrompt] = useState("");
+  const [isSigningIn, setIsSigningIn] = useState(false);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -43,6 +49,23 @@ export function HeroSection() {
     }
   }, []);
 
+  const handleGoogleStart = async () => {
+    if (isSigningIn) return;
+
+    setIsSigningIn(true);
+    window.localStorage.setItem(PENDING_HERO_PROMPT_KEY, prompt);
+
+    try {
+      await signIn.social({
+        provider: "google",
+        callbackURL: "/cases",
+      });
+    } catch (error) {
+      console.error("Google sign-in failed:", error);
+      setIsSigningIn(false);
+    }
+  };
+
   return (
     <section className="relative w-[100vw] left-[50%] -translate-x-[50%] h-[100vh] bg-surface-container-lowest overflow-hidden flex flex-col items-center justify-center pt-[100px]">
       <div className="absolute left-0 right-0 w-full z-0 top-[300px] bottom-0 overflow-hidden">
@@ -75,6 +98,15 @@ export function HeroSection() {
               className="w-full h-16 px-8 rounded-full bg-white border border-outline-variant focus:outline-none focus:border-primary font-body-md text-body-md placeholder:text-secondary-fixed-dim"
               placeholder="Describe your legal problem..."
               type="text"
+              value={prompt}
+              onChange={(event) => setPrompt(event.target.value)}
+              onKeyDown={(event) => {
+                if (event.key === "Enter") {
+                  event.preventDefault();
+                  handleGoogleStart();
+                }
+              }}
+              disabled={isSigningIn}
             />
           </div>
           <button className="h-16 w-16 rounded-full bg-primary text-on-primary flex items-center justify-center hover:scale-[1.05] transition-transform duration-300">

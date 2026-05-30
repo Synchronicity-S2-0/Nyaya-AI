@@ -2,14 +2,25 @@
 
 import { useState, useEffect } from "react";
 import { navItems } from "@/constants";
-import { signIn } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-export function Navbar() {
+type NavbarSession = {
+  user?: {
+    id: string;
+    name?: string | null;
+    email?: string | null;
+  };
+} | null;
+
+export function Navbar({ session }: { session: NavbarSession }) {
   const [activeId, setActiveId] = useState("/");
   const pathname = usePathname();
+
+
+  const isCasesRoute = pathname.startsWith("/cases");
+  const isAuthRoute = pathname.startsWith("/login");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -47,12 +58,6 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [pathname]);
 
-  const handleLogin = async () => {
-    await signIn.social({
-      provider: "google",
-    });
-  };
-
   const isActive = (url: string) => {
     if (pathname === "/") {
       return activeId === url;
@@ -60,6 +65,12 @@ export function Navbar() {
     return pathname === url;
   };
 
+  // 1. Authenticated Cases Page Navbar View
+  if (isCasesRoute || isAuthRoute) {
+    return null;
+  }
+
+  // 2. Default Public Page Navbar View
   return (
     <nav className="fixed top-0 w-full z-50 bg-white border-b border-surface-container px-[64px] py-[16px] flex justify-between items-center transition-all duration-300">
       <Link
@@ -106,7 +117,7 @@ export function Navbar() {
           Begin Journey
         </button>
       </div>
-
     </nav>
   );
 }
+

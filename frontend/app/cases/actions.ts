@@ -37,50 +37,40 @@ export async function createCase() {
   redirect(`/cases/${newCase.id}`);
 }
 
-import { cookies } from "next/headers";
-import crypto from "crypto";
-
-export async function loginAsMockUser() {
-  // 1. Get or create mock user
-  let user = await prisma.user.findUnique({
-    where: { email: "mockuser@nyaya.ai" }
+export async function createNewCaseAction(title: string = "Untitled Case") {
+  const session = await auth.api.getSession({
+    headers: await headers(),
   });
 
-  if (!user) {
-    user = await prisma.user.create({
-      data: {
-        email: "mockuser@nyaya.ai",
-        name: "Mock Citizen",
-        image: "https://api.dicebear.com/7.x/bottts/svg?seed=mock"
-      }
-    });
+  if (!session?.user) {
+    throw new Error("Unauthorized");
   }
 
-  // 2. Create session in DB
-  const token = crypto.randomUUID();
-  const sessionToken = crypto.randomUUID();
-  const expiresAt = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000); // 30 days
-
-  await prisma.session.create({
+  const newCase = await prisma.case.create({
     data: {
-      id: token,
-      token: sessionToken,
-      userId: user.id,
-      expiresAt,
-      ipAddress: "127.0.0.1",
-      userAgent: "Mock Browser"
+      userId: session.user.id,
+      title,
+      status: "open",
+    },
+  });
+
+  const initialEvent = await prisma.caseEvent.create({
+    data: {
+      caseId: newCase.id,
+      userId: session.user.id,
+      eventType: "case_created",
+      summary: "Case was created",
     }
   });
 
-  // 3. Set the cookie
-  const cookieStore = await cookies();
-  cookieStore.set("better-auth.session_token", sessionToken, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    expires: expiresAt,
-    path: "/"
-  });
-
-  redirect("/cases");
+  return {
+    ...newCase,
+    documents: [],
+    messages: [],
+    events: [initialEvent],
+  };
 }
+
+
+
 
