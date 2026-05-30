@@ -89,15 +89,6 @@ export function Navbar() {
       </div>
 
       <div className="flex gap-4 items-center">
-        <button
-          onClick={async () => {
-            const { loginAsMockUser } = await import("@/app/cases/actions");
-            await loginAsMockUser();
-          }}
-          className="hidden md:inline-flex items-center justify-center px-6 py-3 rounded-full border border-gray-300 bg-white text-gray-700 font-body-md text-body-md hover:bg-gray-50 transition-all cursor-pointer font-medium"
-        >
-          Dev Login (Bypass Auth)
-        </button>
 
         <button
           onClick={handleLogin}
