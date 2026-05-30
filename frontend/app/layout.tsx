@@ -1,18 +1,24 @@
 import type { Metadata } from "next";
-import { Instrument_Serif, Urbanist } from "next/font/google";
+import { Instrument_Serif, Inter, Literata } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 
 const instrumentSerif = Instrument_Serif({
-  weight: "400",
-  variable: "--font-serif",
+  weight: ["400"],
+  style: ["normal", "italic"],
+  variable: "--font-instrument",
   subsets: ["latin"],
 });
 
-const urbanist = Urbanist({
-  variable: "--font-sans",
+const inter = Inter({
+  variable: "--font-inter",
+  subsets: ["latin"],
+});
+
+const literata = Literata({
+  variable: "--font-literata",
   subsets: ["latin"],
 });
 
@@ -33,7 +39,7 @@ export default async function RootLayout({
   return (
     <html
       lang="en"
-      className={`${instrumentSerif.variable} ${urbanist.variable} h-full antialiased`}
+      className={`${instrumentSerif.variable} ${inter.variable} ${literata.variable} h-full antialiased`}
     >
       <head>
         <link
@@ -41,8 +47,8 @@ export default async function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className="min-h-full flex flex-col font-sans">
-        <Navbar session={session} />
+      <body className="min-h-full flex flex-col font-body-md text-body-md">
+        <Navbar />
         {children}
       </body>
     </html>

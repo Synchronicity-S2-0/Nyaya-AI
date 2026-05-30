@@ -1,79 +1,145 @@
-export default function ProcessPage() {
+"use client";
+
+import { useEffect, useRef } from "react";
+
+export function ProcessPage() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const lineRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observerOptions = {
+      root: null,
+      rootMargin: "50px",
+      threshold: 0,
+    };
+
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          if (lineRef.current) {
+            lineRef.current.classList.add("scale-x-100");
+            lineRef.current.classList.remove("scale-x-0");
+          }
+
+          const steps = sectionRef.current?.querySelectorAll(".step-item");
+          steps?.forEach((step) => {
+            step.classList.add("opacity-100", "translate-y-0");
+            step.classList.remove("opacity-0", "translate-y-5");
+          });
+
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <main className="min-h-screen bg-[#f9f9fb] dark:bg-neutral-950 pt-[140px] pb-32 selection:bg-black selection:text-white dark:selection:bg-white dark:selection:text-black">
-      
-      {/* Header */}
-      <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop mb-24 text-center animate-fade-rise">
-        <span className="font-sans text-label-md uppercase tracking-[0.25em] text-secondary dark:text-neutral-400 font-semibold block mb-4">
-          Our Process
-        </span>
-        <h1 className="font-serif text-5xl md:text-7xl text-primary dark:text-white mb-6 italic tracking-tight">
-          How Nyaya AI resolves uncertainty.
-        </h1>
-        <p className="font-sans text-body-lg text-secondary dark:text-neutral-400 max-w-2xl mx-auto">
-          A seamless transition from complex documents to definitive legal actions in four simplified procedural phases.
-        </p>
-      </div>
-
-      {/* Process Timeline */}
-      <section className="max-w-4xl mx-auto px-margin-mobile">
-        <div className="relative border-l border-neutral-200 dark:border-neutral-800 ml-4 md:ml-8 space-y-16">
-          
-          {/* Step 1 */}
-          <div className="relative pl-10 md:pl-16 group">
-            <div className="absolute -left-5 top-0 w-10 h-10 rounded-full bg-white dark:bg-neutral-900 border-2 border-primary dark:border-white flex items-center justify-center font-serif text-primary dark:text-white font-semibold transition-transform duration-300 group-hover:scale-105 shadow-md">
-              1
-            </div>
-            <h3 className="font-serif text-2xl md:text-3xl text-primary dark:text-white mb-3">
-              Ingest & Analyze
-            </h3>
-            <p className="font-sans text-body-md text-secondary dark:text-neutral-400 leading-relaxed max-w-xl">
-              Upload your agreement, notice, or correspondence. Our engine immediately parses structure, syntax, and relevant statutes.
+    <main className="bg-background text-on-background antialiased selection:bg-primary selection:text-on-primary min-h-screen pt-[120px] pb-32">
+      <section
+        ref={sectionRef}
+        className="py-section-gap px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto overflow-hidden"
+        id="process"
+      >
+        <div className="mb-24 md:mb-32 grid grid-cols-1 md:grid-cols-2 gap-gutter items-end">
+          <h2 className="font-display-lg-mobile md:font-display-lg text-primary max-w-xl leading-tight">
+            From uncertainty to <br />
+            <i className="italic text-secondary">action.</i>
+          </h2>
+          <div className="flex justify-end">
+            <p className="font-body-lg text-body-lg text-secondary max-w-md">
+              We've distilled the complexity of legal systems into a clear, four-step
+              journey. Nyaya AI provides the clarity needed to navigate notices,
+              contracts, and procedural hurdles with confidence and precision.
             </p>
           </div>
+        </div>
 
-          {/* Step 2 */}
-          <div className="relative pl-10 md:pl-16 group">
-            <div className="absolute -left-5 top-0 w-10 h-10 rounded-full bg-white dark:bg-neutral-900 border-2 border-primary dark:border-white flex items-center justify-center font-serif text-primary dark:text-white font-semibold transition-transform duration-300 group-hover:scale-105 shadow-md">
-              2
+        <div className="relative w-full">
+          {/* Continuous Line (Desktop) */}
+          <div
+            ref={lineRef}
+            className="hidden md:block absolute top-6 left-0 w-full h-[1px] bg-outline-variant origin-left scale-x-0 transition-transform duration-[1500ms] ease-[cubic-bezier(0.25,1,0.5,1)]"
+          ></div>
+
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8 relative z-10">
+            {/* Step 01 */}
+            <div className="step-item opacity-0 translate-y-5 transition-all duration-[800ms] ease-out delay-[200ms] flex flex-row md:flex-col gap-6 md:gap-0">
+              <div className="flex-shrink-0 w-12 md:w-auto md:mb-8">
+                <span className="font-label-md text-label-md text-secondary block md:bg-background md:inline-block md:pr-4">
+                  01
+                </span>
+              </div>
+              <div>
+                <h3 className="font-headline-md text-headline-md text-primary mb-4">
+                  Upload a Document
+                </h3>
+                <p className="font-body-md text-body-md text-secondary">
+                  Upload notices, contracts, FIRs, agreements or legal communications.
+                </p>
+              </div>
             </div>
-            <h3 className="font-serif text-2xl md:text-3xl text-primary dark:text-white mb-3">
-              Detect Risks & Gaps
-            </h3>
-            <p className="font-sans text-body-md text-secondary dark:text-neutral-400 leading-relaxed max-w-xl">
-              Nyaya highlights procedural anomalies, missing verification details, or notice period inconsistencies within seconds.
-            </p>
-          </div>
 
-          {/* Step 3 */}
-          <div className="relative pl-10 md:pl-16 group">
-            <div className="absolute -left-5 top-0 w-10 h-10 rounded-full bg-white dark:bg-neutral-900 border-2 border-primary dark:border-white flex items-center justify-center font-serif text-primary dark:text-white font-semibold transition-transform duration-300 group-hover:scale-105 shadow-md">
-              3
+            {/* Step 02 */}
+            <div className="step-item opacity-0 translate-y-5 transition-all duration-[800ms] ease-out delay-[400ms] flex flex-row md:flex-col gap-6 md:gap-0">
+              <div className="flex-shrink-0 w-12 md:w-auto md:mb-8">
+                <span className="font-label-md text-label-md text-secondary block md:bg-background md:inline-block md:pr-4">
+                  02
+                </span>
+              </div>
+              <div>
+                <h3 className="font-headline-md text-headline-md text-primary mb-4">
+                  Describe Your Situation
+                </h3>
+                <p className="font-body-md text-body-md text-secondary">
+                  Explain your problem in plain language.
+                </p>
+              </div>
             </div>
-            <h3 className="font-serif text-2xl md:text-3xl text-primary dark:text-white mb-3">
-              Draft & Synthesize
-            </h3>
-            <p className="font-sans text-body-md text-secondary dark:text-neutral-400 leading-relaxed max-w-xl">
-              Access automatically populated response drafts, customize parameters, or generate tailored counter-proposals with a single click.
-            </p>
-          </div>
 
-          {/* Step 4 */}
-          <div className="relative pl-10 md:pl-16 group">
-            <div className="absolute -left-5 top-0 w-10 h-10 rounded-full bg-white dark:bg-neutral-900 border-2 border-primary dark:border-white flex items-center justify-center font-serif text-primary dark:text-white font-semibold transition-transform duration-300 group-hover:scale-105 shadow-md">
-              4
+            {/* Step 03 */}
+            <div className="step-item opacity-0 translate-y-5 transition-all duration-[800ms] ease-out delay-[600ms] flex flex-row md:flex-col gap-6 md:gap-0">
+              <div className="flex-shrink-0 w-12 md:w-auto md:mb-8">
+                <span className="font-label-md text-label-md text-secondary block md:bg-background md:inline-block md:pr-4">
+                  03
+                </span>
+              </div>
+              <div>
+                <h3 className="font-headline-md text-headline-md text-primary mb-4">
+                  Understand Your Position
+                </h3>
+                <p className="font-body-md text-body-md text-secondary">
+                  Receive risks, protections and procedural guidance.
+                </p>
+              </div>
             </div>
-            <h3 className="font-serif text-2xl md:text-3xl text-primary dark:text-white mb-3">
-              Resolve & Archive
-            </h3>
-            <p className="font-sans text-body-md text-secondary dark:text-neutral-400 leading-relaxed max-w-xl">
-              Track case milestones on a persistent timeline. Store history securely within your editorial legal dashboard.
-            </p>
-          </div>
 
+            {/* Step 04 */}
+            <div className="step-item opacity-0 translate-y-5 transition-all duration-[800ms] ease-out delay-[800ms] flex flex-row md:flex-col gap-6 md:gap-0">
+              <div className="flex-shrink-0 w-12 md:w-auto md:mb-8">
+                <span className="font-label-md text-label-md text-secondary block md:bg-background md:inline-block md:pr-4">
+                  04
+                </span>
+              </div>
+              <div>
+                <h3 className="font-headline-md text-headline-md text-primary mb-4">
+                  Take Action
+                </h3>
+                <p className="font-body-md text-body-md text-secondary">
+                  Generate responses and next-step documents.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
-
     </main>
   );
 }
+
+export default ProcessPage;
