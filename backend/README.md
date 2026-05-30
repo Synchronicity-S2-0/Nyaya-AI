@@ -35,6 +35,8 @@ Open:
 
 - API docs: `http://127.0.0.1:8000/docs`
 - Health: `http://127.0.0.1:8000/health`
+- AI config check: `http://127.0.0.1:8000/health/ai`
+- Live Gemini check: `http://127.0.0.1:8000/health/ai?live=true`
 
 ## Test Orchestration
 
@@ -63,6 +65,8 @@ Case-aware endpoints:
 - `POST /api/v1/cases/{case_id}/messages`
 
 If Supabase env vars are missing, the backend uses in-memory case storage for local tests only.
+
+For Gemini on Railway, set `GEMINI_API_KEY` and use `GEMINI_MODEL=gemini-2.5-flash` unless you intentionally choose another supported Gemini model. If analysis still falls back, open `/health/ai?live=true` to see the live Gemini status without exposing secrets.
 
 ## Local Knowledge Grounding
 

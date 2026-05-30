@@ -196,8 +196,8 @@ class ExtractionAgent:
                 }
             ],
             "generationConfig": {
-                "response_mime_type": "application/json",
-                "response_schema": schema,
+                "responseMimeType": "application/json",
+                "responseJsonSchema": schema,
                 "temperature": 0.1
             }
         }
