@@ -361,19 +361,6 @@ export function AuthForm() {
         )}
         Continue with Google
       </Button>
-
-      <p className="mt-5 text-center text-sm text-secondary md:text-base">
-        {copy.switchPrompt}{" "}
-        <button
-          type="button"
-          onClick={() =>
-            handleModeChange(mode === "signup" ? "signin" : "signup")
-          }
-          className="font-medium text-primary underline-offset-4 hover:underline"
-        >
-          {copy.switchAction}
-        </button>
-      </p>
     </div>
   );
 }
