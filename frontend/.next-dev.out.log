@@ -375,3 +375,136 @@
  GET /signup 200 in 241ms (next.js: 177ms, application-code: 64ms)
 ✓ Compiled in 171ms
  GET /signup 200 in 214ms (next.js: 136ms, application-code: 78ms)
+ GET / 200 in 1010ms (next.js: 272ms, application-code: 738ms)
+ GET /signup 200 in 92ms (next.js: 39ms, application-code: 53ms)
+ POST /api/auth/sign-in/social 200 in 3.7s (next.js: 135ms, application-code: 3.5s)
+ GET /api/auth/callback/google?state=Uq1oGfMmTBmrLX406JVFzeQdEP6qlO8v&iss=https%3A%2F%2Faccounts.google.com&code=4%2F0AeoWuM9BZleH8JblLDDcDxfHKRc7zKagzl6tOxNoazGe3XaHfqMynfdJHoiHYG2uGfBHQA&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+openid&authuser=0&prompt=none 302 in 3.1s (next.js: 17ms, application-code: 3.0s)
+ GET /cases 200 in 4.2s (next.js: 316ms, application-code: 3.9s)
+ GET /cases 200 in 4.2s (next.js: 5ms, application-code: 4.2s)
+✓ Compiled in 1115ms
+ GET /cases 200 in 5.2s (next.js: 599ms, application-code: 4.6s)
+✓ Compiled in 1674ms
+ GET /cases 200 in 3.9s (next.js: 1849ms, application-code: 2.0s)
+✓ Compiled in 1634ms
+ GET /cases 200 in 4.2s (next.js: 401ms, application-code: 3.8s)
+✓ Compiled in 1747ms
+ GET /cases 200 in 1825ms (next.js: 315ms, application-code: 1510ms)
+✓ Compiled in 636ms
+✓ Compiled in 814ms
+ GET /cases 200 in 5.5s (next.js: 450ms, application-code: 5.1s)
+ GET /cases 200 in 5.1s (next.js: 378ms, application-code: 4.7s)
+✓ Compiled in 1862ms
+ GET /cases 200 in 2.2s (next.js: 544ms, application-code: 1669ms)
+✓ Compiled in 936ms
+ GET /cases 200 in 2.3s (next.js: 649ms, application-code: 1657ms)
+✓ Compiled in 691ms
+ GET /cases 200 in 2.2s (next.js: 611ms, application-code: 1623ms)
+✓ Compiled in 977ms
+✓ Compiled in 809ms
+ GET /cases 200 in 2.8s (next.js: 1137ms, application-code: 1698ms)
+ GET /cases 200 in 3.6s (next.js: 2ms, application-code: 3.6s)
+✓ Compiled in 648ms
+✓ Compiled in 1051ms
+ GET /cases 200 in 4.6s (next.js: 731ms, application-code: 3.9s)
+ GET /cases 200 in 3.6s (next.js: 239ms, application-code: 3.4s)
+✓ Compiled in 608ms
+ GET /cases 200 in 2.1s (next.js: 481ms, application-code: 1605ms)
+✓ Compiled in 777ms
+ GET /cases 200 in 2.9s (next.js: 527ms, application-code: 2.4s)
+✓ Compiled in 867ms
+✓ Compiled in 613ms
+ GET /cases 200 in 6.4s (next.js: 531ms, application-code: 5.9s)
+ GET /cases 200 in 2.1s (next.js: 555ms, application-code: 1571ms)
+✓ Compiled in 1048ms
+ GET /cases 200 in 2.0s (next.js: 582ms, application-code: 1467ms)
+✓ Compiled in 1247ms
+ GET /cases 200 in 3.7s (next.js: 313ms, application-code: 3.4s)
+✓ Compiled in 1308ms
+✓ Compiled in 1223ms
+ GET /cases 200 in 6.5s (next.js: 1761ms, application-code: 4.7s)
+ GET /cases 200 in 4.7s (next.js: 605ms, application-code: 4.1s)
+✓ Compiled in 1697ms
+ GET /cases 200 in 2.4s (next.js: 532ms, application-code: 1897ms)
+✓ Compiled in 2.1s
+ GET /cases 200 in 5.0s (next.js: 689ms, application-code: 4.3s)
+✓ Compiled in 1329ms
+✓ Compiled in 1443ms
+✓ Compiled in 24ms
+ GET /cases 200 in 8.5s (next.js: 954ms, application-code: 7.6s)
+ GET /cases 200 in 10.2s (next.js: 1673ms, application-code: 8.5s)
+✓ Compiled in 1327ms
+ GET /cases 200 in 11.3s (next.js: 3.1s, application-code: 8.2s)
+ GET /cases 200 in 12.3s (next.js: 1160ms, application-code: 11.2s)
+ GET /cases 200 in 12.3s (next.js: 2.9s, application-code: 9.4s)
+ GET /cases 200 in 4.9s (next.js: 11ms, application-code: 4.9s)
+ GET /cases 200 in 2.5s (next.js: 619ms, application-code: 1880ms)
+ GET /cases 200 in 10.1s (next.js: 856ms, application-code: 9.2s)
+✓ Compiled in 853ms
+✓ Compiled in 1175ms
+ GET /cases 200 in 3.8s (next.js: 564ms, application-code: 3.3s)
+ GET /cases 200 in 2.4s (next.js: 637ms, application-code: 1793ms)
+✓ Compiled in 821ms
+✓ Compiled in 862ms
+ GET /cases 200 in 3.1s (next.js: 454ms, application-code: 2.7s)
+ GET /cases 200 in 2.2s (next.js: 628ms, application-code: 1556ms)
+✓ Compiled in 843ms
+✓ Compiled in 1183ms
+✓ Compiled in 2.4s
+✓ Compiled in 1873ms
+ GET /cases 200 in 9.7s (next.js: 2.2s, application-code: 7.5s)
+ GET /cases 200 in 9.7s (next.js: 2.0s, application-code: 7.7s)
+ GET /cases 200 in 17.2s (next.js: 472ms, application-code: 16.7s)
+ GET /cases 200 in 13.3s (next.js: 2.6s, application-code: 10.7s)
+ GET /cases 200 in 7.0s (next.js: 2.5s, application-code: 4.5s)
+ GET /cases 200 in 1842ms (next.js: 10ms, application-code: 1832ms)
+ GET /cases 200 in 1992ms (next.js: 163ms, application-code: 1829ms)
+ GET /cases 200 in 6.8s (next.js: 550ms, application-code: 6.2s)
+✓ Compiled in 770ms
+ GET /cases 200 in 2.4s (next.js: 679ms, application-code: 1728ms)
+✓ Compiled in 843ms
+ GET /cases 200 in 2.1s (next.js: 666ms, application-code: 1387ms)
+✓ Compiled in 210ms
+ GET /cases 200 in 1646ms (next.js: 285ms, application-code: 1361ms)
+✓ Compiled in 311ms
+ GET /cases 200 in 1595ms (next.js: 321ms, application-code: 1274ms)
+✓ Compiled in 445ms
+ GET /cases 200 in 1617ms (next.js: 299ms, application-code: 1318ms)
+✓ Compiled in 294ms
+ GET /cases 200 in 1900ms (next.js: 289ms, application-code: 1611ms)
+✓ Compiled in 359ms
+ GET /cases 200 in 1671ms (next.js: 247ms, application-code: 1424ms)
+✓ Compiled in 639ms
+ GET /cases 200 in 2.1s (next.js: 478ms, application-code: 1624ms)
+✓ Compiled in 1441ms
+✓ Compiled in 1044ms
+ GET /cases 200 in 5.4s (next.js: 824ms, application-code: 4.6s)
+ GET /cases 200 in 5.8s (next.js: 525ms, application-code: 5.3s)
+✓ Compiled in 290ms
+ GET /cases 200 in 2.3s (next.js: 713ms, application-code: 1582ms)
+✓ Compiled in 1088ms
+ GET /cases 200 in 3.5s (next.js: 569ms, application-code: 3.0s)
+✓ Compiled in 1710ms
+ GET /cases 200 in 2.5s (next.js: 704ms, application-code: 1825ms)
+✓ Compiled in 2.3s
+ GET /cases 200 in 4.7s (next.js: 803ms, application-code: 3.9s)
+ GET / 200 in 2.9s (next.js: 23ms, application-code: 2.8s)
+✓ Compiled in 743ms
+ GET /cases 200 in 3.1s (next.js: 335ms, application-code: 2.8s)
+✓ Compiled in 781ms
+ GET /cases 200 in 3.5s (next.js: 464ms, application-code: 3.1s)
+✓ Compiled in 616ms
+ GET /cases 200 in 1934ms (next.js: 474ms, application-code: 1460ms)
+✓ Compiled in 761ms
+ GET /cases 200 in 4.8s (next.js: 483ms, application-code: 4.3s)
+✓ Compiled in 657ms
+ GET /cases 500 in 196ms (next.js: 155ms, application-code: 40ms)
+ GET /cases 500 in 60ms (next.js: 38ms, application-code: 22ms)
+ GET /cases 500 in 34ms (next.js: 15ms, application-code: 19ms)
+ GET /cases 500 in 34ms (next.js: 27ms, application-code: 7ms)
+ GET /cases 500 in 116ms (next.js: 95ms, application-code: 21ms)
+✓ Compiled in 2.5s
+ GET /cases 200 in 6.9s (next.js: 366ms, application-code: 6.5s)
+✓ Compiled in 1723ms
+ GET /cases 200 in 2.6s (next.js: 528ms, application-code: 2.0s)
+ GET /cases 200 in 2.7s (next.js: 70ms, application-code: 2.6s)
+ GET /cases? 200 in 2.3s (next.js: 2ms, application-code: 2.3s)

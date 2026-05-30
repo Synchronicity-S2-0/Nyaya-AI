@@ -1680,3 +1680,937 @@ Debug info:
 - CJS module can't be async. 
 [browser] Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
 [browser] Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+[browser] Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+2026-05-30T23:12:54.276Z ERROR [Better Auth]: INTERNAL_SERVER_ERROR Error: Connection terminated due to connection timeout
+    at async CasesDashboard (app\cases\page.tsx:8:19)
+   6 |
+   7 | export default async function CasesDashboard() {
+>  8 |   const session = await auth.api.getSession({
+     |                   ^
+   9 |     headers: await headers(),
+  10 |   });
+  11 | {
+  clientVersion: '7.8.0',
+  [cause]: Error: Connection terminated unexpectedly
+      at ignore-listed frames
+}
+2026-05-30T23:12:54.682Z ERROR [Better Auth]: INTERNAL_SERVER_ERROR Error: Connection terminated due to connection timeout
+    at async RootLayout (app\layout.tsx:35:19)
+  33 |   children: React.ReactNode;
+  34 | }>) {
+> 35 |   const session = await auth.api.getSession({
+     |                   ^
+  36 |     headers: await headers(),
+  37 |   });
+  38 | {
+  clientVersion: '7.8.0',
+  [cause]: Error: Connection terminated unexpectedly
+      at ignore-listed frames
+}
+2026-05-30T23:12:54.875Z ERROR [Better Auth]: INTERNAL_SERVER_ERROR Error: Connection terminated due to connection timeout
+    at async CasesLayout (app\cases\layout.tsx:10:19)
+   8 |   children: React.ReactNode;
+   9 | }) {
+> 10 |   const session = await auth.api.getSession({
+     |                   ^
+  11 |     headers: await headers(),
+  12 |   });
+  13 | {
+  clientVersion: '7.8.0',
+  [cause]: Error: Connection terminated unexpectedly
+      at ignore-listed frames
+}
+⨯ [Error [APIError]: Failed to get session] {
+  status: 'INTERNAL_SERVER_ERROR',
+  body: { message: 'Failed to get session', code: 'FAILED_TO_GET_SESSION' },
+  headers: {},
+  statusCode: 500,
+  digest: '3914836991'
+}
+⨯ [Error [APIError]: Failed to get session] {
+  status: 'INTERNAL_SERVER_ERROR',
+  body: { message: 'Failed to get session', code: 'FAILED_TO_GET_SESSION' },
+  headers: {},
+  statusCode: 500,
+  digest: '3914836991'
+}
+⨯ [Error [APIError]: Failed to get session] {
+  status: 'INTERNAL_SERVER_ERROR',
+  body: { message: 'Failed to get session', code: 'FAILED_TO_GET_SESSION' },
+  headers: {},
+  statusCode: 500,
+  digest: '3914836991'
+}
+2026-05-30T23:12:56.598Z ERROR [Better Auth]: INTERNAL_SERVER_ERROR Error: Connection terminated due to connection timeout
+    at async CasesLayout (app\cases\layout.tsx:10:19)
+   8 |   children: React.ReactNode;
+   9 | }) {
+> 10 |   const session = await auth.api.getSession({
+     |                   ^
+  11 |     headers: await headers(),
+  12 |   });
+  13 | {
+  clientVersion: '7.8.0',
+  [cause]: Error: Connection terminated unexpectedly
+      at ignore-listed frames
+}
+2026-05-30T23:12:57.911Z ERROR [Better Auth]: INTERNAL_SERVER_ERROR Error: Connection terminated due to connection timeout
+    at async CasesDashboard (app\cases\page.tsx:8:19)
+   6 |
+   7 | export default async function CasesDashboard() {
+>  8 |   const session = await auth.api.getSession({
+     |                   ^
+   9 |     headers: await headers(),
+  10 |   });
+  11 | {
+  clientVersion: '7.8.0',
+  [cause]: Error: Connection terminated unexpectedly
+      at ignore-listed frames
+}
+2026-05-30T23:12:58.225Z ERROR [Better Auth]: INTERNAL_SERVER_ERROR Error: Connection terminated due to connection timeout
+    at async RootLayout (app\layout.tsx:35:19)
+  33 |   children: React.ReactNode;
+  34 | }>) {
+> 35 |   const session = await auth.api.getSession({
+     |                   ^
+  36 |     headers: await headers(),
+  37 |   });
+  38 | {
+  clientVersion: '7.8.0',
+  [cause]: Error: Connection terminated unexpectedly
+      at ignore-listed frames
+}
+⨯ [Error [APIError]: Failed to get session] {
+  status: 'INTERNAL_SERVER_ERROR',
+  body: { message: 'Failed to get session', code: 'FAILED_TO_GET_SESSION' },
+  headers: {},
+  statusCode: 500,
+  digest: '3914836991'
+}
+⨯ [Error [APIError]: Failed to get session] {
+  status: 'INTERNAL_SERVER_ERROR',
+  body: { message: 'Failed to get session', code: 'FAILED_TO_GET_SESSION' },
+  headers: {},
+  statusCode: 500,
+  digest: '3914836991'
+}
+⨯ [Error [APIError]: Failed to get session] {
+  status: 'INTERNAL_SERVER_ERROR',
+  body: { message: 'Failed to get session', code: 'FAILED_TO_GET_SESSION' },
+  headers: {},
+  statusCode: 500,
+  digest: '3914836991'
+}
+2026-05-30T23:13:00.273Z ERROR [Better Auth]: INTERNAL_SERVER_ERROR Error: timeout exceeded when trying to connect
+    at async CasesLayout (app\cases\layout.tsx:10:19)
+   8 |   children: React.ReactNode;
+   9 | }) {
+> 10 |   const session = await auth.api.getSession({
+     |                   ^
+  11 |     headers: await headers(),
+  12 |   });
+  13 | {
+  clientVersion: '7.8.0'
+}
+⨯ [Error [APIError]: Failed to get session] {
+  status: 'INTERNAL_SERVER_ERROR',
+  body: { message: 'Failed to get session', code: 'FAILED_TO_GET_SESSION' },
+  headers: {},
+  statusCode: 500,
+  digest: '3914836991'
+}
+2026-05-30T23:13:00.755Z ERROR [Better Auth]: INTERNAL_SERVER_ERROR Error: timeout exceeded when trying to connect
+    at async CasesDashboard (app\cases\page.tsx:8:19)
+   6 |
+   7 | export default async function CasesDashboard() {
+>  8 |   const session = await auth.api.getSession({
+     |                   ^
+   9 |     headers: await headers(),
+  10 |   });
+  11 | {
+  clientVersion: '7.8.0'
+}
+⨯ [Error [APIError]: Failed to get session] {
+  status: 'INTERNAL_SERVER_ERROR',
+  body: { message: 'Failed to get session', code: 'FAILED_TO_GET_SESSION' },
+  headers: {},
+  statusCode: 500,
+  digest: '3914836991'
+}
+2026-05-30T23:14:47.772Z ERROR [Better Auth]: INTERNAL_SERVER_ERROR Error: Connection terminated due to connection timeout
+    at async CasesDashboard (app\cases\page.tsx:8:19)
+   6 |
+   7 | export default async function CasesDashboard() {
+>  8 |   const session = await auth.api.getSession({
+     |                   ^
+   9 |     headers: await headers(),
+  10 |   });
+  11 | {
+  clientVersion: '7.8.0',
+  [cause]: Error: Connection terminated unexpectedly
+      at ignore-listed frames
+}
+2026-05-30T23:14:48.052Z ERROR [Better Auth]: INTERNAL_SERVER_ERROR Error: Connection terminated due to connection timeout
+    at async CasesLayout (app\cases\layout.tsx:10:19)
+   8 |   children: React.ReactNode;
+   9 | }) {
+> 10 |   const session = await auth.api.getSession({
+     |                   ^
+  11 |     headers: await headers(),
+  12 |   });
+  13 | {
+  clientVersion: '7.8.0',
+  [cause]: Error: Connection terminated unexpectedly
+      at ignore-listed frames
+}
+2026-05-30T23:14:48.188Z ERROR [Better Auth]: INTERNAL_SERVER_ERROR Error: Connection terminated due to connection timeout
+    at async RootLayout (app\layout.tsx:35:19)
+  33 |   children: React.ReactNode;
+  34 | }>) {
+> 35 |   const session = await auth.api.getSession({
+     |                   ^
+  36 |     headers: await headers(),
+  37 |   });
+  38 | {
+  clientVersion: '7.8.0',
+  [cause]: Error: Connection terminated unexpectedly
+      at ignore-listed frames
+}
+⨯ [Error [APIError]: Failed to get session] {
+  status: 'INTERNAL_SERVER_ERROR',
+  body: { message: 'Failed to get session', code: 'FAILED_TO_GET_SESSION' },
+  headers: {},
+  statusCode: 500,
+  digest: '3914836991'
+}
+⨯ [Error [APIError]: Failed to get session] {
+  status: 'INTERNAL_SERVER_ERROR',
+  body: { message: 'Failed to get session', code: 'FAILED_TO_GET_SESSION' },
+  headers: {},
+  statusCode: 500,
+  digest: '3914836991'
+}
+⨯ [Error [APIError]: Failed to get session] {
+  status: 'INTERNAL_SERVER_ERROR',
+  body: { message: 'Failed to get session', code: 'FAILED_TO_GET_SESSION' },
+  headers: {},
+  statusCode: 500,
+  digest: '3914836991'
+}
+⨯ ./components/cases/UnifiedCasesWorkspace.tsx:601:16
+Unterminated regexp literal
+  [90m599 |[0m                   )}
+  [90m600 |[0m                 </div>
+[31m[1m>[0m [90m601 |[0m               </div>
+  [90m    |[0m                [31m[1m^^^^^[0m
+  [90m602 |[0m             </>
+  [90m603 |[0m           )}
+  [90m604 |[0m         </div>
+
+Parsing ecmascript source code failed
+
+Import trace:
+  Server Component:
+    ./components/cases/UnifiedCasesWorkspace.tsx
+    ./app/cases/page.tsx
+
+
+
+./components/cases/UnifiedCasesWorkspace.tsx:601:16
+Unterminated regexp literal
+  [90m599 |[0m                   )}
+  [90m600 |[0m                 </div>
+[31m[1m>[0m [90m601 |[0m               </div>
+  [90m    |[0m                [31m[1m^^^^^[0m
+  [90m602 |[0m             </>
+  [90m603 |[0m           )}
+  [90m604 |[0m         </div>
+
+Parsing ecmascript source code failed
+
+Generated code of loaders [next/dist/build/babel/loader] transform of file content of components/cases/UnifiedCasesWorkspace.tsx:
+./components/cases/UnifiedCasesWorkspace.tsx:601:16
+  [90m599 |[0m                   )}
+  [90m600 |[0m                 </div>
+[31m[1m>[0m [90m601 |[0m               </div>
+  [90m    |[0m                [31m[1m^^^^^[0m
+  [90m602 |[0m             </>
+  [90m603 |[0m           )}
+  [90m604 |[0m         </div>
+
+Import trace:
+  Server Component:
+    ./components/cases/UnifiedCasesWorkspace.tsx
+    ./app/cases/page.tsx
+
+
+
+./components/cases/UnifiedCasesWorkspace.tsx
+Code generation for chunk item errored
+An error occurred while generating the chunk item [project]/components/cases/UnifiedCasesWorkspace.tsx [app-ssr] (ecmascript)
+
+Caused by:
+- CJS module can't be async.
+
+Debug info:
+- An error occurred while generating the chunk item [project]/components/cases/UnifiedCasesWorkspace.tsx [app-ssr] (ecmascript)
+- Execution of <EcmascriptModuleAsset as EcmascriptChunkPlaceable>::chunk_item_content failed
+- Execution of EcmascriptChunkItemContent::new failed
+- CJS module can't be async.
+
+Import trace:
+  Server Component:
+    ./components/cases/UnifiedCasesWorkspace.tsx
+    ./app/cases/page.tsx
+
+
+[browser] ./components/cases/UnifiedCasesWorkspace.tsx:601:16
+Unterminated regexp literal
+  599 |                   )}
+  600 |                 </div>
+> 601 |               </div>
+      |                ^^^^^
+  602 |             </>
+  603 |           )}
+  604 |         </div>
+
+Parsing ecmascript source code failed
+
+Generated code of loaders [next/dist/build/babel/loader] transform of file content of components/cases/UnifiedCasesWorkspace.tsx:
+./components/cases/UnifiedCasesWorkspace.tsx:601:16
+  599 |                   )}
+  600 |                 </div>
+> 601 |               </div>
+      |                ^^^^^
+  602 |             </>
+  603 |           )}
+  604 |         </div>
+
+Import trace:
+  Server Component:
+    ./components/cases/UnifiedCasesWorkspace.tsx
+    ./app/cases/page.tsx 
+[browser] ./components/cases/UnifiedCasesWorkspace.tsx
+Code generation for chunk item errored
+An error occurred while generating the chunk item [project]/components/cases/UnifiedCasesWorkspace.tsx [app-ssr] (ecmascript)
+
+Caused by:
+- CJS module can't be async.
+
+Debug info:
+- An error occurred while generating the chunk item [project]/components/cases/UnifiedCasesWorkspace.tsx [app-ssr] (ecmascript)
+- Execution of <EcmascriptModuleAsset as EcmascriptChunkPlaceable>::chunk_item_content failed
+- Execution of EcmascriptChunkItemContent::new failed
+- CJS module can't be async.
+
+Import trace:
+  Server Component:
+    ./components/cases/UnifiedCasesWorkspace.tsx
+    ./app/cases/page.tsx 
+⨯ ./components/cases/UnifiedCasesWorkspace.tsx:601:16
+Unterminated regexp literal
+  [90m599 |[0m                   )}
+  [90m600 |[0m                 </div>
+[31m[1m>[0m [90m601 |[0m               </div>
+  [90m    |[0m                [31m[1m^^^^^[0m
+  [90m602 |[0m             </>
+  [90m603 |[0m           )}
+  [90m604 |[0m         </div>
+
+Parsing ecmascript source code failed
+
+Import trace:
+  Server Component:
+    ./components/cases/UnifiedCasesWorkspace.tsx
+    ./app/cases/page.tsx
+
+
+
+./components/cases/UnifiedCasesWorkspace.tsx:601:16
+Unterminated regexp literal
+  [90m599 |[0m                   )}
+  [90m600 |[0m                 </div>
+[31m[1m>[0m [90m601 |[0m               </div>
+  [90m    |[0m                [31m[1m^^^^^[0m
+  [90m602 |[0m             </>
+  [90m603 |[0m           )}
+  [90m604 |[0m         </div>
+
+Parsing ecmascript source code failed
+
+Generated code of loaders [next/dist/build/babel/loader] transform of file content of components/cases/UnifiedCasesWorkspace.tsx:
+./components/cases/UnifiedCasesWorkspace.tsx:601:16
+  [90m599 |[0m                   )}
+  [90m600 |[0m                 </div>
+[31m[1m>[0m [90m601 |[0m               </div>
+  [90m    |[0m                [31m[1m^^^^^[0m
+  [90m602 |[0m             </>
+  [90m603 |[0m           )}
+  [90m604 |[0m         </div>
+
+Import trace:
+  Server Component:
+    ./components/cases/UnifiedCasesWorkspace.tsx
+    ./app/cases/page.tsx
+
+
+
+./components/cases/UnifiedCasesWorkspace.tsx
+Code generation for chunk item errored
+An error occurred while generating the chunk item [project]/components/cases/UnifiedCasesWorkspace.tsx [app-ssr] (ecmascript)
+
+Caused by:
+- CJS module can't be async.
+
+Debug info:
+- An error occurred while generating the chunk item [project]/components/cases/UnifiedCasesWorkspace.tsx [app-ssr] (ecmascript)
+- Execution of <EcmascriptModuleAsset as EcmascriptChunkPlaceable>::chunk_item_content failed
+- Execution of EcmascriptChunkItemContent::new failed
+- CJS module can't be async.
+
+Import trace:
+  Server Component:
+    ./components/cases/UnifiedCasesWorkspace.tsx
+    ./app/cases/page.tsx
+
+
+⨯ ./components/cases/UnifiedCasesWorkspace.tsx:601:16
+Unterminated regexp literal
+  [90m599 |[0m                   )}
+  [90m600 |[0m                 </div>
+[31m[1m>[0m [90m601 |[0m               </div>
+  [90m    |[0m                [31m[1m^^^^^[0m
+  [90m602 |[0m             </>
+  [90m603 |[0m           )}
+  [90m604 |[0m         </div>
+
+Parsing ecmascript source code failed
+
+Import trace:
+  Server Component:
+    ./components/cases/UnifiedCasesWorkspace.tsx
+    ./app/cases/page.tsx
+
+
+
+./components/cases/UnifiedCasesWorkspace.tsx:601:16
+Unterminated regexp literal
+  [90m599 |[0m                   )}
+  [90m600 |[0m                 </div>
+[31m[1m>[0m [90m601 |[0m               </div>
+  [90m    |[0m                [31m[1m^^^^^[0m
+  [90m602 |[0m             </>
+  [90m603 |[0m           )}
+  [90m604 |[0m         </div>
+
+Parsing ecmascript source code failed
+
+Generated code of loaders [next/dist/build/babel/loader] transform of file content of components/cases/UnifiedCasesWorkspace.tsx:
+./components/cases/UnifiedCasesWorkspace.tsx:601:16
+  [90m599 |[0m                   )}
+  [90m600 |[0m                 </div>
+[31m[1m>[0m [90m601 |[0m               </div>
+  [90m    |[0m                [31m[1m^^^^^[0m
+  [90m602 |[0m             </>
+  [90m603 |[0m           )}
+  [90m604 |[0m         </div>
+
+Import trace:
+  Server Component:
+    ./components/cases/UnifiedCasesWorkspace.tsx
+    ./app/cases/page.tsx
+
+
+
+./components/cases/UnifiedCasesWorkspace.tsx
+Code generation for chunk item errored
+An error occurred while generating the chunk item [project]/components/cases/UnifiedCasesWorkspace.tsx [app-ssr] (ecmascript)
+
+Caused by:
+- CJS module can't be async.
+
+Debug info:
+- An error occurred while generating the chunk item [project]/components/cases/UnifiedCasesWorkspace.tsx [app-ssr] (ecmascript)
+- Execution of <EcmascriptModuleAsset as EcmascriptChunkPlaceable>::chunk_item_content failed
+- Execution of EcmascriptChunkItemContent::new failed
+- CJS module can't be async.
+
+Import trace:
+  Server Component:
+    ./components/cases/UnifiedCasesWorkspace.tsx
+    ./app/cases/page.tsx
+
+
+⨯ ./components/cases/UnifiedCasesWorkspace.tsx:601:16
+Unterminated regexp literal
+  [90m599 |[0m                   )}
+  [90m600 |[0m                 </div>
+[31m[1m>[0m [90m601 |[0m               </div>
+  [90m    |[0m                [31m[1m^^^^^[0m
+  [90m602 |[0m             </>
+  [90m603 |[0m           )}
+  [90m604 |[0m         </div>
+
+Parsing ecmascript source code failed
+
+Import trace:
+  Server Component:
+    ./components/cases/UnifiedCasesWorkspace.tsx
+    ./app/cases/page.tsx
+
+
+
+./components/cases/UnifiedCasesWorkspace.tsx:601:16
+Unterminated regexp literal
+  [90m599 |[0m                   )}
+  [90m600 |[0m                 </div>
+[31m[1m>[0m [90m601 |[0m               </div>
+  [90m    |[0m                [31m[1m^^^^^[0m
+  [90m602 |[0m             </>
+  [90m603 |[0m           )}
+  [90m604 |[0m         </div>
+
+Parsing ecmascript source code failed
+
+Generated code of loaders [next/dist/build/babel/loader] transform of file content of components/cases/UnifiedCasesWorkspace.tsx:
+./components/cases/UnifiedCasesWorkspace.tsx:601:16
+  [90m599 |[0m                   )}
+  [90m600 |[0m                 </div>
+[31m[1m>[0m [90m601 |[0m               </div>
+  [90m    |[0m                [31m[1m^^^^^[0m
+  [90m602 |[0m             </>
+  [90m603 |[0m           )}
+  [90m604 |[0m         </div>
+
+Import trace:
+  Server Component:
+    ./components/cases/UnifiedCasesWorkspace.tsx
+    ./app/cases/page.tsx
+
+
+
+./components/cases/UnifiedCasesWorkspace.tsx
+Code generation for chunk item errored
+An error occurred while generating the chunk item [project]/components/cases/UnifiedCasesWorkspace.tsx [app-ssr] (ecmascript)
+
+Caused by:
+- CJS module can't be async.
+
+Debug info:
+- An error occurred while generating the chunk item [project]/components/cases/UnifiedCasesWorkspace.tsx [app-ssr] (ecmascript)
+- Execution of <EcmascriptModuleAsset as EcmascriptChunkPlaceable>::chunk_item_content failed
+- Execution of EcmascriptChunkItemContent::new failed
+- CJS module can't be async.
+
+Import trace:
+  Server Component:
+    ./components/cases/UnifiedCasesWorkspace.tsx
+    ./app/cases/page.tsx
+
+
+[browser] Uncaught Error: ./components/cases/UnifiedCasesWorkspace.tsx:601:16
+Unterminated regexp literal
+  599 |                   )}
+  600 |                 </div>
+> 601 |               </div>
+      |                ^^^^^
+  602 |             </>
+  603 |           )}
+  604 |         </div>
+
+Parsing ecmascript source code failed
+
+Generated code of loaders [next/dist/build/babel/loader] transform of file content of components/cases/UnifiedCasesWorkspace.tsx:
+./components/cases/UnifiedCasesWorkspace.tsx:601:16
+  599 |                   )}
+  600 |                 </div>
+> 601 |               </div>
+      |                ^^^^^
+  602 |             </>
+  603 |           )}
+  604 |         </div>
+
+Import trace:
+  Server Component:
+    ./components/cases/UnifiedCasesWorkspace.tsx
+    ./app/cases/page.tsx
+
+
+    at <unknown> (Error: ./components/cases/UnifiedCasesWorkspace.tsx:601:16)
+    at <unknown> (./components/cases/UnifiedCasesWorkspace.tsx:601:16)
+    at <unknown> (Error: (./components/cases/UnifiedCasesWorkspace.tsx:601:16)
+    at <unknown> (./components/cases/UnifiedCasesWorkspace.tsx:601:16)
+[browser] ./components/cases/UnifiedCasesWorkspace.tsx:601:16
+Unterminated regexp literal
+  599 |                   )}
+  600 |                 </div>
+> 601 |               </div>
+      |                ^^^^^
+  602 |             </>
+  603 |           )}
+  604 |         </div>
+
+Parsing ecmascript source code failed
+
+Generated code of loaders [next/dist/build/babel/loader] transform of file content of components/cases/UnifiedCasesWorkspace.tsx:
+./components/cases/UnifiedCasesWorkspace.tsx:601:16
+  599 |                   )}
+  600 |                 </div>
+> 601 |               </div>
+      |                ^^^^^
+  602 |             </>
+  603 |           )}
+  604 |         </div>
+
+Import trace:
+  Server Component:
+    ./components/cases/UnifiedCasesWorkspace.tsx
+    ./app/cases/page.tsx 
+[browser] ./components/cases/UnifiedCasesWorkspace.tsx
+Code generation for chunk item errored
+An error occurred while generating the chunk item [project]/components/cases/UnifiedCasesWorkspace.tsx [app-ssr] (ecmascript)
+
+Caused by:
+- CJS module can't be async.
+
+Debug info:
+- An error occurred while generating the chunk item [project]/components/cases/UnifiedCasesWorkspace.tsx [app-ssr] (ecmascript)
+- Execution of <EcmascriptModuleAsset as EcmascriptChunkPlaceable>::chunk_item_content failed
+- Execution of EcmascriptChunkItemContent::new failed
+- CJS module can't be async.
+
+Import trace:
+  Server Component:
+    ./components/cases/UnifiedCasesWorkspace.tsx
+    ./app/cases/page.tsx 
+[browser] ./components/cases/UnifiedCasesWorkspace.tsx:601:16
+Unterminated regexp literal
+  599 |                   )}
+  600 |                 </div>
+> 601 |               </div>
+      |                ^^^^^
+  602 |             </>
+  603 |           )}
+  604 |         </div>
+
+Parsing ecmascript source code failed
+
+Generated code of loaders [next/dist/build/babel/loader] transform of file content of components/cases/UnifiedCasesWorkspace.tsx:
+./components/cases/UnifiedCasesWorkspace.tsx:601:16
+  599 |                   )}
+  600 |                 </div>
+> 601 |               </div>
+      |                ^^^^^
+  602 |             </>
+  603 |           )}
+  604 |         </div>
+
+Import trace:
+  Server Component:
+    ./components/cases/UnifiedCasesWorkspace.tsx
+    ./app/cases/page.tsx 
+[browser] ./components/cases/UnifiedCasesWorkspace.tsx
+Code generation for chunk item errored
+An error occurred while generating the chunk item [project]/components/cases/UnifiedCasesWorkspace.tsx [app-ssr] (ecmascript)
+
+Caused by:
+- CJS module can't be async.
+
+Debug info:
+- An error occurred while generating the chunk item [project]/components/cases/UnifiedCasesWorkspace.tsx [app-ssr] (ecmascript)
+- Execution of <EcmascriptModuleAsset as EcmascriptChunkPlaceable>::chunk_item_content failed
+- Execution of EcmascriptChunkItemContent::new failed
+- CJS module can't be async.
+
+Import trace:
+  Server Component:
+    ./components/cases/UnifiedCasesWorkspace.tsx
+    ./app/cases/page.tsx 
+⨯ ./components/cases/UnifiedCasesWorkspace.tsx:604:9
+Expected '</', got '{'
+  [90m602 |[0m            
+  [90m603 |[0m
+[31m[1m>[0m [90m604 |[0m         {[90m/* Sidebar Footer User Profile & Logout section */[0m}
+  [90m    |[0m         [31m[1m^[0m
+  [90m605 |[0m         {session?.user && (
+  [90m606 |[0m           <div className=[32m"p-4 border-t border-gray-100 bg-gray-50/70 flex items-center ju...[0m
+  [90m607 |[0m             <div className=[32m"flex items-center gap-2.5 min-w-0"[0m>
+
+Parsing ecmascript source code failed
+
+Import trace:
+  Server Component:
+    ./components/cases/UnifiedCasesWorkspace.tsx
+    ./app/cases/page.tsx
+
+
+
+./components/cases/UnifiedCasesWorkspace.tsx:604:9
+Expected '</', got '{'
+  [90m602 |[0m            
+  [90m603 |[0m
+[31m[1m>[0m [90m604 |[0m         {[90m/* Sidebar Footer User Profile & Logout section */[0m}
+  [90m    |[0m         [31m[1m^[0m
+  [90m605 |[0m         {session?.user && (
+  [90m606 |[0m           <div className=[32m"p-4 border-t border-gray-100 bg-gray-50/70 flex items-center ju...[0m
+  [90m607 |[0m             <div className=[32m"flex items-center gap-2.5 min-w-0"[0m>
+
+Parsing ecmascript source code failed
+
+Generated code of loaders [next/dist/build/babel/loader] transform of file content of components/cases/UnifiedCasesWorkspace.tsx:
+./components/cases/UnifiedCasesWorkspace.tsx:604:9
+  [90m602 |[0m            
+  [90m603 |[0m
+[31m[1m>[0m [90m604 |[0m         {[90m/* Sidebar Footer User Profile & Logout section */[0m}
+  [90m    |[0m         [31m[1m^[0m
+  [90m605 |[0m         {session?.user && (
+  [90m606 |[0m           <div className=[32m"p-4 border-t border-gray-100 bg-gray-50/70 flex items-center ju...[0m
+  [90m607 |[0m             <div className=[32m"flex items-center gap-2.5 min-w-0"[0m>
+
+Import trace:
+  Server Component:
+    ./components/cases/UnifiedCasesWorkspace.tsx
+    ./app/cases/page.tsx
+
+
+
+./components/cases/UnifiedCasesWorkspace.tsx
+Code generation for chunk item errored
+An error occurred while generating the chunk item [project]/components/cases/UnifiedCasesWorkspace.tsx [app-ssr] (ecmascript)
+
+Caused by:
+- CJS module can't be async.
+
+Debug info:
+- An error occurred while generating the chunk item [project]/components/cases/UnifiedCasesWorkspace.tsx [app-ssr] (ecmascript)
+- Execution of <EcmascriptModuleAsset as EcmascriptChunkPlaceable>::chunk_item_content failed
+- Execution of EcmascriptChunkItemContent::new failed
+- CJS module can't be async.
+
+Import trace:
+  Server Component:
+    ./components/cases/UnifiedCasesWorkspace.tsx
+    ./app/cases/page.tsx
+
+
+[browser] Uncaught Error: ./components/cases/UnifiedCasesWorkspace.tsx:604:9
+Expected '</', got '{'
+  602 |            
+  603 |
+> 604 |         {/* Sidebar Footer User Profile & Logout section */}
+      |         ^
+  605 |         {session?.user && (
+  606 |           <div className="p-4 border-t border-gray-100 bg-gray-50/70 flex items-center ju...
+  607 |             <div className="flex items-center gap-2.5 min-w-0">
+
+Parsing ecmascript source code failed
+
+Generated code of loaders [next/dist/build/babel/loader] transform of file content of components/cases/UnifiedCasesWorkspace.tsx:
+./components/cases/UnifiedCasesWorkspace.tsx:604:9
+  602 |            
+  603 |
+> 604 |         {/* Sidebar Footer User Profile & Logout section */}
+      |         ^
+  605 |         {session?.user && (
+  606 |           <div className="p-4 border-t border-gray-100 bg-gray-50/70 flex items-center ju...
+  607 |             <div className="flex items-center gap-2.5 min-w-0">
+
+Import trace:
+  Server Component:
+    ./components/cases/UnifiedCasesWorkspace.tsx
+    ./app/cases/page.tsx
+
+
+    at <unknown> (Error: ./components/cases/UnifiedCasesWorkspace.tsx:604:9)
+    at <unknown> (./components/cases/UnifiedCasesWorkspace.tsx:604:9)
+    at <unknown> (Error: (./components/cases/UnifiedCasesWorkspace.tsx:604:9)
+    at <unknown> (./components/cases/UnifiedCasesWorkspace.tsx:604:9)
+⨯ ./components/cases/UnifiedCasesWorkspace.tsx:602:14
+Unterminated regexp literal
+  [90m600 |[0m                 </div>
+  [90m601 |[0m               
+[31m[1m>[0m [90m602 |[0m             </>
+  [90m    |[0m              [31m[1m^^[0m
+  [90m603 |[0m           )}
+  [90m604 |[0m         </div>
+  [90m605 |[0m
+
+Parsing ecmascript source code failed
+
+Import trace:
+  Server Component:
+    ./components/cases/UnifiedCasesWorkspace.tsx
+    ./app/cases/page.tsx
+
+
+
+./components/cases/UnifiedCasesWorkspace.tsx:602:14
+Unterminated regexp literal
+  [90m600 |[0m                 </div>
+  [90m601 |[0m               
+[31m[1m>[0m [90m602 |[0m             </>
+  [90m    |[0m              [31m[1m^^[0m
+  [90m603 |[0m           )}
+  [90m604 |[0m         </div>
+  [90m605 |[0m
+
+Parsing ecmascript source code failed
+
+Generated code of loaders [next/dist/build/babel/loader] transform of file content of components/cases/UnifiedCasesWorkspace.tsx:
+./components/cases/UnifiedCasesWorkspace.tsx:602:14
+  [90m600 |[0m                 </div>
+  [90m601 |[0m               
+[31m[1m>[0m [90m602 |[0m             </>
+  [90m    |[0m              [31m[1m^^[0m
+  [90m603 |[0m           )}
+  [90m604 |[0m         </div>
+  [90m605 |[0m
+
+Import trace:
+  Server Component:
+    ./components/cases/UnifiedCasesWorkspace.tsx
+    ./app/cases/page.tsx
+
+
+
+./components/cases/UnifiedCasesWorkspace.tsx
+Code generation for chunk item errored
+An error occurred while generating the chunk item [project]/components/cases/UnifiedCasesWorkspace.tsx [app-ssr] (ecmascript)
+
+Caused by:
+- CJS module can't be async.
+
+Debug info:
+- An error occurred while generating the chunk item [project]/components/cases/UnifiedCasesWorkspace.tsx [app-ssr] (ecmascript)
+- Execution of <EcmascriptModuleAsset as EcmascriptChunkPlaceable>::chunk_item_content failed
+- Execution of EcmascriptChunkItemContent::new failed
+- CJS module can't be async.
+
+Import trace:
+  Server Component:
+    ./components/cases/UnifiedCasesWorkspace.tsx
+    ./app/cases/page.tsx
+
+
+[browser] Uncaught Error: ./components/cases/UnifiedCasesWorkspace.tsx:602:14
+Unterminated regexp literal
+  600 |                 </div>
+  601 |               
+> 602 |             </>
+      |              ^^
+  603 |           )}
+  604 |         </div>
+  605 |
+
+Parsing ecmascript source code failed
+
+Generated code of loaders [next/dist/build/babel/loader] transform of file content of components/cases/UnifiedCasesWorkspace.tsx:
+./components/cases/UnifiedCasesWorkspace.tsx:602:14
+  600 |                 </div>
+  601 |               
+> 602 |             </>
+      |              ^^
+  603 |           )}
+  604 |         </div>
+  605 |
+
+Import trace:
+  Server Component:
+    ./components/cases/UnifiedCasesWorkspace.tsx
+    ./app/cases/page.tsx
+
+
+    at <unknown> (Error: ./components/cases/UnifiedCasesWorkspace.tsx:602:14)
+    at <unknown> (./components/cases/UnifiedCasesWorkspace.tsx:602:14)
+    at <unknown> (Error: (./components/cases/UnifiedCasesWorkspace.tsx:602:14)
+    at <unknown> (./components/cases/UnifiedCasesWorkspace.tsx:602:14)
+⚠ Fast Refresh had to perform a full reload due to a runtime error.
+⚠ Fast Refresh had to perform a full reload when ./components/cases/UnifiedCasesWorkspace.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[browser] ./components/cases/UnifiedCasesWorkspace.tsx:601:16
+Unterminated regexp literal
+  599 |                   )}
+  600 |                 </div>
+> 601 |               </div>
+      |                ^^^^^
+  602 |             </>
+  603 |           )}
+  604 |         </div>
+
+Parsing ecmascript source code failed
+
+Generated code of loaders [next/dist/build/babel/loader] transform of file content of components/cases/UnifiedCasesWorkspace.tsx:
+./components/cases/UnifiedCasesWorkspace.tsx:601:16
+  599 |                   )}
+  600 |                 </div>
+> 601 |               </div>
+      |                ^^^^^
+  602 |             </>
+  603 |           )}
+  604 |         </div>
+
+Import trace:
+  Server Component:
+    ./components/cases/UnifiedCasesWorkspace.tsx
+    ./app/cases/page.tsx 
+[browser] ./components/cases/UnifiedCasesWorkspace.tsx:601:16
+Unterminated regexp literal
+  599 |                   )}
+  600 |                 </div>
+> 601 |               </div>
+      |                ^^^^^
+  602 |             </>
+  603 |           )}
+  604 |         </div>
+
+Parsing ecmascript source code failed
+
+Generated code of loaders [next/dist/build/babel/loader] transform of file content of components/cases/UnifiedCasesWorkspace.tsx:
+./components/cases/UnifiedCasesWorkspace.tsx:601:16
+  599 |                   )}
+  600 |                 </div>
+> 601 |               </div>
+      |                ^^^^^
+  602 |             </>
+  603 |           )}
+  604 |         </div>
+
+Import trace:
+  Server Component:
+    ./components/cases/UnifiedCasesWorkspace.tsx
+    ./app/cases/page.tsx 
+[browser] Uncaught Error: Could not parse module '[project]/components/cases/UnifiedCasesWorkspace.tsx'
+
+Unterminated regexp literal
+    at module evaluation (lib/auth-client.ts:3:72)
+    at CasesDashboard (app\cases\page.tsx:33:5)
+  1 | import { createAuthClient } from "better-auth/react";
+  2 |
+> 3 | export const { signIn, signUp, signOut, useSession } = createAuthClient();
+    |                                                                        ^
+[browser] ./components/cases/UnifiedCasesWorkspace.tsx:601:16
+Unterminated regexp literal
+  599 |                   )}
+  600 |                 </div>
+> 601 |               </div>
+      |                ^^^^^
+  602 |             </>
+  603 |           )}
+  604 |         </div>
+
+Parsing ecmascript source code failed
+
+Generated code of loaders [next/dist/build/babel/loader] transform of file content of components/cases/UnifiedCasesWorkspace.tsx:
+./components/cases/UnifiedCasesWorkspace.tsx:601:16
+  599 |                   )}
+  600 |                 </div>
+> 601 |               </div>
+      |                ^^^^^
+  602 |             </>
+  603 |           )}
+  604 |         </div>
+
+Import trace:
+  Server Component:
+    ./components/cases/UnifiedCasesWorkspace.tsx
+    ./app/cases/page.tsx 
