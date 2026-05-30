@@ -2,6 +2,8 @@ import { HeroSection } from "@/components/home/HeroSection";
 import { ProblemSection } from "@/components/home/ProblemSection";
 import { WorkspaceSection } from "@/components/home/WorkspaceSection";
 import ProcessPage from "./process/page";
+import InsightsPage from "./insights/page";
+import FAQPage from "./faq/page";
 
 export default function Home() {
   return (
@@ -10,6 +12,8 @@ export default function Home() {
       <ProblemSection />
       <ProcessPage />
       <WorkspaceSection />
+      <InsightsPage />
+      <FAQPage />
     </div>
   );
 }
