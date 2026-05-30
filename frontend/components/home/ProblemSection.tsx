@@ -37,7 +37,7 @@ export function ProblemSection() {
           </div>
 
           {/* Right Column — 7 cols, image, appears first on mobile */}
-          <div className="md:col-span-7 order-1 md:order-2 flex justify-center">
+          <div className="md:col-span-7 ml-5 order-1 md:order-2 flex justify-center">
             <Image
               alt="Abstract legal scales and pillars"
               className="w-full h-auto object-cover rounded-[2rem]"

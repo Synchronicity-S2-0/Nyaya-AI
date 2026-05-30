@@ -26,7 +26,7 @@ const steps = [
   },
 ];
 
-/* Each step is its own component so useInView is called at the top level — no hook-in-loop violation */
+/* ── Individual step card — bidirectional reveal ── */
 function StepCard({
   num,
   title,
@@ -39,71 +39,93 @@ function StepCard({
   index: number;
 }) {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, amount: 0.2 });
+  /* once: false → animates back out when scrolling up */
+  const isInView = useInView(ref, {
+    once: false,
+    margin: "0px 0px -120px 0px", // trigger a bit before the card fully enters
+  });
 
   return (
     <motion.div
       ref={ref}
-      className="flex flex-row md:flex-col gap-6 md:gap-0"
-      initial={{ opacity: 0, y: 20 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+      className="flex flex-col gap-0"
+      initial={{ opacity: 0, y: 60, scale: 0.92 }}
+      animate={
+        isInView
+          ? { opacity: 1, y: 0, scale: 1 }
+          : { opacity: 0, y: 60, scale: 0.92 }
+      }
       transition={{
-        duration: 0.8,
-        ease: "easeOut",
-        delay: 0.2 + index * 0.2, // 0.2 / 0.4 / 0.6 / 0.8 s
+        duration: 0.65,
+        ease: [0.22, 1, 0.36, 1],
+        delay: index * 0.12, // cascade: 0 / 0.12 / 0.24 / 0.36 s
       }}
     >
-      {/* Step number — label-md, sits on the timeline line on desktop */}
-      <div className="flex-shrink-0 w-12 md:w-auto md:mb-8">
+      {/* Timeline dot + number */}
+      <div className="mb-8 flex items-center gap-3">
+        {/* Dot */}
+        <motion.div
+          className="w-2.5 h-2.5 rounded-full flex-shrink-0"
+          style={{ backgroundColor: "#1a1c1d" }}
+          initial={{ scale: 0 }}
+          animate={isInView ? { scale: 1 } : { scale: 0 }}
+          transition={{
+            duration: 0.4,
+            ease: "backOut",
+            delay: index * 0.12 + 0.2,
+          }}
+        />
+        {/* Step number */}
         <span
-          className="text-secondary block md:inline-block md:pr-4"
+          className="text-secondary"
           style={{
             fontFamily: "var(--font-sans), Inter, sans-serif",
             fontSize: "12px",
             lineHeight: "16px",
-            letterSpacing: "0.1em",
-            fontWeight: 500,
-            /* white bg so the number sits "on top of" the hr line on desktop */
-            backgroundColor: "var(--color-background, #f9f9fb)",
+            letterSpacing: "0.12em",
+            fontWeight: 600,
           }}
         >
           {num}
         </span>
       </div>
 
-      {/* Title + body */}
-      <div>
-        <h3
-          className="text-primary mb-4"
-          style={{
-            fontFamily: "var(--font-serif), 'Instrument Serif', serif",
-            fontSize: "32px",
-            lineHeight: "40px",
-            fontWeight: 400,
-          }}
-        >
-          {title}
-        </h3>
-        <p
-          className="text-secondary"
-          style={{
-            fontFamily: "var(--font-sans), Inter, sans-serif",
-            fontSize: "16px",
-            lineHeight: "24px",
-            fontWeight: 400,
-          }}
-        >
-          {body}
-        </p>
-      </div>
+      {/* Title */}
+      <h3
+        className="text-primary mb-4"
+        style={{
+          fontFamily: "var(--font-serif), 'Instrument Serif', serif",
+          fontSize: "32px",
+          lineHeight: "40px",
+          fontWeight: 400,
+        }}
+      >
+        {title}
+      </h3>
+
+      {/* Body */}
+      <p
+        className="text-secondary"
+        style={{
+          fontFamily: "var(--font-sans), Inter, sans-serif",
+          fontSize: "16px",
+          lineHeight: "24px",
+          fontWeight: 400,
+        }}
+      >
+        {body}
+      </p>
     </motion.div>
   );
 }
 
 export default function ProcessPage() {
-  /* Timeline horizontal line */
+  /* Section-level ref for the timeline line */
   const lineRef = useRef(null);
-  const lineInView = useInView(lineRef, { once: true, amount: 0.2 });
+  const lineInView = useInView(lineRef, {
+    once: false,
+    margin: "0px 0px -80px 0px",
+  });
 
   return (
     <section
@@ -115,10 +137,10 @@ export default function ProcessPage() {
 
         {/* Left: Instrument Serif display headline */}
         <motion.h2
-          initial={{ opacity: 0, y: 24 }}
+          initial={{ opacity: 0, y: 32 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.8, ease: [0.25, 1, 0.5, 1] }}
+          viewport={{ once: false, margin: "0px 0px -80px 0px" }}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           className="text-primary max-w-xl"
           style={{
             fontFamily: "var(--font-serif), 'Instrument Serif', serif",
@@ -133,13 +155,13 @@ export default function ProcessPage() {
           <i style={{ color: "#5e5e5e" }}>action.</i>
         </motion.h2>
 
-        {/* Right: Inter body-lg description, right-aligned */}
+        {/* Right: description */}
         <motion.div
           className="flex justify-end"
-          initial={{ opacity: 0, y: 24 }}
+          initial={{ opacity: 0, y: 32 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.8, ease: [0.25, 1, 0.5, 1], delay: 0.15 }}
+          viewport={{ once: false, margin: "0px 0px -80px 0px" }}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
         >
           <p
             className="text-secondary max-w-md"
@@ -160,25 +182,24 @@ export default function ProcessPage() {
       </div>
 
       {/* ── Steps ── */}
-      <div className="relative w-full">
+      <div ref={lineRef} className="relative w-full">
 
-        {/* Horizontal timeline line — desktop only, animates with motion scaleX */}
+        {/* Horizontal timeline line — desktop only */}
         <div
-          ref={lineRef}
-          className="hidden md:block absolute left-0 w-full overflow-hidden"
-          style={{ top: "24px", height: "1px" }}
+          className="hidden md:block absolute left-0 w-full overflow-hidden pointer-events-none"
+          style={{ top: "5px", height: "1px" }}
         >
           <motion.div
             className="h-full w-full origin-left"
-            style={{ backgroundColor: "#cfc4c5" /* outline-variant */ }}
+            style={{ backgroundColor: "#cfc4c5" }}
             initial={{ scaleX: 0 }}
             animate={lineInView ? { scaleX: 1 } : { scaleX: 0 }}
-            transition={{ duration: 1.5, ease: [0.25, 1, 0.5, 1] }}
+            transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
           />
         </div>
 
         {/* 4-column grid */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8 relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-16 md:gap-8 relative z-10">
           {steps.map((step, i) => (
             <StepCard key={step.num} {...step} index={i} />
           ))}

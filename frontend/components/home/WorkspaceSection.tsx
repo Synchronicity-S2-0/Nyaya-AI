@@ -273,12 +273,12 @@ export function WorkspaceSection() {
             </h2>
             {/* Colorful subtext — each word has its own warm/cool accent */}
             <p style={{ fontFamily: "var(--font-sans), Inter, sans-serif", fontSize: "16px", lineHeight: "24px", fontWeight: 400 }}>
-              <span style={{ color: "#c4612a" }}>Everything</span>{" "}
-              <span style={{ color: "#5e5e5e" }}>stays</span>{" "}
-              <span style={{ color: "#2a7c8e" }}>inside</span>{" "}
-              <span style={{ color: "#5e5e5e" }}>one</span>{" "}
-              <span style={{ color: "#c4612a" }}>living</span>{" "}
-              <span style={{ color: "#5e5e5e" }}>case.</span>
+              <span>Everything</span>{" "}
+              <span>stays</span>{" "}
+              <span>inside</span>{" "}
+              <span>one</span>{" "}
+              <span>living</span>{" "}
+              <span>case.</span>
             </p>
           </div>
 

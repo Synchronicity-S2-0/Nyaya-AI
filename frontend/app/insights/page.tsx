@@ -32,27 +32,33 @@ export default function InsightsPage() {
       <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
 
         {/* ── Section label ── */}
-        <div className="mb-16 text-center">
+        <div className="mb-16 flex justify-center">
           <span
-            className="text-secondary uppercase"
+            className="text-secondary uppercase inline-flex items-center"
             style={{
               fontFamily: "var(--font-sans), Inter, sans-serif",
               fontSize: "12px",
               lineHeight: "16px",
               letterSpacing: "0.2em",
               fontWeight: 500,
+              border: "1px solid rgba(207, 196, 197, 0.6)",
+              borderRadius: "999px",
+              padding: "10px 24px",
+              background: "rgba(255,255,255,0.7)",
+              backdropFilter: "blur(8px)",
             }}
           >
             Legal Insights
           </span>
         </div>
 
+
         {/* ── 3-column card grid ── */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-gutter">
           {cards.map((card) => (
             <div
               key={card.title}
-              className="group flex flex-col border rounded-lg overflow-hidden bg-white hover:shadow-xl transition-shadow duration-500"
+              className="group flex flex-col border rounded-[32px] overflow-hidden bg-white hover:shadow-xl transition-shadow duration-500"
               style={{ borderColor: "rgba(207, 196, 197, 0.3)" /* outline-variant/30 */ }}
             >
               {/* Image — 400px mobile / 500px desktop, zoom on hover */}
