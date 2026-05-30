@@ -362,3 +362,16 @@
   └─ ƒ createNewCaseAction("LEGAL NOTICE\n\nFrom:\nMr. Arjun ...") in 3108ms app/cases/actions.ts
  POST /cases 200 in 3.5s (next.js: 2ms, application-code: 3.5s)
   └─ ƒ saveDocumentAnalysis("b96381e6-1ea7-4cfc-908b-2df05cbf349a", "OJL72yqm4xQzPsGjNyZmzzGLw3rpSOvK", {"analysis":{"classification":"[Object]","defense":"[Object]","disclaimer":"Nyaya AI is a legal accessibility and first-level triage assistant. It does not replace a lawyer and should not be treated as final legal advice.","...":"8 items not stringified"},"case_id":"b96381e6-1ea7-4cfc-908b-2df05cbf349a","case_update":{"case_type":"legal_notice","latest_urgency":"high","status":"open"},"...":"3 items not stringified"}) in 937ms app/cases/[caseId]/actions.ts
+ POST /api/auth/sign-out 200 in 3.7s (next.js: 11ms, application-code: 3.7s)
+ GET / 200 in 186ms (next.js: 20ms, application-code: 166ms)
+ GET /signup 200 in 24ms (next.js: 3ms, application-code: 21ms)
+✓ Compiled in 183ms
+ GET /signup 200 in 478ms (next.js: 306ms, application-code: 172ms)
+ GET /signup 200 in 57ms (next.js: 5ms, application-code: 52ms)
+✓ Compiled in 72ms
+ GET /signup 200 in 886ms (next.js: 171ms, application-code: 714ms)
+ GET /signup 200 in 380ms (next.js: 29ms, application-code: 351ms)
+✓ Compiled in 537ms
+ GET /signup 200 in 241ms (next.js: 177ms, application-code: 64ms)
+✓ Compiled in 171ms
+ GET /signup 200 in 214ms (next.js: 136ms, application-code: 78ms)
