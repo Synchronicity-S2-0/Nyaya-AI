@@ -1,0 +1,50 @@
+# Nyaya AI Local Legal Knowledge Base
+#
+# Format:
+# ---
+# title: Human readable snippet title
+# tags: comma,separated,tags
+# content:
+# Grounding text used by the local RAG retriever.
+
+---
+title: FIR first steps
+tags: fir,police,criminal,ipc,bnss
+content:
+For an FIR, verify the police station, FIR number, sections invoked, incident date, accused details, complainant details, and whether immediate protective or bail-related steps are needed. Do not ignore police notices or arrest-related risks; contact legal aid or an advocate promptly when liberty is at stake.
+
+---
+title: Legal notice response
+tags: legal_notice,reply,deadline
+content:
+A legal notice usually states allegations, demands, and a reply deadline. Preserve proof of delivery, collect supporting documents, calculate deadlines from the actual date of service, and send a clear point-wise reply through a lawyer or authorized representative when the issue is serious. Do not admit liability casually in a reply.
+
+---
+title: Eviction notice triage
+tags: eviction_notice,tenant,landlord,property
+content:
+For eviction matters, check tenancy proof, rent receipts, notice period, grounds for eviction, local rent control rules, and whether the notice was properly served. A tenant should document threats, utility disconnection warnings, payment records, and communication from the landlord before responding.
+
+---
+title: Contract review basics
+tags: contract,agreement,obligations
+content:
+For contracts, focus on parties, effective date, payment obligations, termination rights, indemnity, penalties, dispute resolution, jurisdiction, and deadlines. Unclear obligations, one-sided penalties, and missing signatures should be verified before relying on the document.
+
+---
+title: RTI drafting basics
+tags: rti,public_authority,information
+content:
+An RTI application should identify the public authority, ask specific information questions, include applicant details, and avoid asking for opinions or explanations. If information is denied or delayed, the applicant can consider the statutory first appeal process.
+
+---
+title: Employment document review
+tags: employment_agreement,employment,notice_period
+content:
+For employment agreements or termination-related papers, check salary, role, notice period, non-compete clauses, confidentiality, final settlement, and labour authority escalation options. Employees should preserve offer letters, salary slips, emails, appointment letters, and termination notices.
+
+---
+title: Summons handling
+tags: summons,court,appearance,deadline
+content:
+A summons requires careful attention to court name, case number, appearance date, party role, and documents required. Missing an appearance can create procedural risk, so the recipient should verify authenticity and arrange legal representation or legal aid promptly.

@@ -1,4 +1,4 @@
-from typing import Literal
+from typing import Any, Literal
 
 from pydantic import BaseModel, Field
 
@@ -24,6 +24,24 @@ class AnalyzeTextRequest(BaseModel):
     text: str = Field(..., min_length=1)
     target_language: str = "en"
     draft_type: DraftType | None = None
+
+
+class CaseCreateRequest(BaseModel):
+    user_id: str = Field(..., min_length=1)
+    title: str | None = None
+
+
+class CaseAnalyzeTextRequest(BaseModel):
+    user_id: str = Field(..., min_length=1)
+    text: str = Field(..., min_length=1)
+    target_language: str = "en"
+    draft_type: DraftType | None = None
+
+
+class CaseMessageRequest(BaseModel):
+    user_id: str = Field(..., min_length=1)
+    message: str = Field(..., min_length=1)
+    target_language: str = "en"
 
 
 class ParsedDocument(BaseModel):
@@ -112,6 +130,17 @@ class TranslationResult(BaseModel):
     translated_next_steps: list[str]
 
 
+class ProcessingTrace(BaseModel):
+    classifier: str
+    extraction: str
+    rag: str
+    reasoning: str
+    recommendation: str
+    defense: str
+    drafting: str | None = None
+    translation: str | None = None
+
+
 class AnalysisResponse(BaseModel):
     parsed: ParsedDocument
     classification: ClassificationResult
@@ -122,6 +151,7 @@ class AnalysisResponse(BaseModel):
     defense: DefenseAnalysis | None = None
     draft: DraftResult | None = None
     translation: TranslationResult | None = None
+    processing: ProcessingTrace
     disclaimer: str
 
 
@@ -129,3 +159,83 @@ class SupportedOptions(BaseModel):
     document_types: list[str]
     languages: dict[str, str]
     draft_types: list[str]
+
+
+class CaseRecord(BaseModel):
+    id: str
+    user_id: str
+    title: str
+    case_type: str | None = None
+    status: str = "open"
+    latest_urgency: str | None = None
+    created_at: str
+    updated_at: str
+
+
+class CaseDocumentRecord(BaseModel):
+    id: str
+    case_id: str
+    user_id: str
+    source_type: str
+    file_url: str | None = None
+    file_name: str | None = None
+    extracted_text: str
+    analysis_json: dict[str, Any]
+    document_type: str
+    created_at: str
+
+
+class CaseMessageRecord(BaseModel):
+    id: str
+    case_id: str
+    user_id: str
+    role: Literal["user", "assistant"]
+    message: str
+    created_at: str
+
+
+class CaseEventRecord(BaseModel):
+    id: str
+    case_id: str
+    user_id: str
+    event_type: Literal[
+        "case_created",
+        "document_uploaded",
+        "text_submitted",
+        "analysis_completed",
+        "user_question",
+        "assistant_response",
+    ]
+    summary: str
+    metadata_json: dict[str, Any] = Field(default_factory=dict)
+    created_at: str
+
+
+class CaseCreateResponse(BaseModel):
+    case_id: str
+    case: CaseRecord
+
+
+class CaseListResponse(BaseModel):
+    cases: list[CaseRecord]
+
+
+class CaseDetailResponse(BaseModel):
+    case: CaseRecord
+    documents: list[CaseDocumentRecord]
+    messages: list[CaseMessageRecord]
+    events: list[CaseEventRecord]
+
+
+class CaseAnalysisResponse(BaseModel):
+    case_id: str
+    document_id: str
+    event_ids: list[str]
+    analysis: AnalysisResponse
+
+
+class CaseMessageResponse(BaseModel):
+    case_id: str
+    user_message: CaseMessageRecord
+    assistant_message: CaseMessageRecord
+    event_ids: list[str]

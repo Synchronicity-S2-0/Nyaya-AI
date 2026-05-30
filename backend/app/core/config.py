@@ -17,6 +17,10 @@ class Settings(BaseSettings):
     gemini_api_key: str | None = None
     sarvam_api_key: str | None = None
     gemini_model: str = "gemini-1.5-flash"
+    supabase_url: str | None = None
+    supabase_service_role_key: str | None = None
+    supabase_storage_bucket: str = "case-documents"
+    local_knowledge_path: str = "app/data/legal_knowledge.txt"
 
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
 

@@ -7,6 +7,9 @@ This scaffold avoids paid model/API dependencies by default. It uses local parsi
 ## What Works Now
 
 - Upload legal documents as `.txt`, `.pdf`, or image files.
+- Create persistent legal cases for follow-up timelines.
+- Save uploaded/pasted documents under a case.
+- Ask case-specific follow-up questions from saved case history.
 - Extract text from text/PDF files.
 - Optionally run local Tesseract OCR for images.
 - Classify common legal document types.
@@ -16,6 +19,7 @@ This scaffold avoids paid model/API dependencies by default. It uses local parsi
 - Recommend next steps, authorities, documents, and escalation paths.
 - Generate first-draft responses for complaints, RTIs, replies, affidavits, and summaries.
 - Produce lightweight demo translations for Hindi, Bengali, and Tamil.
+- Ground RAG context from a local TXT knowledge base at `app/data/legal_knowledge.txt`.
 
 ## Setup
 
@@ -37,6 +41,32 @@ Open:
 ```powershell
 pytest
 ```
+
+## Follow-Up Case API
+
+Create the Supabase tables and storage bucket from `supabase_schema.sql`, then set:
+
+```powershell
+SUPABASE_URL=...
+SUPABASE_SERVICE_ROLE_KEY=...
+SUPABASE_STORAGE_BUCKET=case-documents
+LOCAL_KNOWLEDGE_PATH=app/data/legal_knowledge.txt
+```
+
+Case-aware endpoints:
+
+- `POST /api/v1/cases`
+- `GET /api/v1/cases?user_id=...`
+- `GET /api/v1/cases/{case_id}?user_id=...`
+- `POST /api/v1/cases/{case_id}/documents/analyze`
+- `POST /api/v1/cases/{case_id}/documents/analyze-text`
+- `POST /api/v1/cases/{case_id}/messages`
+
+If Supabase env vars are missing, the backend uses in-memory case storage for local tests only.
+
+## Local Knowledge Grounding
+
+The RAG layer reads legal guidance from `app/data/legal_knowledge.txt` to reduce hallucination and make demo answers inspectable. Edit that TXT file to add more grounded snippets; each block uses `title`, `tags`, and `content`.
 
 Or POST JSON:
 

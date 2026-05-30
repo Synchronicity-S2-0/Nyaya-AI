@@ -1,4 +1,4 @@
-from app.models.schemas import AnalysisResponse, DraftType, ParsedDocument
+from app.models.schemas import AnalysisResponse, DraftType, ParsedDocument, ProcessingTrace
 from app.services.classifier import ClassificationAgent
 from app.services.defense import DefenseAgent
 from app.services.drafting import DraftingAgent
@@ -49,10 +49,22 @@ class LegalWorkflowOrchestrator:
         recommendations = self.recommender.recommend(classification, extraction, knowledge)
         defense = self.defense_agent.analyze(parsed.text, classification, extraction, knowledge)
         draft = self.drafter.draft(draft_type, classification, extraction) if draft_type else None
+        if not draft_type:
+            self.drafter.last_source = "not_requested"
         translation = self.translator.translate(
             target_language,
             explanation.summary,
             recommendations.next_steps,
+        )
+        processing = ProcessingTrace(
+            classifier=self.classifier.last_source,
+            extraction=self.extractor.last_source,
+            rag=self.rag.last_source,
+            reasoning=self.reasoning.last_source,
+            recommendation=self.recommender.last_source,
+            defense=self.defense_agent.last_source,
+            drafting=self.drafter.last_source,
+            translation=self.translator.last_source,
         )
 
         return AnalysisResponse(
@@ -65,5 +77,6 @@ class LegalWorkflowOrchestrator:
             defense=defense,
             draft=draft,
             translation=translation,
+            processing=processing,
             disclaimer=DISCLAIMER,
         )
