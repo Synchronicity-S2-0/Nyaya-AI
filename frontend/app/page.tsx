@@ -2,7 +2,6 @@ import { HeroSection } from "@/components/home/HeroSection";
 import { ProblemSection } from "@/components/home/ProblemSection";
 import { WorkspaceSection } from "@/components/home/WorkspaceSection";
 import { LegalInsightsSection } from "@/components/home/LegalInsightsSection";
-import { Footer } from "@/components/layout/Footer";
 
   return (
     <div className="bg-background text-on-background min-h-screen antialiased w-full">
@@ -10,7 +9,6 @@ import { Footer } from "@/components/layout/Footer";
       <ProblemSection />
       <WorkspaceSection />
       <LegalInsightsSection />
-      <Footer />
     </div>
   );
 }
