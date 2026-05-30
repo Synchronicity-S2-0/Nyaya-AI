@@ -19,6 +19,9 @@ class ClassificationAgent:
         "unknown": [],
     }
 
+    def __init__(self) -> None:
+        self.last_source = "fallback"
+
     def classify(self, text: str) -> ClassificationResult:
         settings = get_settings()
         api_key = settings.gemini_api_key
@@ -54,12 +57,14 @@ class ClassificationAgent:
                 )
                 
                 result_dict = self._call_gemini_api(prompt, schema, api_key, settings.gemini_model)
+                self.last_source = "llm:gemini"
                 return ClassificationResult(
                     document_type=result_dict.get("document_type", "unknown"),
                     confidence=round(result_dict.get("confidence", 0.5), 2),
                     signals=result_dict.get("signals", [])
                 )
             except Exception as e:
+                self.last_source = "fallback:keyword"
                 logging.getLogger("uvicorn.error").warning(
                     f"Gemini classification failed, falling back to keyword classifier: {e}"
                 )
@@ -75,9 +80,11 @@ class ClassificationAgent:
 
         best_type, best_score, signals = max(scored, key=lambda item: item[1])
         if best_score == 0:
+            self.last_source = "fallback:keyword"
             return ClassificationResult(document_type="unknown", confidence=0.15, signals=[])
 
         confidence = min(0.95, 0.35 + best_score * 0.15)
+        self.last_source = "fallback:keyword"
         return ClassificationResult(
             document_type=best_type,
             confidence=round(confidence, 2),

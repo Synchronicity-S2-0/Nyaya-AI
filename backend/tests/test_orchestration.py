@@ -31,6 +31,9 @@ def test_analyze_text_orchestration_for_legal_notice() -> None:
     assert data["recommendations"]["urgency"] == "high"
     assert data["draft"]["draft_type"] == "reply"
     assert data["translation"]["language"] == "Hindi"
+    assert data["processing"]["classifier"].startswith("fallback:")
+    assert data["processing"]["rag"] == "local_txt"
+    assert data["processing"]["translation"].startswith("fallback:")
     assert "does not replace a lawyer" in data["disclaimer"]
 
     # Defense / loophole analysis
@@ -50,3 +53,15 @@ def test_options() -> None:
     response = client.get("/api/v1/documents/options")
     assert response.status_code == 200
     assert "fir" in response.json()["document_types"]
+
+
+def test_rag_uses_local_txt_knowledge_base() -> None:
+    payload = {
+        "text": "Eviction notice from landlord. The tenant must vacate within 10 days.",
+        "target_language": "en",
+    }
+    response = client.post("/api/v1/documents/analyze-text", json=payload)
+    assert response.status_code == 200
+
+    knowledge = response.json()["knowledge"]
+    assert any("utility disconnection warnings" in item["content"] for item in knowledge)

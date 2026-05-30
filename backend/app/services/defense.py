@@ -235,6 +235,9 @@ class DefenseAgent:
         2. Rule-based heuristic fallback (always works without keys)
     """
 
+    def __init__(self) -> None:
+        self.last_source = "fallback"
+
     def analyze(
         self,
         text: str,
@@ -247,10 +250,14 @@ class DefenseAgent:
 
         if api_key:
             try:
-                return self._analyze_with_gemini(text, classification, extraction, knowledge, api_key, settings.gemini_model)
+                result = self._analyze_with_gemini(text, classification, extraction, knowledge, api_key, settings.gemini_model)
+                self.last_source = "llm:gemini"
+                return result
             except Exception as exc:
+                self.last_source = "fallback:rules"
                 log.warning(f"DefenseAgent Gemini call failed, falling back to rules: {exc}")
 
+        self.last_source = "fallback:rules"
         return self._analyze_with_rules(text, classification, extraction)
 
     # ------------------------------------------------------------------
