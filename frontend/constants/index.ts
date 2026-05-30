@@ -6,7 +6,27 @@ export const navItems: NavItems[] = [
     },
     {
         id: 2,
-        title: "Problem",
+        title: "The Problem",
         url: "/problem"
+    },
+    {
+        id: 3,
+        title: "Process",
+        url: "/process",
+    },
+    {
+        id: 4,
+        title: "Workspace",
+        url: "/workspace",
+    },
+    {
+        id: 5,
+        title: "Insights",
+        url: "/insights",
+    }, 
+    {
+        id: 6,
+        title: "FAQ",
+        url: "/faq"
     }
 ]
