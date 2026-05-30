@@ -14,6 +14,7 @@
     "@better-auth/prisma-adapter": "^1.6.12",
     "@prisma/adapter-pg": "^7.8.0",
     "@prisma/client": "^7.8.0",
+    "@tanstack/react-form": "^1.33.0",
     "better-auth": "^1.6.12",
     "clsx": "^2.1.1",
     "dotenv": "^17.4.2",

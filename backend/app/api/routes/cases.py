@@ -14,7 +14,18 @@ router = APIRouter(prefix="/cases", tags=["cases"])
 
 
 def case_update_from_analysis(analysis) -> dict[str, str]:
+    doc_type = (analysis.classification.document_type or "unknown").replace("_", " ").title()
+    if doc_type == "Unknown":
+        doc_type = "Legal"
+    
+    if analysis.extraction.names:
+        main_party = analysis.extraction.names[0].strip()
+        title = f"{doc_type} - {main_party}"
+    else:
+        title = f"{doc_type} Matter"
+
     return {
+        "title": title,
         "case_type": analysis.classification.document_type,
         "latest_urgency": analysis.recommendations.urgency,
         "status": "open",

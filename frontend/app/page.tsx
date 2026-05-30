@@ -5,9 +5,9 @@ import ProcessPage from "./process/page";
 import InsightsPage from "./insights/page";
 import FAQPage from "./faq/page";
 
-export default function Home() {
+export default function Page(){
   return (
-    <div className="bg-[#f9f9f9] text-[#1a1c1c] font-sans min-h-screen antialiased selection:bg-black selection:text-white">
+    <div className="bg-background text-on-background min-h-screen antialiased w-full">
       <HeroSection />
       <ProblemSection />
       <ProcessPage />
@@ -17,3 +17,4 @@ export default function Home() {
     </div>
   );
 }
+

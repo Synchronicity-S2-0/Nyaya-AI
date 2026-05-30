@@ -15,21 +15,13 @@ import {
   Send,
 } from "lucide-react";
 
-type TabId = "summary" | "resolution" | "insights" | "drafts" | "ask" | "history";
-
-interface Message {
-  id: string;
-  sender: "user" | "ai";
-  text: string;
-}
-
 const TABS = [
-  { id: "summary" as TabId, title: "Summary" },
-  { id: "resolution" as TabId, title: "Resolution" },
-  { id: "insights" as TabId, title: "Legal Insights" },
-  { id: "drafts" as TabId, title: "Drafts" },
-  { id: "ask" as TabId, title: "Ask Nyaya" },
-  { id: "history" as TabId, title: "History" },
+  { id: "tab-summary", label: "Summary" },
+  { id: "tab-resolution", label: "Resolution" },
+  { id: "tab-insights", label: "Legal Insights" },
+  { id: "tab-drafts", label: "Drafts" },
+  { id: "tab-ask", label: "Ask Nyaya" },
+  { id: "tab-history", label: "History" },
 ];
 
 /* ─── Exact font style tokens from the HTML tailwind config ─── */
@@ -84,11 +76,11 @@ const F = {
 } as const;
 
 export function WorkspaceSection() {
-  const [activeTab, setActiveTab] = useState<TabId>("summary");
+  const [activeTab, setActiveTab] = useState("summary");
   const [indicatorStyle, setIndicatorStyle] = useState({ left: 0, width: 0 });
 
   /* Chat state */
-  const [messages, setMessages] = useState<Message[]>([
+  const [messages, setMessages] = useState([
     { id: "1", sender: "user", text: "What happens if I don't respond by the deadline?" },
     {
       id: "2",
@@ -323,7 +315,7 @@ export function WorkspaceSection() {
                         border: "none",
                       }}
                     >
-                      {tab.title}
+                      {tab.label}
                     </button>
                   ))}
 

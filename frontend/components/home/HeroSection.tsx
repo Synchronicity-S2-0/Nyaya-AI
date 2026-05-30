@@ -1,46 +1,74 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { ArrowRight, Loader2 } from "lucide-react";
+import { signIn } from "@/lib/auth-client";
+
+const PENDING_HERO_PROMPT_KEY = "nyaya.pendingHeroPrompt";
 
 export function HeroSection() {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [prompt, setPrompt] = useState("");
+  const [isSigningIn, setIsSigningIn] = useState(false);
 
   useEffect(() => {
     const video = videoRef.current;
-    if (!video) return;
+    if (video) {
+      video.play().catch((e) => console.log("Video auto-play prevented:", e));
+      video.classList.remove("opacity-0");
+      video.classList.add("opacity-100");
 
-    video.play().catch((e) => console.log("Video auto-play prevented:", e));
-    video.style.opacity = "1";
+      const handleTimeUpdate = () => {
+        const duration = video.duration;
+        const currentTime = video.currentTime;
+        const fadeTime = 0.5;
 
-    const handleTimeUpdate = () => {
-      const duration = video.duration;
-      const currentTime = video.currentTime;
-      const fadeTime = 0.5;
+      const handleTimeUpdate = () => {
+        const duration = video.duration;
+        const currentTime = video.currentTime;
+        const fadeTime = 0.5;
 
-      if (duration > 0) {
-        if (currentTime < fadeTime) {
-          video.style.opacity = String(currentTime / fadeTime);
-        } else if (currentTime > duration - fadeTime) {
-          video.style.opacity = String((duration - currentTime) / fadeTime);
-        } else {
-          video.style.opacity = "1";
-        }
+        if (duration > 0) {
+          if (currentTime < fadeTime) {
+            video.style.opacity = String(currentTime / fadeTime);
+          } else if (currentTime > duration - fadeTime) {
+            video.style.opacity = String((duration - currentTime) / fadeTime);
+          } else {
+            video.style.opacity = "1";
+          }
+        };
+
+        const handleEnded = () => {
+          video.currentTime = 0;
+          video.play();
+        };
+
+        video.addEventListener("timeupdate", handleTimeUpdate);
+        video.addEventListener("ended", handleEnded);
+
+        return () => {
+          video.removeEventListener("timeupdate", handleTimeUpdate);
+          video.removeEventListener("ended", handleEnded);
+        };
       }
-    };
+  }}}, []);
 
-    const handleEnded = () => {
-      video.currentTime = 0;
-      video.play().catch(() => {});
-    };
+  const handleGoogleStart = async () => {
+    if (isSigningIn) return;
 
-    video.addEventListener("timeupdate", handleTimeUpdate);
-    video.addEventListener("ended", handleEnded);
+    setIsSigningIn(true);
+    window.localStorage.setItem(PENDING_HERO_PROMPT_KEY, prompt);
 
-    return () => {
-      video.removeEventListener("timeupdate", handleTimeUpdate);
-      video.removeEventListener("ended", handleEnded);
-    };
-  }, []);
+    try {
+      await signIn.social({
+        provider: "google",
+        callbackURL: "/cases",
+      });
+    } catch (error) {
+      console.error("Google sign-in failed:", error);
+      setIsSigningIn(false);
+    }
+  };
 
   return (
     <section
@@ -89,6 +117,15 @@ export function HeroSection() {
               className="w-full h-16 px-8 rounded-full bg-white border border-outline-variant focus:outline-none focus:border-primary font-body-md text-body-md placeholder:text-secondary-fixed-dim"
               placeholder="Describe your legal problem..."
               type="text"
+              value={prompt}
+              onChange={(event) => setPrompt(event.target.value)}
+              onKeyDown={(event) => {
+                if (event.key === "Enter") {
+                  event.preventDefault();
+                  handleGoogleStart();
+                }
+              }}
+              disabled={isSigningIn}
             />
           </div>
           {/* Arrow button — Material Symbols icon replaced with inline SVG */}

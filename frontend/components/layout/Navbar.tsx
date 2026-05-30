@@ -2,10 +2,9 @@
 
 import { useState, useEffect } from "react";
 import { navItems } from "@/constants";
-import { signIn } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 // Explicit map from nav URL → actual section element id in the DOM
 const NAV_URL_TO_SECTION_ID: Record<string, string> = {
@@ -17,9 +16,21 @@ const NAV_URL_TO_SECTION_ID: Record<string, string> = {
   "/faq": "faq",
 };
 
-export function Navbar() {
+type NavbarSession = {
+  user?: {
+    id: string;
+    name?: string | null;
+    email?: string | null;
+  };
+} | null;
+
+export function Navbar({ session }: { session: NavbarSession }) {
   const [activeId, setActiveId] = useState("/");
   const pathname = usePathname();
+  const router = useRouter();
+
+  const isCasesRoute = pathname.startsWith("/cases");
+  const isAuthRoute = pathname.startsWith("/login") || pathname.startsWith("/signup");
 
   useEffect(() => {
     // Only run scroll-spy on the home page (where all sections are mounted)
@@ -68,12 +79,6 @@ export function Navbar() {
     return () => observers.forEach((obs) => obs.disconnect());
   }, [pathname]);
 
-  const handleLogin = async () => {
-    await signIn.social({
-      provider: "google",
-    });
-  };
-
   const isActive = (url: string) => {
     if (pathname === "/") {
       return activeId === url;
@@ -81,15 +86,20 @@ export function Navbar() {
     return pathname === url;
   };
 
+  // 1. Authenticated Cases Page Navbar View
+  if (isCasesRoute || isAuthRoute) {
+    return null;
+  }
+
+  // 2. Default Public Page Navbar View
   return (
-    <nav className="fixed top-0 w-full z-50 bg-transparent backdrop-blur-xl border-b border-surface-container px-margin-desktop py-4 flex justify-between items-center transition-all duration-300">
+    <nav className="fixed top-0 w-full z-50 bg-white border-b border-surface-container px-[64px] py-[16px] flex justify-between items-center transition-all duration-300">
       <Link
         href="/"
         className="font-normal tracking-tight text-primary hover:text-primary transition-opacity duration-300 font-instrument italic text-headline-md"
       >
-        Nyaya AI
+        Nyaya AI<sup className="">®</sup>
       </Link>
-      
       <div className="hidden md:flex items-center space-x-12">
         {navItems.map((item) => (
           <Link
@@ -106,15 +116,14 @@ export function Navbar() {
       </div>
 
       <div className="flex gap-4 items-center">
-
         <button
-          onClick={handleLogin}
-          className="hidden md:inline-flex items-center justify-center px-6 py-3 rounded-full bg-primary text-on-primary font-body-md text-body-md hover:scale-[1.02] transition-transform duration-300 ease-out scale-105 duration-500 ease-in-out cursor-pointer"
+          onClick={() => router.push("/signup")}
+          className="hidden md:inline-flex items-center justify-center px-4 py-2 rounded-full bg-primary text-on-primary font-body-md text-[13px] leading-[20px] hover:scale-[1.02] transition-transform duration-300 ease-out cursor-pointer"
         >
           Begin Journey
         </button>
       </div>
-
     </nav>
   );
 }
+
