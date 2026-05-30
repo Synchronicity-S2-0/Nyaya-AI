@@ -7,44 +7,65 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
+// Explicit map from nav URL → actual section element id in the DOM
+const NAV_URL_TO_SECTION_ID: Record<string, string> = {
+  "/": "home",
+  "/problems": "the-problem",
+  "/process": "process",
+  "/workspace": "workspace",
+  "/insights": "legal-insights",
+  "/faq": "faq",
+};
+
 export function Navbar() {
   const [activeId, setActiveId] = useState("/");
   const pathname = usePathname();
 
   useEffect(() => {
-    const handleScroll = () => {
-      // Only do scroll spy on the home page
-      if (pathname !== "/") return;
+    // Only run scroll-spy on the home page (where all sections are mounted)
+    if (pathname !== "/") return;
 
-      const sections = navItems
-        .map((item) => {
-          const id = item.url === "/" ? "home" : (item.url === "/problem" ? "the-problem" : item.url.replace("/", ""));
-          const element = document.getElementById(id);
-          if (element) {
-            const rect = element.getBoundingClientRect();
-            // We consider a section "active" if its top is near the top of the viewport
-            return { id: item.url, top: rect.top, bottom: rect.bottom };
-          }
-          return null;
-        })
-        .filter(Boolean) as { id: string; top: number; bottom: number }[];
+    const observers: IntersectionObserver[] = [];
 
-      // Find the first section that occupies the upper part of the viewport
-      const currentSection = sections.find(
-        (section) => section && section.top <= 160 && section.bottom >= 160
-      );
+    // Track visibility ratio for each section so we can pick the most visible one
+    const visibilityMap: Record<string, number> = {};
 
-      if (currentSection) {
-        setActiveId(currentSection.id);
-      } else if (window.scrollY < 100) {
-        setActiveId("/");
+    const pickActive = () => {
+      // Choose the nav URL whose section has the highest intersection ratio
+      let bestUrl = "/";
+      let bestRatio = -1;
+      for (const [url, ratio] of Object.entries(visibilityMap)) {
+        if (ratio > bestRatio) {
+          bestRatio = ratio;
+          bestUrl = url;
+        }
       }
+      setActiveId(bestUrl);
     };
 
-    window.addEventListener("scroll", handleScroll);
-    // Initial check
-    handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
+    navItems.forEach((item) => {
+      const sectionId = NAV_URL_TO_SECTION_ID[item.url];
+      if (!sectionId) return;
+      const el = document.getElementById(sectionId);
+      if (!el) return;
+
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          visibilityMap[item.url] = entry.intersectionRatio;
+          pickActive();
+        },
+        {
+          // Fire when the section crosses 10 % / 30 % / 50 % visibility thresholds
+          threshold: [0, 0.1, 0.3, 0.5],
+          // Shrink the root viewport so items activate around the nav bar height
+          rootMargin: "-80px 0px -40% 0px",
+        }
+      );
+      observer.observe(el);
+      observers.push(observer);
+    });
+
+    return () => observers.forEach((obs) => obs.disconnect());
   }, [pathname]);
 
   const handleLogin = async () => {
