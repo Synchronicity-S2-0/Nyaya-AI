@@ -87,7 +87,7 @@ export function Navbar() {
         href="/"
         className="font-normal tracking-tight text-primary hover:text-primary transition-opacity duration-300 font-instrument italic text-headline-md"
       >
-        Nyaya AI<sup className="text-xs not-italic">®</sup>
+        Nyaya AI
       </Link>
       
       <div className="hidden md:flex items-center space-x-12">

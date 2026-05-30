@@ -1,19 +1,23 @@
+import { images } from "@/constants/image";
+import Image from "next/image";
+
+
 const cards = [
   {
     alt: "Procedural Concern",
-    src: "https://lh3.googleusercontent.com/aida-public/AB6AXuC3RQJ_8MveqEA6-yXmOCZwH2Su8fUwoA_XRnuvb-jswi3apo08wQCm-ikHm3v37_OMKHNnfUOLCgkXIjW6NMcwIIop5myJwN5LcQI16Vcj-votgSo-t9_5QI_Pj9W-kIhWLMv_OPA5Km7rgvnxX_C8lwbUOcuLr9AaKfNDlnYbJON8Tr1Nzty_dk4O14sx2rAGaT4_5LBjIKzNn5XtXR3l7KeeYExKF9GEyv8uOwSqHD4tInhpFAnPc8yTtsPFwOj8zT2Lj9VO4yw",
+    src: images.insight1,
     title: "Procedural Concern",
     body: "Some details may not align with the surrounding information and should be verified.",
   },
   {
     alt: "Documentation Gap",
-    src: "https://lh3.googleusercontent.com/aida-public/AB6AXuAHx29lHSzhYtrvD-42KinHcFei32hj9VToDXPq5mGTO62qwERe21G3GmD_wm730m5j_SxNBVbFuGCfLquC1XgFU9ovYjdIUyijREnMAi0mIduhyZ-3XAoH7vEBAuCs2j33zSe_8uI6E6ac6465414-UQoCNli7PxV-pO728bJH5APNjGiYHG_RCr1Qi-laXrZyXRn5IX9ZbdBesw6eT2sIyNMVIISVsr-wPJ23elPzUAyHnBcJsJLBgCXFUs7b62FJ2YmtkmgAtDk",
+    src: images.insight2,
     title: "Documentation Gap",
     body: "Relevant supporting information could not be identified in the submitted materials.",
   },
   {
     alt: "Case Position",
-    src: "https://lh3.googleusercontent.com/aida-public/AB6AXuBuupmBhcyGJiq1lvQWmpKUYbMXSyXxNrTNRBaLTUqz6qVrOCpYC5_jy7v0sCxNzR_ObSUxABXz586Bit7Af-y8cP8K4TLvUhmB7FrjSY65W-L33jymt01k1B3dvYrS7RshoylYdKXXJpQt6uKPSxH-XNg4MCCfW-bN-VJasT1S9TwBVWgbO-MFbuwt8QCqbewYF2WBH2VJQ4Kk0M09_BkNwXFSwApznwMYQOir_eY4A4VH0IFkaGjM3LaXkwOyNgjfSi0E9nTc4Yo",
+    src: images.insight3,
     title: "Case Position",
     body: "The content appears well aligned with the available supporting information.",
   },
@@ -54,7 +58,7 @@ export default function InsightsPage() {
               {/* Image — 400px mobile / 500px desktop, zoom on hover */}
               <div className="h-[400px] md:h-[500px] overflow-hidden">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
+                <Image
                   alt={card.alt}
                   src={card.src}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
