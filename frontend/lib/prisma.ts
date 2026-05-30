@@ -1,7 +1,6 @@
 import "dotenv/config";
 import { Pool } from "pg";
 import { PrismaPg } from "@prisma/adapter-pg";
-// Using your custom generated client path
 import { PrismaClient } from "../app/generated/prisma/client"; 
 
 const connectionString = `${process.env.DATABASE_URL}`;
