@@ -64,28 +64,24 @@ export function Navbar() {
     <nav className="fixed top-0 w-full z-50 bg-transparent backdrop-blur-xl border-b border-surface-container px-margin-desktop py-4 flex justify-between items-center transition-all duration-300">
       <Link
         href="/"
-        className="font-headline-md text-5xl font-normal tracking-tight text-primary scale-105 duration-500 ease-in-out hover:text-primary transition-opacity duration-300 font-instrument"
+        className="font-normal tracking-tight text-primary hover:text-primary transition-opacity duration-300 font-instrument italic text-headline-md"
       >
-        Nyaya AI
+        Nyaya AI<sup className="text-xs not-italic">®</sup>
       </Link>
       
       <div className="hidden md:flex items-center space-x-12">
-        {navItems.map((item) => {
-          const id = item.url === "/" ? "home" : (item.url === "/problem" ? "the-problem" : item.url.replace("/", ""));
-          const href = pathname === "/" ? `#${id}` : item.url;
-          return (
-            <Link
-              key={item.id}
-              href={href}
-              className={cn(
-                "transition-opacity duration-300 font-body-md text-body-md hover:text-primary cursor-pointer",
-                isActive(item.url) ? "text-primary font-medium" : "text-secondary"
-              )}
-            >
-              {item.title}
-            </Link>
-          );
-        })}
+        {navItems.map((item) => (
+          <Link
+            key={item.id}
+            href={item.url}
+            className={cn(
+              "transition-opacity duration-300 font-body-md text-body-md hover:text-primary cursor-pointer",
+              isActive(item.url) ? "text-primary font-medium" : "text-secondary"
+            )}
+          >
+            {item.title}
+          </Link>
+        ))}
       </div>
 
       <div className="flex gap-4 items-center">

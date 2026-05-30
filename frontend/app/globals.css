@@ -13,7 +13,36 @@
   --font-sans: var(--font-sans);
   --font-serif: var(--font-serif);
   --font-mono: var(--font-mono);
+  /* Instrument Serif via next/font */
   --font-instrument: var(--font-serif);
+  /* Literata via next/font — used for display & headline sizes */
+  --font-headline-md: var(--font-literata);
+  --font-headline-lg: var(--font-literata);
+  --font-display-lg: var(--font-literata);
+  --font-display-lg-mobile: var(--font-literata);
+  /* Inter via next/font — labels & body */
+  --font-label-sm: var(--font-sans);
+  --font-body-md: var(--font-sans);
+  --font-body-lg: var(--font-sans);
+  --font-label-md: var(--font-sans);
+
+  /* Font-size tokens (match HTML tailwind config exactly) */
+  --text-headline-md: 32px;
+  --text-headline-md--line-height: 40px;
+  --text-headline-lg: 40px;
+  --text-headline-lg--line-height: 48px;
+  --text-display-lg: 80px;
+  --text-display-lg--line-height: 88px;
+  --text-display-lg-mobile: 48px;
+  --text-display-lg-mobile--line-height: 52px;
+  --text-body-md: 16px;
+  --text-body-md--line-height: 24px;
+  --text-body-lg: 18px;
+  --text-body-lg--line-height: 28px;
+  --text-label-sm: 10px;
+  --text-label-sm--line-height: 14px;
+  --text-label-md: 12px;
+  --text-label-md--line-height: 16px;
   
   --color-secondary-fixed-dim: #c7c6c6;
   --color-surface: #f9f9fb;
@@ -98,7 +127,13 @@ html {
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--color-surface-container-lowest);
+  color: var(--color-primary);
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.font-instrument {
+  font-family: var(--font-serif), 'Instrument Serif', serif;
 }
