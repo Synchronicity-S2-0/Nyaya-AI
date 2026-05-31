@@ -113,10 +113,8 @@ export default function CaseChat({
     // Standard Assistant bubble
     return (
       <div key={msg.id} className="flex justify-start items-start gap-3 pr-10">
-        <div className="w-8 h-8 rounded-full bg-gray-100 border border-gray-200 text-gray-600 flex items-center justify-center shrink-0 shadow-sm">
-          <Zap className="w-4 h-4 text-amber-500" />
-        </div>
-        <div className="bg-gray-50 border border-gray-150 text-gray-700 text-sm leading-relaxed p-4 rounded-2xl rounded-tl-none shadow-sm font-sans font-medium">
+        
+        <div className="bg-gray-50 border border-black/15 text-gray-700 text-sm leading-relaxed p-4 rounded-2xl rounded-tl-none shadow-sm font-sans font-medium">
           {msg.message}
         </div>
       </div>
@@ -162,9 +160,8 @@ export default function CaseChat({
           </div>
         </div>
 
-        
-
-        
+        {/* Real chat messages */}
+        {activeCase.messages && activeCase.messages.map(renderMessage)}
 
         <div ref={chatEndRef} />
       </div>

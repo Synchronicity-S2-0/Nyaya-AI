@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Case, CaseDocument, CaseMessage, CaseEvent } from "@/app/generated/prisma/client";
-import { History, FolderOpen, ChevronDown, ChevronUp, Plus, User, LogOut } from "lucide-react";
+import { History, FolderOpen, ChevronDown, ChevronUp, Plus, User, LogOut, X } from "lucide-react";
 import { signOut } from "@/lib/auth-client";
 
 type CaseWithRelations = Case & {
@@ -16,6 +16,8 @@ interface MattersSidebarProps {
   selectedCaseId: string | null;
   setSelectedCaseId: (id: string | null) => void;
   session: any;
+  isOpen?: boolean;
+  onClose?: () => void;
 }
 
 function formatRelativeTime(dateInput: Date | string) {
@@ -42,6 +44,8 @@ export default function MattersSidebar({
   selectedCaseId,
   setSelectedCaseId,
   session,
+  isOpen,
+  onClose,
 }: MattersSidebarProps) {
   const [isPastExpanded, setIsPastExpanded] = useState(false);
   const [isActiveExpanded, setIsActiveExpanded] = useState(true);
@@ -81,7 +85,10 @@ export default function MattersSidebar({
           return (
             <div
               key={c.id}
-              onClick={() => setSelectedCaseId(c.id)}
+              onClick={() => {
+                setSelectedCaseId(c.id);
+                onClose?.();
+              }}
               className={`p-4 rounded-2xl border transition-all duration-300 group cursor-pointer text-left
                 ${isSelected 
                   ? "bg-gray-100/80 border-gray-300/40" 
@@ -112,19 +119,34 @@ export default function MattersSidebar({
   };
 
   return (
-    <nav className="hidden md:flex flex-col h-screen w-[320px] fixed left-0 top-0 bg-[#FAFAF8] border-r border-gray-200/80 p-6 gap-6 z-40 shrink-0">
+    <nav className={`
+      fixed left-0 top-0 h-screen w-[320px] bg-[#FAFAF8] border-r border-gray-200/80 p-6 gap-6 z-40 shrink-0 flex flex-col
+      transition-transform duration-300 ease-in-out md:translate-x-0
+      ${isOpen ? "translate-x-0" : "-translate-x-full"}
+    `}>
       {/* Header */}
-      <div className="px-2 pt-2">
-        <h1 className="font-serif text-3xl text-gray-900 font-medium tracking-tight">Nyaya AI</h1>
-        <p className="font-sans text-[9px] text-gray-400 font-bold uppercase tracking-[0.2em] mt-1">
-          Legal Intelligence
-        </p>
+      <div className="px-2 pt-2 flex justify-between items-center">
+        <div>
+          <h1 className="font-serif text-3xl text-gray-900 font-medium tracking-tight">Nyaya AI</h1>
+          <p className="font-sans text-[9px] text-gray-400 font-bold uppercase tracking-[0.2em] mt-1">
+            Legal Intelligence
+          </p>
+        </div>
+        <button 
+          onClick={onClose}
+          className="md:hidden p-1.5 hover:bg-gray-100 rounded-lg transition-colors text-gray-500 hover:text-black cursor-pointer"
+        >
+          <X className="w-4 h-4" />
+        </button>
       </div>
 
       {/* CTA Button */}
       <div className="px-2">
         <button
-          onClick={() => setSelectedCaseId(null)}
+          onClick={() => {
+            setSelectedCaseId(null);
+            onClose?.();
+          }}
           className="w-full bg-black text-white rounded-full py-3.5 px-6 flex items-center justify-center gap-2 hover:bg-gray-800 transition-all duration-300 font-sans text-xs font-bold uppercase tracking-wider shadow-sm cursor-pointer"
         >
           <Plus className="w-3.5 h-3.5" />

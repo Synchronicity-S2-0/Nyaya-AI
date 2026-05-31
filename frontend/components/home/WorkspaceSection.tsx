@@ -24,59 +24,8 @@ const TABS = [
   { id: "tab-history", label: "History" },
 ];
 
-/* ─── Exact font style tokens from the HTML tailwind config ─── */
-const F = {
-  displayLg: {
-    fontFamily: "var(--font-serif), 'Instrument Serif', serif",
-    fontSize: "clamp(48px, 6vw, 80px)",
-    lineHeight: "clamp(52px, 6.6vw, 88px)",
-    letterSpacing: "-0.02em",
-    fontWeight: 400,
-  },
-  headlineMd: {
-    fontFamily: "var(--font-serif), 'Instrument Serif', serif",
-    fontSize: "32px",
-    lineHeight: "40px",
-    fontWeight: 400,
-  },
-  headlineLg: {
-    fontFamily: "var(--font-serif), 'Instrument Serif', serif",
-    fontSize: "40px",
-    lineHeight: "48px",
-    letterSpacing: "-0.01em",
-    fontWeight: 400,
-  },
-  bodyLg: {
-    fontFamily: "var(--font-sans), Inter, sans-serif",
-    fontSize: "18px",
-    lineHeight: "28px",
-    letterSpacing: "0.01em",
-    fontWeight: 400,
-  },
-  bodyMd: {
-    fontFamily: "var(--font-sans), Inter, sans-serif",
-    fontSize: "16px",
-    lineHeight: "24px",
-    fontWeight: 400,
-  },
-  labelMd: {
-    fontFamily: "var(--font-sans), Inter, sans-serif",
-    fontSize: "12px",
-    lineHeight: "16px",
-    letterSpacing: "0.1em",
-    fontWeight: 500,
-  },
-  labelSm: {
-    fontFamily: "var(--font-sans), Inter, sans-serif",
-    fontSize: "10px",
-    lineHeight: "14px",
-    letterSpacing: "0.05em",
-    fontWeight: 600,
-  },
-} as const;
-
 export function WorkspaceSection() {
-  const [activeTab, setActiveTab] = useState("summary");
+  const [activeTab, setActiveTab] = useState("tab-summary");
   const [indicatorStyle, setIndicatorStyle] = useState({ left: 0, width: 0 });
 
   /* Chat state */
@@ -95,15 +44,15 @@ export function WorkspaceSection() {
 
   /* Draft state */
   const [draftText, setDraftText] = useState(
-    `[Date]\n\nTo: [Landlord Name]\nRe: Notice of Eviction dated [Date of Notice]\n\nDear [Landlord Name],\n\nI am writing in response to the eviction notice I received on [Date]. I have reviewed the terms of our lease agreement, specifically Section [X] regarding notice periods.\n\nThe agreement clearly states that a minimum of 30 days' notice must be provided prior to any eviction proceedings. The notice I received provides only 14 days, which is in direct violation of our agreed-upon terms.\n\nTherefore, I consider the current notice to be invalid. I request that you retract this notice or provide a revised notice that complies with the terms of our lease agreement.\n\nSincerely,\n[Your Name]`
+    `[Date]\n\nTo: [Landlord Name]\nRe: Notice of Eviction dated [Date of Notice]\n\nDear [Landlord Name],\n\nI am writing in response to the eviction notice I received on [Date]. I have reviewed the terms of our lease agreement, specifically Section [X] regarding notice periods.\n\nThe agreement clearly states that a minimum of 30 days' notice must be provided prior to any eviction proceedings. The notice I received provides only 14 days, which is in direct violation of our agreed-upon terms.\n\nTherefore, I consider the current notice to be invalid. I request that you retract this notice or provide a revised notice that complies with the terms of our lease agreement.\n\nSincerely,\n\n[Your Name]`
   );
 
   /* Tab indicator refs */
   const navContainerRef = useRef<HTMLDivElement>(null);
   const tabRefs = useRef<Record<string, HTMLButtonElement | null>>({});
 
-  /* Recalculate indicator whenever active tab changes */
-  useEffect(() => {
+  /* Recalculate indicator position */
+  const updateIndicator = () => {
     const btn = tabRefs.current[activeTab];
     const container = navContainerRef.current;
     if (btn && container) {
@@ -114,11 +63,22 @@ export function WorkspaceSection() {
         width: btnRect.width,
       });
     }
+  };
+
+  useEffect(() => {
+    // Small delay to ensure layout rendering is complete
+    const timer = setTimeout(updateIndicator, 100);
+    return () => clearTimeout(timer);
+  }, [activeTab]);
+
+  useEffect(() => {
+    window.addEventListener("resize", updateIndicator);
+    return () => window.removeEventListener("resize", updateIndicator);
   }, [activeTab]);
 
   /* Scroll to bottom on new chat messages */
   useEffect(() => {
-    if (activeTab === "ask") {
+    if (activeTab === "tab-ask") {
       chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
     }
   }, [messages, isTyping, activeTab]);
@@ -138,12 +98,13 @@ export function WorkspaceSection() {
       let aiText =
         "Thank you for sharing. I'm analysing that in relation to your case files. We should prepare documentation asserting Section 14 notice compliance.";
       const q = userQuery.toLowerCase();
-      if (q.includes("extension") || q.includes("draft"))
+      if (q.includes("extension") || q.includes("draft")) {
         aiText =
           "Understood. I have drafted an official Letter of Extension Request. You can review it in the 'Drafts' tab. It requests a 14-day postponement to allow full legal consultation.";
-      else if (q.includes("court") || q.includes("sue"))
+      } else if (q.includes("court") || q.includes("sue")) {
         aiText =
           "If this escalates to court, we will file a counter-notice pointing out the procedural discrepancy. Our chances are solid (72% strength) due to the statutory timeline of the lease.";
+      }
       setIsTyping(false);
       setMessages((prev) => [
         ...prev,
@@ -153,563 +114,388 @@ export function WorkspaceSection() {
   };
 
   return (
-    <>
-      {/* ── Scoped styles matching HTML exactly ── */}
-      <style>{`
-        .ws-glass-panel {
-          background: rgba(255, 255, 255, 0.7);
-          backdrop-filter: blur(30px);
-          -webkit-backdrop-filter: blur(30px);
-          border: 1px solid rgba(255, 255, 255, 0.5);
-          box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
-        }
-        .ws-atmospheric-glow {
-          position: absolute;
-          width: 60vw;
-          height: 60vw;
-          background: radial-gradient(circle, rgba(255, 237, 213, 0.4) 0%, rgba(249, 249, 251, 0) 70%);
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          z-index: 0;
-          pointer-events: none;
-        }
-        /* Spinning conic-gradient border glow */
-        @property --ws-border-angle {
-          syntax: "<angle>";
-          inherits: false;
-          initial-value: 0deg;
-        }
-        @keyframes ws-bg-spin {
-          to { --ws-border-angle: 360deg; }
-        }
-        .ws-glow-wrapper {
-          position: relative;
-          z-index: 10;
-        }
-        .ws-glow-wrapper::before {
-          content: "";
-          position: absolute;
-          inset: -4px;
-          border-radius: 1.25rem;
-          background: conic-gradient(
-            from var(--ws-border-angle, 0deg),
-            transparent 0%,
-            transparent 30%,
-            rgba(255, 158, 64, 0.8) 50%,
-            transparent 70%,
-            transparent 100%
-          );
-          z-index: -1;
-          animation: ws-bg-spin 8s linear infinite;
-          filter: blur(12px);
-          opacity: 0.9;
-        }
-        /* Tab content fade-in */
-        @keyframes ws-fade-in {
-          from { opacity: 0; transform: translateY(10px); }
-          to   { opacity: 1; transform: translateY(0);    }
-        }
-        .ws-tab-fade {
-          animation: ws-fade-in 0.4s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-        }
-        /* Hide scrollbar for tab nav */
-        .ws-no-scrollbar::-webkit-scrollbar { display: none; }
-        .ws-no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-      `}</style>
+    <section className="relative w-full min-h-screen pt-[120px] pb-section-gap flex flex-col items-center justify-center overflow-hidden bg-background text-on-background font-body-md antialiased selection:bg-surface-variant selection:text-primary">
+      {/* Atmospheric Background */}
+      <div className="atmospheric-glow" />
 
-      <section
-        id="workspace"
-        className="relative overflow-x-hidden"
-        style={{
-          background: "linear-gradient(180deg, #f9f9fb 0%, #fff8f4 50%, #f9f9fb 100%)",
-          paddingTop: "120px",
-          paddingBottom: "160px",
-        }}
-      >
-        {/* Atmospheric glow background */}
-        <div className="ws-atmospheric-glow" />
+      <div className="relative z-10 w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop flex flex-col items-center">
+        {/* Section Header */}
+        <div className="text-center max-w-3xl mx-auto mb-20 md:mb-32">
+          <h2 className="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-primary mb-6 font-instrument">
+            <span className="block">A single workspace</span>
+            <span className="block">
+              for <span className="text-secondary font-light italic">every legal situation.</span>
+            </span>
+          </h2>
+          <p className="font-body-lg text-body-lg text-secondary">
+            Everything stays inside one living case.
+          </p>
+        </div>
 
-        <div
-          className="relative z-10 w-full flex flex-col items-center"
-          style={{
-            maxWidth: "1440px",
-            marginLeft: "auto",
-            marginRight: "auto",
-            paddingLeft: "clamp(24px, 5.5vw, 80px)",
-            paddingRight: "clamp(24px, 5.5vw, 80px)",
-          }}
-        >
-          {/* ── Section Header ── */}
-          <div
-            className="text-center mx-auto"
-            style={{ maxWidth: "700px", marginBottom: "clamp(64px, 7vw, 112px)" }}
-          >
-            <h2
-              style={{
-                fontFamily: "var(--font-serif), 'Instrument Serif', serif",
-                fontSize: "clamp(42px, 6.5vw, 80px)",
-                lineHeight: "clamp(46px, 7vw, 88px)",
-                letterSpacing: "-0.02em",
-                fontWeight: 400,
-                fontStyle: "italic",
-                color: "#000",
-                marginBottom: "20px",
-              }}
-            >
-              <span style={{ display: "block" }}>A single workspace</span>
-              <span style={{ display: "block" }}>
-                for{" "}
-                <span style={{ color: "#5e5e5e" }}>every legal situation.</span>
-              </span>
-            </h2>
-            {/* Colorful subtext — each word has its own warm/cool accent */}
-            <p style={{ fontFamily: "var(--font-sans), Inter, sans-serif", fontSize: "16px", lineHeight: "24px", fontWeight: 400 }}>
-              <span>Everything</span>{" "}
-              <span>stays</span>{" "}
-              <span>inside</span>{" "}
-              <span>one</span>{" "}
-              <span>living</span>{" "}
-              <span>case.</span>
-            </p>
-          </div>
-
-          {/* ── Application Mockup ── */}
-          <div
-            className="ws-glow-wrapper w-full transition-transform duration-700 hover:scale-[1.01]"
-            style={{ maxWidth: "860px" }}
-          >
-            <div
-              className="ws-glass-panel w-full flex flex-col overflow-hidden"
-              style={{ borderRadius: "1rem", boxShadow: "0 25px 50px -12px rgba(0,0,0,0.05)" }}
-            >
-
-              {/* ── Mockup Tab Header ── */}
-              <header
-                className="w-full border-b relative"
-                style={{
-                  backgroundColor: "rgba(255,255,255,0.5)",
-                  borderColor: "#e2e2e4",
-                  padding: "24px 40px 0",
-                }}
+        {/* Application Mockup */}
+        <div className="w-full max-w-5xl glow-panel-wrapper transition-transform duration-700 hover:scale-[1.01]">
+          <div className="w-full glass-panel rounded-xl overflow-hidden flex flex-col shadow-2xl shadow-primary/5">
+            {/* Mockup Header / Nav */}
+            <header className="w-full bg-surface-container-lowest/50 border-b border-surface-variant px-6 md:px-10 py-6 relative">
+              {/* Nav Component */}
+              <div
+                ref={navContainerRef}
+                className="flex overflow-x-auto no-scrollbar gap-8 md:gap-12 pb-2 relative"
+                id="tab-nav-container"
               >
-                <div
-                  ref={navContainerRef}
-                  className="ws-no-scrollbar flex overflow-x-auto relative"
-                  style={{ gap: "32px", paddingBottom: "10px" }}
-                  id="tab-nav-container"
-                >
-                  {TABS.map((tab) => (
+                {TABS.map((tab) => {
+                  const isActive = activeTab === tab.id;
+                  return (
                     <button
                       key={tab.id}
-                      ref={(el) => { tabRefs.current[tab.id] = el; }}
-                      onClick={() => setActiveTab(tab.id)}
-                      className="whitespace-nowrap cursor-pointer transition-colors duration-300"
-                      style={{
-                        ...F.labelMd,
-                        textTransform: "uppercase",
-                        paddingBottom: "8px",
-                        color: activeTab === tab.id ? "#000000" : "#5e5e5e",
-                        fontWeight: activeTab === tab.id ? 600 : 500,
-                        background: "none",
-                        border: "none",
+                      ref={(el) => {
+                        tabRefs.current[tab.id] = el;
                       }}
+                      onClick={() => setActiveTab(tab.id)}
+                      className={`nav-link font-label-md text-label-md uppercase tracking-wider whitespace-nowrap pb-2 transition-all duration-300 cursor-pointer ${
+                        isActive
+                          ? "active text-primary font-semibold"
+                          : "text-secondary hover:text-primary"
+                      }`}
                     >
                       {tab.label}
                     </button>
-                  ))}
+                  );
+                })}
+                <div
+                  className="tab-indicator"
+                  id="tab-indicator"
+                  style={{
+                    transform: `translateX(${indicatorStyle.left}px)`,
+                    width: `${indicatorStyle.width}px`,
+                  }}
+                />
+              </div>
+            </header>
 
-                  {/* Sliding indicator */}
-                  <div
-                    className="absolute bottom-0 h-[2px] bg-primary transition-all duration-[400ms]"
-                    style={{
-                      transform: `translateX(${indicatorStyle.left}px)`,
-                      width: `${indicatorStyle.width}px`,
-                      transitionTimingFunction: "cubic-bezier(0.25, 1, 0.5, 1)",
-                    }}
-                  />
+            {/* Mockup Content Canvas */}
+            <div
+              className="p-6 bg-surface-container-lowest flex flex-col md:p-8 content-container h-[580px] md:h-[540px] overflow-y-auto"
+              id="content-container"
+            >
+              {/* Tab 1: Summary */}
+              {activeTab === "tab-summary" && (
+                <div className="animate-fadeIn flex flex-col gap-8 w-full" id="tab-summary">
+                  <div>
+                    <h3 className="font-headline-md text-headline-md text-primary mb-2">Summary</h3>
+                    <div className="h-px w-12 bg-primary"></div>
+                  </div>
+                  <div className="max-w-3xl">
+                    <p className="font-body-lg text-body-lg md:text-[24px] md:leading-[36px] text-on-surface">
+                      Your landlord is requesting eviction. The notice period appears inconsistent with the terms outlined in the agreement.
+                    </p>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    {/* Card 1: Risk Level */}
+                    <div className="bg-surface p-6 rounded-lg flex flex-col justify-between border border-surface-variant relative overflow-hidden group">
+                      <div className="absolute -top-10 -right-10 w-32 h-32 bg-error/10 blur-[40px] rounded-full transition-opacity duration-500 group-hover:opacity-100"></div>
+                      <span className="font-label-sm text-label-sm text-secondary uppercase tracking-widest mb-4 z-10 relative">Risk Level</span>
+                      <div className="flex items-center gap-3 z-10 relative">
+                        <AlertTriangle className="text-error fill-error" size={20} />
+                        <span className="font-headline-md text-headline-md text-primary">High</span>
+                      </div>
+                    </div>
+                    {/* Card 1b: Case Type */}
+                    <div className="bg-surface p-6 rounded-lg flex flex-col justify-between border border-surface-variant relative overflow-hidden group">
+                      <span className="font-label-sm text-label-sm text-secondary uppercase tracking-widest mb-4 z-10 relative">Case Type</span>
+                      <div className="flex items-center gap-3 z-10 relative">
+                        <Home className="text-primary" size={20} />
+                        <span className="font-headline-md text-[20px] leading-[28px] text-primary">Property Dispute</span>
+                      </div>
+                    </div>
+                    {/* Card 3: Important Dates */}
+                    <div className="bg-surface p-6 rounded-lg flex flex-col justify-between border border-surface-variant">
+                      <span className="font-label-sm text-label-sm text-secondary uppercase tracking-widest mb-4">Important Dates</span>
+                      <ul className="flex flex-col gap-3">
+                        <li className="flex justify-between items-center border-b border-surface-variant pb-2">
+                          <span className="font-body-md text-body-md text-secondary">Hearing</span>
+                          <span className="font-body-md text-body-md text-primary font-medium">Oct 12</span>
+                        </li>
+                        <li className="flex justify-between items-center">
+                          <span className="font-body-md text-body-md text-secondary">Deadline</span>
+                          <span className="font-body-md text-body-md text-error font-medium">Oct 05</span>
+                        </li>
+                      </ul>
+                    </div>
+                    {/* Card 2: Recommended Action */}
+                    <div
+                      onClick={() => setActiveTab("tab-drafts")}
+                      className="bg-surface p-6 rounded-lg flex flex-col justify-between border border-surface-variant hover:bg-surface-container-low transition-colors duration-300 cursor-pointer group"
+                    >
+                      <span className="font-label-sm text-label-sm text-secondary uppercase tracking-widest mb-4">Recommended Action</span>
+                      <div className="flex items-center justify-between">
+                        <span className="font-body-lg text-body-lg text-primary font-medium">Draft Response</span>
+                        <ArrowRight className="text-primary group-hover:translate-x-1 transition-transform" size={20} />
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              </header>
+              )}
 
-              {/* ── Mockup Content Canvas ── */}
-              <div
-                style={{
-                  padding: "32px 40px",
-                  backgroundColor: "#ffffff",
-                  minHeight: "480px",
-                }}
-              >
+              {/* Tab 2: Resolution */}
+              {activeTab === "tab-resolution" && (
+                <div className="animate-fadeIn flex flex-col gap-8 w-full" id="tab-resolution">
+                  <div>
+                    <h3 className="font-headline-md text-headline-md text-primary mb-2">Resolution Path</h3>
+                    <div className="h-px w-12 bg-primary"></div>
+                  </div>
+                  <div className="flex flex-col md:flex-row gap-12">
+                    <div className="flex-1">
+                      <div className="relative border-l border-surface-variant ml-3 space-y-8 pb-4">
+                        <div className="relative pl-8">
+                          <div className="absolute -left-[5px] top-1 w-2.5 h-2.5 rounded-full bg-primary ring-4 ring-surface-container-lowest"></div>
+                          <h4 className="font-label-md text-label-md text-secondary uppercase tracking-widest mb-1">Today</h4>
+                          <p className="font-body-lg text-body-lg text-primary">Case Opened</p>
+                        </div>
+                        <div className="relative pl-8">
+                          <div className="absolute -left-[5px] top-1 w-2.5 h-2.5 rounded-full bg-surface-variant ring-4 ring-surface-container-lowest"></div>
+                          <h4 className="font-label-md text-label-md text-secondary uppercase tracking-widest mb-1">Pending</h4>
+                          <p className="font-body-lg text-body-lg text-primary">Collect Evidence</p>
+                        </div>
+                        <div className="relative pl-8">
+                          <div className="absolute -left-[5px] top-1 w-2.5 h-2.5 rounded-full bg-surface-variant ring-4 ring-surface-container-lowest"></div>
+                          <h4 className="font-label-md text-label-md text-secondary uppercase tracking-widest mb-1">Upcoming</h4>
+                          <p className="font-body-lg text-body-lg text-primary">Submit Response</p>
+                        </div>
+                        <div className="relative pl-8">
+                          <div className="absolute -left-[5px] top-1 w-2.5 h-2.5 rounded-full bg-surface-variant ring-4 ring-surface-container-lowest"></div>
+                          <h4 className="font-label-md text-label-md text-secondary uppercase tracking-widest mb-1">Next Phase</h4>
+                          <p className="font-body-lg text-body-lg text-primary">Await Review</p>
+                        </div>
+                        <div className="relative pl-8">
+                          <div className="absolute -left-[5px] top-1 w-2.5 h-2.5 rounded-full bg-surface-variant ring-4 ring-surface-container-lowest"></div>
+                          <h4 className="font-label-md text-label-md text-secondary uppercase tracking-widest mb-1">Final</h4>
+                          <p className="font-body-lg text-body-lg text-primary">Further Action</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="flex-1 flex flex-col gap-4">
+                      <span className="font-label-sm text-label-sm text-secondary uppercase tracking-widest">Alternative Options</span>
+                      <div className="p-4 border border-surface-variant rounded-lg hover:bg-surface transition-colors cursor-pointer flex justify-between items-center group">
+                        <span className="font-body-md text-body-md text-primary">Negotiate Settlement</span>
+                        <ArrowRight className="text-secondary group-hover:text-primary transition-colors" size={20} />
+                      </div>
+                      <div className="p-4 border border-surface-variant rounded-lg hover:bg-surface transition-colors cursor-pointer flex justify-between items-center group">
+                        <span className="font-body-md text-body-md text-primary">Request Extension</span>
+                        <ArrowRight className="text-secondary group-hover:text-primary transition-colors" size={20} />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
 
-                {/* TAB 1 — Summary */}
-                {activeTab === "summary" && (
-                  <div className="ws-tab-fade flex flex-col" style={{ gap: "32px" }}>
+              {/* Tab 3: Insights */}
+              {activeTab === "tab-insights" && (
+                <div className="animate-fadeIn flex flex-col gap-8 w-full" id="tab-insights">
+                  <div className="flex justify-between items-end">
                     <div>
-                      <h3 style={{ ...F.headlineMd, color: "#000", marginBottom: "8px" }}>Summary</h3>
-                      <div style={{ height: "1px", width: "48px", backgroundColor: "#000" }} />
+                      <h3 className="font-headline-md text-headline-md text-primary mb-2">Legal Insights</h3>
+                      <div className="h-px w-12 bg-primary"></div>
                     </div>
-
-                    <div style={{ maxWidth: "768px" }}>
-                      <p style={{ fontFamily: "var(--font-sans), Inter, sans-serif", fontSize: "24px", lineHeight: "36px", color: "#1a1c1d", fontWeight: 400 }}>
-                        Your landlord is requesting eviction. The notice period appears inconsistent with the terms outlined in the agreement.
-                      </p>
+                    <div className="text-right">
+                      <span className="font-label-sm text-label-sm text-secondary uppercase tracking-widest block mb-1">Case Strength</span>
+                      <span className="font-headline-lg text-headline-lg text-primary">72%</span>
                     </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4" style={{ gap: "24px" }}>
-
-                      {/* Risk Level */}
-                      <div
-                        className="relative overflow-hidden group flex flex-col justify-between"
-                        style={{ background: "#f9f9fb", padding: "24px", borderRadius: "1rem", border: "1px solid #e2e2e4" }}
-                      >
-                        <div className="absolute" style={{ top: "-40px", right: "-40px", width: "128px", height: "128px", background: "rgba(186,26,26,0.1)", borderRadius: "9999px", filter: "blur(40px)" }} />
-                        <span className="relative z-10" style={{ ...F.labelSm, color: "#5e5e5e", textTransform: "uppercase", display: "block", marginBottom: "16px" }}>Risk Level</span>
-                        <div className="flex items-center relative z-10" style={{ gap: "12px" }}>
-                          <AlertTriangle size={20} style={{ color: "#ba1a1a", flexShrink: 0 }} fill="#ba1a1a" />
-                          <span style={{ ...F.headlineMd, color: "#000" }}>High</span>
-                        </div>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="p-6 border border-surface-variant rounded-lg bg-surface">
+                      <div className="flex items-center gap-2 mb-3">
+                        <Lightbulb className="text-primary" size={16} />
+                        <span className="font-label-md text-label-md text-primary uppercase tracking-widest">Opportunity Detected</span>
                       </div>
-
-                      {/* Case Type */}
-                      <div
-                        className="flex flex-col justify-between"
-                        style={{ background: "#f9f9fb", padding: "24px", borderRadius: "1rem", border: "1px solid #e2e2e4" }}
-                      >
-                        <span style={{ ...F.labelSm, color: "#5e5e5e", textTransform: "uppercase", display: "block", marginBottom: "16px" }}>Case Type</span>
-                        <div className="flex items-center" style={{ gap: "12px" }}>
-                          <Home size={18} style={{ color: "#000", flexShrink: 0 }} />
-                          <span style={{ fontFamily: "var(--font-serif), 'Instrument Serif', serif", fontSize: "20px", lineHeight: "28px", color: "#000", fontWeight: 400 }}>Property Dispute</span>
-                        </div>
+                      <p className="font-body-md text-body-md text-secondary">The landlord's notice was served 14 days prior, whereas the contract stipulates a 30-day minimum notice period.</p>
+                    </div>
+                    <div className="p-6 border border-surface-variant rounded-lg bg-surface">
+                      <div className="flex items-center gap-2 mb-3">
+                        <Scale className="text-primary" size={16} />
+                        <span className="font-label-md text-label-md text-primary uppercase tracking-widest">Procedural Concern</span>
                       </div>
-
-                      {/* Important Dates */}
-                      <div
-                        className="flex flex-col justify-between"
-                        style={{ background: "#f9f9fb", padding: "24px", borderRadius: "1rem", border: "1px solid #e2e2e4" }}
-                      >
-                        <span style={{ ...F.labelSm, color: "#5e5e5e", textTransform: "uppercase", display: "block", marginBottom: "16px" }}>Important Dates</span>
-                        <ul style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-                          <li className="flex justify-between items-center" style={{ borderBottom: "1px solid #e2e2e4", paddingBottom: "8px" }}>
-                            <span style={{ ...F.bodyMd, color: "#5e5e5e" }}>Hearing</span>
-                            <span style={{ ...F.bodyMd, color: "#000", fontWeight: 500 }}>Oct 12</span>
-                          </li>
-                          <li className="flex justify-between items-center">
-                            <span style={{ ...F.bodyMd, color: "#5e5e5e" }}>Deadline</span>
-                            <span style={{ ...F.bodyMd, color: "#ba1a1a", fontWeight: 500 }}>Oct 05</span>
-                          </li>
-                        </ul>
+                      <p className="font-body-md text-body-md text-secondary">Ensure all communications are formally documented; previous informal texts may not hold up as legal notice.</p>
+                    </div>
+                    <div className="p-6 border border-surface-variant rounded-lg bg-surface">
+                      <div className="flex items-center gap-2 mb-3">
+                        <FileText className="text-primary" size={16} />
+                        <span className="font-label-md text-label-md text-primary uppercase tracking-widest">Documentation Review</span>
                       </div>
+                      <p className="font-body-md text-body-md text-secondary">Missing recent rent receipts from your records. Obtaining these will strengthen your position against eviction claims.</p>
+                    </div>
+                    <div className="p-6 border border-error/20 rounded-lg bg-error/5 relative overflow-hidden">
+                      <div className="flex items-center gap-2 mb-3">
+                        <AlertTriangle className="text-error" size={16} />
+                        <span className="font-label-md text-label-md text-error uppercase tracking-widest">Risk Alert</span>
+                      </div>
+                      <p className="font-body-md text-body-md text-on-surface">Failure to respond by Oct 05 will result in an automatic default judgment in favor of the landlord.</p>
+                    </div>
+                  </div>
+                </div>
+              )}
 
-                      {/* Recommended Action */}
+              {/* Tab 4: Drafts */}
+              {activeTab === "tab-drafts" && (
+                <div className="animate-fadeIn flex flex-col gap-8 w-full" id="tab-drafts">
+                  <div className="flex justify-between items-end flex-wrap gap-4">
+                    <div>
+                      <h3 className="font-headline-md text-headline-md text-primary mb-2">Drafts</h3>
+                      <div className="h-px w-12 bg-primary"></div>
+                    </div>
+                    <div className="flex gap-3">
+                      <button className="px-4 py-2 border border-surface-variant rounded-full font-label-md text-label-md text-primary uppercase tracking-widest hover:bg-surface transition-colors cursor-pointer">Complaint</button>
                       <button
-                        onClick={() => setActiveTab("drafts")}
-                        className="flex flex-col justify-between group transition-colors duration-300 text-left"
-                        style={{ background: "#f9f9fb", padding: "24px", borderRadius: "1rem", border: "1px solid #e2e2e4", cursor: "pointer", overflow: "hidden" }}
-                        onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#f3f3f5")}
-                        onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#f9f9fb")}
+                        onClick={() => {
+                          setDraftText("Generating draft reply...");
+                          setTimeout(() => {
+                            setDraftText(
+                              `[Date: October 1, 2026]\n\nTo: [Landlord Name]\nRe: Notice of Eviction Dispute — Settlement Proposal\n\nDear [Landlord Name],\n\nWe have formally reviewed the Notice of Eviction dated September 20. As previously noted, the 14-day timeline served violates Section 8 (Minimum Notice Duration) of the lease.\n\nIn the interest of reaching an amicable settlement without legal escalation, I propose a lease restructuring or an extension of the vacancy timeline to 60 days, giving both parties sufficient time to transition.\n\nPlease let us know your availability for a conference call this coming Thursday.\n\nSincerely,\n\n[Your Name]`
+                            );
+                          }, 1200);
+                        }}
+                        className="px-4 py-2 bg-primary text-on-primary rounded-full font-label-md text-label-md uppercase tracking-widest hover:bg-primary/90 transition-colors cursor-pointer"
                       >
-                        <span style={{ ...F.labelSm, color: "#5e5e5e", textTransform: "uppercase", display: "block", marginBottom: "16px" }}>Recommended Action</span>
-                        <div className="flex items-center justify-between" style={{ gap: "8px", minWidth: 0 }}>
-                          <span style={{ ...F.bodyLg, color: "#000", fontWeight: 500, minWidth: 0, flex: 1 }}>Draft Response</span>
-                          <ArrowRight size={18} style={{ color: "#000", flexShrink: 0 }} className="group-hover:translate-x-1 transition-transform" />
-                        </div>
+                        Generate Reply
                       </button>
-
                     </div>
                   </div>
-                )}
-
-                {/* TAB 2 — Resolution */}
-                {activeTab === "resolution" && (
-                  <div className="ws-tab-fade flex flex-col" style={{ gap: "32px" }}>
-                    <div>
-                      <h3 style={{ ...F.headlineMd, color: "#000", marginBottom: "8px" }}>Resolution Path</h3>
-                      <div style={{ height: "1px", width: "48px", backgroundColor: "#000" }} />
+                  <div className="border border-surface-variant rounded-lg bg-surface flex flex-col h-[400px] overflow-hidden">
+                    <div className="border-b border-surface-variant p-4 flex justify-between items-center bg-surface-container-lowest rounded-t-lg">
+                      <span className="font-label-md text-label-md text-primary uppercase tracking-widest">Response To Eviction Notice</span>
+                      <MoreHorizontal className="text-secondary cursor-pointer hover:text-primary" size={18} />
                     </div>
-                    <div className="flex flex-col md:flex-row" style={{ gap: "48px" }}>
-                      {/* Timeline */}
-                      <div className="flex-1">
-                        <div className="relative" style={{ borderLeft: "1px solid #e2e2e4", marginLeft: "12px" }}>
-                          {[
-                            { date: "Today", desc: "Case Opened", active: true },
-                            { date: "Pending", desc: "Collect Evidence", active: false },
-                            { date: "Upcoming", desc: "Submit Response", active: false },
-                            { date: "Next Phase", desc: "Await Review", active: false },
-                            { date: "Final", desc: "Further Action", active: false },
-                          ].map((step, i) => (
-                            <div key={i} className="relative" style={{ paddingLeft: "32px", paddingBottom: i < 4 ? "32px" : 0 }}>
-                              <div
-                                className="absolute"
-                                style={{
-                                  left: "-5px",
-                                  top: "4px",
-                                  width: "10px",
-                                  height: "10px",
-                                  borderRadius: "9999px",
-                                  backgroundColor: step.active ? "#000" : "#e2e2e4",
-                                  boxShadow: "0 0 0 4px #fff",
-                                }}
-                              />
-                              <h4 style={{ ...F.labelMd, color: "#5e5e5e", textTransform: "uppercase", marginBottom: "4px" }}>{step.date}</h4>
-                              <p style={{ ...F.bodyLg, color: "#000" }}>{step.desc}</p>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                      {/* Alt options */}
-                      <div className="flex-1 flex flex-col" style={{ gap: "16px" }}>
-                        <span style={{ ...F.labelSm, color: "#5e5e5e", textTransform: "uppercase" }}>Alternative Options</span>
-                        {["Negotiate Settlement", "Request Extension"].map((opt) => (
-                          <button
-                            key={opt}
-                            className="flex justify-between items-center group transition-colors duration-300 text-left"
-                            style={{ padding: "16px", border: "1px solid #e2e2e4", borderRadius: "1rem", cursor: "pointer", background: "none" }}
-                            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#f9f9fb")}
-                            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "transparent")}
-                          >
-                            <span style={{ ...F.bodyMd, color: "#000" }}>{opt}</span>
-                            <ArrowRight size={16} style={{ color: "#5e5e5e", flexShrink: 0 }} className="group-hover:text-primary transition-colors" />
-                          </button>
-                        ))}
-                      </div>
-                    </div>
+                    <textarea
+                      value={draftText}
+                      onChange={(e) => setDraftText(e.target.value)}
+                      className="flex-1 p-8 outline-none resize-none font-body-md text-body-md text-secondary space-y-4 bg-transparent"
+                    />
                   </div>
-                )}
+                </div>
+              )}
 
-                {/* TAB 3 — Legal Insights */}
-                {activeTab === "insights" && (
-                  <div className="ws-tab-fade flex flex-col" style={{ gap: "32px" }}>
-                    <div className="flex justify-between items-end">
-                      <div>
-                        <h3 style={{ ...F.headlineMd, color: "#000", marginBottom: "8px" }}>Legal Insights</h3>
-                        <div style={{ height: "1px", width: "48px", backgroundColor: "#000" }} />
-                      </div>
-                      <div className="text-right">
-                        <span style={{ ...F.labelSm, color: "#5e5e5e", textTransform: "uppercase", display: "block", marginBottom: "4px" }}>Case Strength</span>
-                        <span style={{ ...F.headlineLg, color: "#000" }}>72%</span>
-                      </div>
-                    </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2" style={{ gap: "24px" }}>
-                      {[
-                        {
-                          icon: "lightbulb",
-                          label: "Opportunity Detected",
-                          body: "The landlord's notice was served 14 days prior, whereas the contract stipulates a 30-day minimum notice period.",
-                          err: false,
-                        },
-                        {
-                          icon: "gavel",
-                          label: "Procedural Concern",
-                          body: "Ensure all communications are formally documented; previous informal texts may not hold up as legal notice.",
-                          err: false,
-                        },
-                        {
-                          icon: "description",
-                          label: "Documentation Review",
-                          body: "Missing recent rent receipts from your records. Obtaining these will strengthen your position against eviction claims.",
-                          err: false,
-                        },
-                        {
-                          icon: "warning",
-                          label: "Risk Alert",
-                          body: "Failure to respond by Oct 05 will result in an automatic default judgment in favor of the landlord.",
-                          err: true,
-                        },
-                      ].map((card) => {
-                        const IconMap = {
-                          lightbulb: Lightbulb,
-                          gavel: Scale,
-                          description: FileText,
-                          warning: AlertTriangle,
-                        } as const;
-                        const Icon = IconMap[card.icon as keyof typeof IconMap];
+              {/* Tab 5: Ask Nyaya */}
+              {activeTab === "tab-ask" && (
+                <div className="animate-fadeIn flex flex-col gap-8 w-full" id="tab-ask">
+                  <div>
+                    <h3 className="font-headline-md text-headline-md text-primary mb-2">Ask Nyaya</h3>
+                    <div className="h-px w-12 bg-primary"></div>
+                  </div>
+                  <div className="border border-surface-variant rounded-lg bg-surface flex flex-col h-[400px] overflow-hidden">
+                    <div className="flex-1 p-6 overflow-y-auto space-y-6 flex flex-col">
+                      {messages.map((msg) => {
+                        const isUser = msg.sender === "user";
                         return (
                           <div
-                            key={card.label}
-                            className="flex flex-col"
-                            style={{
-                              padding: "24px",
-                              borderRadius: "1rem",
-                              border: card.err ? "1px solid rgba(186,26,26,0.2)" : "1px solid #e2e2e4",
-                              background: card.err ? "rgba(186,26,26,0.05)" : "#f9f9fb",
-                              gap: "12px",
-                            }}
+                            key={msg.id}
+                            className={`max-w-[80%] p-4 rounded-lg ${
+                              isUser
+                                ? "self-end bg-surface-container rounded-tr-none text-primary"
+                                : "self-start bg-surface-container-lowest border border-surface-variant rounded-tl-none text-secondary"
+                            }`}
                           >
-                            <div className="flex items-center" style={{ gap: "8px" }}>
-                              <Icon size={16} style={{ color: card.err ? "#ba1a1a" : "#000", flexShrink: 0 }} />
-                              <span style={{ ...F.labelMd, color: card.err ? "#ba1a1a" : "#000", textTransform: "uppercase" }}>{card.label}</span>
-                            </div>
-                            <p style={{ ...F.bodyMd, color: "#5e5e5e" }}>{card.body}</p>
+                            <p className="font-body-md text-body-md">{msg.text}</p>
                           </div>
                         );
                       })}
-                    </div>
-                  </div>
-                )}
-
-                {/* TAB 4 — Drafts */}
-                {activeTab === "drafts" && (
-                  <div className="ws-tab-fade flex flex-col" style={{ gap: "32px" }}>
-                    <div className="flex flex-wrap justify-between items-end" style={{ gap: "16px" }}>
-                      <div>
-                        <h3 style={{ ...F.headlineMd, color: "#000", marginBottom: "8px" }}>Drafts</h3>
-                        <div style={{ height: "1px", width: "48px", backgroundColor: "#000" }} />
-                      </div>
-                      <div className="flex" style={{ gap: "12px" }}>
-                        <button
-                          style={{ padding: "8px 16px", border: "1px solid #e2e2e4", borderRadius: "9999px", ...F.labelMd, color: "#000", textTransform: "uppercase", background: "none", cursor: "pointer" }}
-                          onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#f9f9fb")}
-                          onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "transparent")}
-                        >
-                          Complaint
-                        </button>
-                        <button
-                          onClick={() => {
-                            setDraftText("Generating draft reply...");
-                            setTimeout(() => {
-                              setDraftText(`[Date: October 1, 2026]\n\nTo: [Landlord Name]\nRe: Notice of Eviction Dispute — Settlement Proposal\n\nDear [Landlord Name],\n\nWe have formally reviewed the Notice of Eviction dated September 20. As previously noted, the 14-day timeline served violates Section 8 (Minimum Notice Duration) of the lease.\n\nIn the interest of reaching an amicable settlement without legal escalation, I propose a lease restructuring or an extension of the vacancy timeline to 60 days, giving both parties sufficient time to transition.\n\nPlease let us know your availability for a conference call this coming Thursday.\n\nSincerely,\n[Your Name]`);
-                            }, 1200);
-                          }}
-                          style={{ padding: "8px 16px", borderRadius: "9999px", ...F.labelMd, color: "#fff", textTransform: "uppercase", background: "#000", border: "none", cursor: "pointer" }}
-                        >
-                          Generate Reply
-                        </button>
-                      </div>
-                    </div>
-
-                    <div className="flex flex-col" style={{ border: "1px solid #e2e2e4", borderRadius: "1rem", background: "#f9f9fb", height: "400px" }}>
-                      <div className="flex justify-between items-center" style={{ borderBottom: "1px solid #e2e2e4", padding: "16px 24px", background: "rgba(255,255,255,0.5)", borderRadius: "1rem 1rem 0 0" }}>
-                        <span style={{ ...F.labelMd, color: "#000", textTransform: "uppercase" }}>Response To Eviction Notice</span>
-                        <MoreHorizontal size={18} style={{ color: "#5e5e5e", cursor: "pointer" }} />
-                      </div>
-                      <textarea
-                        value={draftText}
-                        onChange={(e) => setDraftText(e.target.value)}
-                        className="flex-1 outline-none resize-none"
-                        style={{ padding: "32px", ...F.bodyMd, color: "#5e5e5e", background: "transparent", border: "none", lineHeight: "24px" }}
-                      />
-                    </div>
-                  </div>
-                )}
-
-                {/* TAB 5 — Ask Nyaya */}
-                {activeTab === "ask" && (
-                  <div className="ws-tab-fade flex flex-col w-full" style={{ gap: "32px" }}>
-                    <div>
-                      <h3 style={{ ...F.headlineMd, color: "#000", marginBottom: "8px" }}>Ask Nyaya</h3>
-                      <div style={{ height: "1px", width: "48px", backgroundColor: "#000" }} />
-                    </div>
-
-                    <div className="flex flex-col" style={{ border: "1px solid #e2e2e4", borderRadius: "1rem", background: "#f9f9fb", height: "400px" }}>
-                      {/* Messages */}
-                      <div className="flex-1 flex flex-col overflow-y-auto" style={{ padding: "24px", gap: "24px" }}>
-                        {messages.map((msg) => (
-                          <div
-                            key={msg.id}
-                            style={{
-                              alignSelf: msg.sender === "user" ? "flex-end" : "flex-start",
-                              maxWidth: "80%",
-                              padding: "16px",
-                              borderRadius: msg.sender === "user" ? "1rem 0 1rem 1rem" : "0 1rem 1rem 1rem",
-                              background: msg.sender === "user" ? "#eeeef0" : "#fff",
-                              border: msg.sender === "ai" ? "1px solid #e2e2e4" : "none",
-                            }}
-                          >
-                            <p style={{ ...F.bodyMd, color: msg.sender === "user" ? "#000" : "#5e5e5e" }}>{msg.text}</p>
-                          </div>
-                        ))}
-                        {isTyping && (
-                          <div className="flex items-center self-start" style={{ gap: "4px", background: "#fff", border: "1px solid #e2e2e4", padding: "16px", borderRadius: "0 1rem 1rem 1rem" }}>
-                            {[0, 0.2, 0.4].map((d) => (
-                              <div key={d} className="animate-bounce" style={{ width: "6px", height: "6px", borderRadius: "9999px", backgroundColor: "#cfc4c5", animationDelay: `${d}s` }} />
-                            ))}
-                          </div>
-                        )}
-                        <div ref={chatEndRef} />
-                      </div>
-
-                      {/* Input */}
-                      <form onSubmit={handleChatSubmit} className="flex items-center" style={{ borderTop: "1px solid #e2e2e4", padding: "16px", background: "rgba(255,255,255,0.5)", borderRadius: "0 0 1rem 1rem", gap: "12px" }}>
-                        <input
-                          type="text"
-                          value={chatInput}
-                          onChange={(e) => setChatInput(e.target.value)}
-                          placeholder="Ask a question about your case..."
-                          className="flex-1 outline-none border-none focus:ring-0"
-                          style={{ ...F.bodyMd, background: "#f9f9fb", borderRadius: "9999px", padding: "8px 20px", color: "#000" }}
-                        />
-                        <button
-                          type="submit"
-                          className="flex items-center justify-center transition-colors"
-                          style={{ width: "40px", height: "40px", borderRadius: "9999px", background: "#000", border: "none", cursor: "pointer", flexShrink: 0 }}
-                        >
-                          <Send size={16} style={{ color: "#fff" }} />
-                        </button>
-                      </form>
-                    </div>
-                  </div>
-                )}
-
-                {/* TAB 6 — History */}
-                {activeTab === "history" && (
-                  <div className="ws-tab-fade flex flex-col" style={{ gap: "32px" }}>
-                    <div>
-                      <h3 style={{ ...F.headlineMd, color: "#000", marginBottom: "8px" }}>Case History</h3>
-                      <div style={{ height: "1px", width: "48px", backgroundColor: "#000" }} />
-                    </div>
-                    <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-                      {[
-                        { title: "Property Dispute", date: "Opened: Sep 15, 2024", badge: "High Risk", badgeBg: "rgba(186,26,26,0.1)", badgeColor: "#ba1a1a", icon: "home", faded: false },
-                        { title: "Employment Termination", date: "Closed: Mar 10, 2024", badge: "Resolved", badgeBg: "#e2e2e4", badgeColor: "#5e5e5e", icon: "work", faded: true },
-                        { title: "Consumer Complaint", date: "Closed: Nov 02, 2023", badge: "Resolved", badgeBg: "#e2e2e4", badgeColor: "#5e5e5e", icon: "shopping_cart", faded: true },
-                      ].map((item) => (
-                        <div
-                          key={item.title}
-                          className="flex justify-between items-center group transition-colors duration-300"
-                          style={{
-                            padding: "16px",
-                            border: "1px solid #e2e2e4",
-                            borderRadius: "1rem",
-                            background: item.faded ? "#fff" : "#f9f9fb",
-                            opacity: item.faded ? 0.7 : 1,
-                            cursor: "pointer",
-                          }}
-                          onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#f3f3f5")}
-                          onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = item.faded ? "#fff" : "#f9f9fb")}
-                        >
-                          <div className="flex items-center" style={{ gap: "16px" }}>
-                            <div className="flex items-center justify-center" style={{ width: "40px", height: "40px", borderRadius: "9999px", background: item.faded ? "#eeeef0" : "#fff", border: "1px solid #e2e2e4", flexShrink: 0 }}>
-                              {item.icon === "home" && <Home size={16} style={{ color: item.faded ? "#5e5e5e" : "#000" }} />}
-                              {item.icon === "work" && <Briefcase size={16} style={{ color: item.faded ? "#5e5e5e" : "#000" }} />}
-                              {item.icon === "shopping_cart" && <ShoppingCart size={16} style={{ color: item.faded ? "#5e5e5e" : "#000" }} />}
-                            </div>
-                            <div>
-                              <h4 style={{ ...F.bodyMd, color: item.faded ? "#5e5e5e" : "#000", fontWeight: 500 }}>{item.title}</h4>
-                              <span style={{ ...F.labelSm, color: "#5e5e5e", textTransform: "uppercase" }}>{item.date}</span>
-                            </div>
-                          </div>
-                          <div className="flex items-center" style={{ gap: "16px" }}>
-                            <span style={{ ...F.labelSm, textTransform: "uppercase", background: item.badgeBg, color: item.badgeColor, padding: "4px 8px", borderRadius: "4px", whiteSpace: "nowrap" }}>{item.badge}</span>
-                            <ChevronRight size={16} style={{ color: "#5e5e5e", flexShrink: 0 }} />
-                          </div>
+                      {isTyping && (
+                        <div className="self-start bg-surface-container-lowest border border-surface-variant p-4 rounded-lg rounded-tl-none text-secondary flex gap-1 items-center">
+                          <span className="w-2 h-2 bg-secondary rounded-full animate-bounce" style={{ animationDelay: "0ms" }} />
+                          <span className="w-2 h-2 bg-secondary rounded-full animate-bounce" style={{ animationDelay: "150ms" }} />
+                          <span className="w-2 h-2 bg-secondary rounded-full animate-bounce" style={{ animationDelay: "300ms" }} />
                         </div>
-                      ))}
+                      )}
+                      <div ref={chatEndRef} />
+                    </div>
+                    <form
+                      onSubmit={handleChatSubmit}
+                      className="border-t border-surface-variant p-4 bg-surface-container-lowest rounded-b-lg flex gap-3 items-center"
+                    >
+                      <input
+                        value={chatInput}
+                        onChange={(e) => setChatInput(e.target.value)}
+                        className="flex-1 bg-surface border-none focus:ring-0 font-body-md text-body-md placeholder:text-secondary/50 rounded-full px-4 py-2 text-primary"
+                        placeholder="Ask a question about your case..."
+                        type="text"
+                      />
+                      <button
+                        type="submit"
+                        className="w-10 h-10 rounded-full bg-primary text-on-primary flex items-center justify-center hover:bg-primary/90 transition-colors cursor-pointer"
+                      >
+                        <Send size={20} />
+                      </button>
+                    </form>
+                  </div>
+                </div>
+              )}
+
+              {/* Tab 6: History */}
+              {activeTab === "tab-history" && (
+                <div className="animate-fadeIn flex flex-col gap-8 w-full" id="tab-history">
+                  <div>
+                    <h3 className="font-headline-md text-headline-md text-primary mb-2">Case History</h3>
+                    <div className="h-px w-12 bg-primary"></div>
+                  </div>
+                  <div className="space-y-4">
+                    <div className="p-4 border border-surface-variant rounded-lg bg-surface flex justify-between items-center group cursor-pointer hover:bg-surface-container-low transition-colors">
+                      <div className="flex items-center gap-4">
+                        <div className="w-10 h-10 rounded-full bg-surface-container-lowest flex items-center justify-center border border-surface-variant">
+                          <Home className="text-primary" size={16} />
+                        </div>
+                        <div>
+                          <h4 className="font-body-md text-body-md text-primary font-medium">Property Dispute</h4>
+                          <span className="font-label-sm text-label-sm text-secondary uppercase tracking-widest">Opened: Sep 15, 2024</span>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-4">
+                        <span className="font-label-sm text-label-sm text-error uppercase tracking-widest bg-error/10 px-2 py-1 rounded">High Risk</span>
+                        <ChevronRight className="text-secondary group-hover:text-primary transition-colors" size={16} />
+                      </div>
+                    </div>
+                    <div className="p-4 border border-surface-variant rounded-lg bg-surface-container-lowest flex justify-between items-center group cursor-pointer hover:bg-surface-container-low transition-colors opacity-70">
+                      <div className="flex items-center gap-4">
+                        <div className="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center border border-surface-variant">
+                          <Briefcase className="text-secondary" size={16} />
+                        </div>
+                        <div>
+                          <h4 className="font-body-md text-body-md text-secondary font-medium">Employment Termination</h4>
+                          <span className="font-label-sm text-label-sm text-secondary uppercase tracking-widest">Closed: Mar 10, 2024</span>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-4">
+                        <span className="font-label-sm text-label-sm text-secondary uppercase tracking-widest bg-surface-variant px-2 py-1 rounded">Resolved</span>
+                        <ChevronRight className="text-secondary group-hover:text-primary transition-colors" size={16} />
+                      </div>
+                    </div>
+                    <div className="p-4 border border-surface-variant rounded-lg bg-surface-container-lowest flex justify-between items-center group cursor-pointer hover:bg-surface-container-low transition-colors opacity-70">
+                      <div className="flex items-center gap-4">
+                        <div className="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center border border-surface-variant">
+                          <ShoppingCart className="text-secondary" size={16} />
+                        </div>
+                        <div>
+                          <h4 className="font-body-md text-body-md text-secondary font-medium">Consumer Complaint</h4>
+                          <span className="font-label-sm text-label-sm text-secondary uppercase tracking-widest">Closed: Nov 02, 2023</span>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-4">
+                        <span className="font-label-sm text-label-sm text-secondary uppercase tracking-widest bg-surface-variant px-2 py-1 rounded">Resolved</span>
+                        <ChevronRight className="text-secondary group-hover:text-primary transition-colors" size={16} />
+                      </div>
                     </div>
                   </div>
-                )}
-
-              </div>
+                </div>
+              )}
             </div>
           </div>
-
-          {/* ── Closing Statement ── */}
-          <div style={{ textAlign: "center", marginTop: "48px" }}>
-            <p style={{ fontFamily: "var(--font-serif), 'Instrument Serif', serif", fontSize: "32px", lineHeight: "40px", color: "#5e5e5e", letterSpacing: "-0.01em", fontWeight: 400 }}>
-              One case. One conversation.{" "}
-              <span style={{ color: "#000" }}>Complete clarity.</span>
-            </p>
-          </div>
         </div>
-      </section>
-    </>
+
+        {/* Closing Statement */}
+        <div className="text-center mt-12">
+          <p className="text-headline-md text-secondary tracking-tight font-display-lg">
+            One case. One conversation. <span className="text-primary">Complete clarity.</span>
+          </p>
+        </div>
+      </div>
+    </section>
   );
 }

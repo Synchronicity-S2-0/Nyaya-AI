@@ -5,7 +5,7 @@ import { Case, CaseDocument, CaseMessage, CaseEvent } from "@/app/generated/pris
 import { analyzeCaseText, analyzeCaseFile, sendCaseMessage } from "@/lib/api-client";
 import { saveDocumentAnalysis, saveChatInteraction } from "@/app/cases/[caseId]/actions";
 import { createNewCaseAction, closeCaseAction } from "@/app/cases/actions";
-import { Loader2 } from "lucide-react";
+import { Loader2, FolderOpen } from "lucide-react";
 
 import MattersSidebar from "./MattersSidebar";
 import NewCaseWizard from "./NewCaseWizard";
@@ -31,6 +31,9 @@ export default function UnifiedCasesWorkspace({
 }) {
   const [cases, setCases] = useState<CaseWithRelations[]>(initialCases);
   const [selectedCaseId, setSelectedCaseId] = useState<string | null>(null);
+  
+  // Mobile drawer open state
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   // Active case workspace states
   const [inputText, setInputText] = useState("");
@@ -429,16 +432,39 @@ export default function UnifiedCasesWorkspace({
   return (
     <div className="flex flex-col md:flex-row w-full h-screen overflow-hidden">
       
+      {/* Mobile Sidebar Drawer Backdrop */}
+      {isSidebarOpen && (
+        <div 
+          onClick={() => setIsSidebarOpen(false)}
+          className="md:hidden fixed inset-0 bg-black/30 z-35 transition-opacity animate-fadeIn" 
+        />
+      )}
+
       {/* 1. LEFT SIDEBAR: Cases list history */}
       <MattersSidebar
         cases={cases}
         selectedCaseId={selectedCaseId}
         setSelectedCaseId={setSelectedCaseId}
         session={session}
+        isOpen={isSidebarOpen}
+        onClose={() => setIsSidebarOpen(false)}
       />
 
       {/* 2. CENTRAL PANEL & DYNAMIC CONTENT */}
       <main className="flex-1 md:ml-[320px] bg-gray-50 flex flex-col h-full overflow-hidden">
+        
+        {/* Mobile Header Toggle */}
+        <div className="md:hidden flex items-center justify-between px-6 py-4 bg-white border-b border-gray-200 shrink-0">
+          <h1 className="font-instrument italic text-2xl text-primary">Nyaya AI</h1>
+          <button
+            onClick={() => setIsSidebarOpen(true)}
+            className="p-2 text-gray-500 hover:text-black rounded-lg transition-colors flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider cursor-pointer"
+          >
+            <FolderOpen className="w-4 h-4" />
+            <span>Matters</span>
+          </button>
+        </div>
+
         {selectedCaseId === null ? (
           
           // ================= STATE A: NEW CASE DEFAULT WIZARD =================
