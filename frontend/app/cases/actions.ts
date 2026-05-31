@@ -71,6 +71,32 @@ export async function createNewCaseAction(title: string = "Untitled Case") {
   };
 }
 
+export async function closeCaseAction(caseId: string) {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  if (!session?.user) {
+    throw new Error("Unauthorized");
+  }
+
+  const updatedCase = await prisma.case.update({
+    where: {
+      id: caseId,
+      userId: session.user.id,
+    },
+    data: {
+      status: "closed",
+    },
+  });
+
+  revalidatePath("/cases");
+  revalidatePath(`/cases/${caseId}`);
+
+  return { success: true, case: updatedCase };
+}
+
+
 
 
 
