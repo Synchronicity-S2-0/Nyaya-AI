@@ -103,6 +103,10 @@ export function HeroSection() {
           made <span className="italic text-[#6F6F6F]">clear.</span>
         </h1>
 
+        {/*Secondary Headline*/}
+        <h2 className="mt-6 pb-10 text-base md:text-xl font-inter-body">
+          Upload a document or describe your problem <br/> and receive clear guidance in minutes.
+        </h2>
         
         {/* Search / input row */}
         <div className="mt-10 mb-20 w-full max-w-2xl animate-fade-rise-delay-2 opacity-0 flex items-center gap-3">
