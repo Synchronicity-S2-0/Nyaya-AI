@@ -46,6 +46,37 @@ function formatRelativeTime(dateInput: Date | string) {
   }
 }
 
+function TruncatedTitle({ text }: { text: string }) {
+  const [expanded, setExpanded] = useState(false);
+  const words = text.trim().split(/\s+/);
+  const isLong = words.length > 20;
+  const displayed = !isLong || expanded ? text : words.slice(0, 20).join(" ");
+
+  return (
+    <h1 className="font-serif text-4xl md:text-5xl text-gray-900 leading-tight font-medium">
+      {displayed}
+      {isLong && !expanded && (
+        <button
+          onClick={() => setExpanded(true)}
+          className="inline-block ml-1 text-gray-400 hover:text-gray-700 transition-colors cursor-pointer select-none align-baseline text-3xl leading-none"
+          title="Show full text"
+        >
+          …
+        </button>
+      )}
+      {isLong && expanded && (
+        <button
+          onClick={() => setExpanded(false)}
+          className="inline-block ml-2 text-xs font-sans font-semibold text-gray-400 hover:text-gray-700 transition-colors cursor-pointer uppercase tracking-wider align-middle"
+          title="Collapse"
+        >
+          show less
+        </button>
+      )}
+    </h1>
+  );
+}
+
 export default function CaseDetails({
   activeCase,
   selectedDocId,
@@ -130,7 +161,7 @@ Yours sincerely,
   const urgencyLabel = activeCase.latestUrgency ? `${activeCase.latestUrgency.toUpperCase()} RISK` : "LOW RISK";
 
   return (
-    <div className="flex-1 flex flex-col overflow-y-auto p-8 gap-6 bg-white">
+    <div className="flex-1 flex flex-col overflow-y-auto p-8 pb-20 gap-6 bg-white">
       
       {/* Top File Pill Info Row */}
       <div className="flex flex-wrap items-center justify-between gap-4 border-b border-gray-100 pb-5">
@@ -176,9 +207,7 @@ Yours sincerely,
 
       {/* Case Main Title */}
       <div className="space-y-4">
-        <h1 className="font-serif text-4xl md:text-5xl text-gray-900 leading-tight font-medium">
-          {selectedDocument?.extractedText || activeCase.title}
-        </h1>
+        <TruncatedTitle text={selectedDocument?.extractedText || activeCase.title} />
       </div>
 
       {/* Tab Menu Header */}
