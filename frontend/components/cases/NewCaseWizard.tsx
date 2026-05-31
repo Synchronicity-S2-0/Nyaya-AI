@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import { FileText, Image as ImageIcon, ArrowRight, Loader2, X } from "lucide-react";
+import useTextStore from "@/store/useText";
 
 interface NewCaseWizardProps {
   wizardText: string;
@@ -28,6 +29,7 @@ export default function NewCaseWizard({
 }: NewCaseWizardProps) {
   
   const imageInputRef = useRef<HTMLInputElement>(null);
+  const { text, setText } = useTextStore();
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files?.[0]) {
@@ -65,105 +67,110 @@ export default function NewCaseWizard({
         </div>
 
         {/* Unified Input Card area */}
-        <div className="w-full bg-white rounded-3xl p-2 shadow-[0_8px_30px_rgba(0,0,0,0.04)] border border-gray-200/60 relative transition-all duration-300 focus-within:shadow-[0_8px_40px_rgba(0,0,0,0.08)] focus-within:border-gray-300">
-          
-          {/* File pill if uploaded */}
-          {wizardFile && (
-            <div className="flex items-center gap-1.5 bg-blue-50 text-blue-800 text-[10px] font-bold px-3 py-1.5 rounded-full border border-blue-200 w-fit mt-2 ml-4">
-              <FileText className="w-3.5 h-3.5 text-blue-600" />
-              <span className="truncate max-w-[200px]">{wizardFile.name}</span>
-              <button 
-                type="button" 
-                onClick={() => {
-                  setWizardFile(null);
-                  if (wizardFileInputRef.current) wizardFileInputRef.current.value = "";
-                }}
-                className="hover:bg-blue-100 p-0.5 rounded ml-1 cursor-pointer"
-              >
-                <X className="w-3 h-3 text-blue-800" />
-              </button>
-            </div>
-          )}
-
-          <textarea 
-            className="w-full bg-transparent border-none resize-none focus:ring-0 font-sans text-base text-gray-800 placeholder-gray-300 p-6 min-h-[140px] focus:outline-none"
-            placeholder="Describe your legal issue here..."
-            value={wizardText}
-            onChange={(e) => setWizardText(e.target.value)}
-            disabled={isLoading}
-          />
-
-          {/* Hidden inputs */}
-          <input
-            type="file"
-            ref={wizardFileInputRef}
-            className="hidden"
-            onChange={handleFileChange}
-            accept=".pdf,.doc,.docx,.txt"
-          />
-          <input
-            type="file"
-            ref={imageInputRef}
-            className="hidden"
-            onChange={handleFileChange}
-            accept="image/*"
-          />
-
-          {/* Bottom input actions */}
-          <div className="flex justify-between items-center p-2 mt-2">
-            <div className="flex gap-2">
-              <button 
-                type="button"
-                onClick={() => wizardFileInputRef.current?.click()}
-                disabled={isLoading}
-                className="p-3 text-gray-400 hover:text-black hover:bg-gray-50 rounded-full transition-colors group cursor-pointer"
-                title="Upload Document"
-              >
-                <FileText className="w-5 h-5 group-hover:scale-105 transition-transform" />
-              </button>
-              <button 
-                type="button"
-                onClick={() => imageInputRef.current?.click()}
-                disabled={isLoading}
-                className="p-3 text-gray-400 hover:text-black hover:bg-gray-50 rounded-full transition-colors group cursor-pointer"
-                title="Upload Image"
-              >
-                <ImageIcon className="w-5 h-5 group-hover:scale-105 transition-transform" />
-              </button>
-
-              <div className="flex items-center gap-2 ml-2">
-                <select
-                  className="text-xs border border-gray-200 bg-white px-2 py-1.5 rounded-lg focus:outline-none"
-                  value={selectedLanguage}
-                  onChange={(e) => setSelectedLanguage(e.target.value)}
-                  disabled={isLoading}
+        <div className="w-full glow-panel-wrapper transition-transform duration-700 hover:scale-[1.01]">
+          <div className="w-full bg-white rounded-2xl p-2 shadow-[0_8px_30px_rgba(0,0,0,0.04)] border border-gray-200/60 relative transition-all duration-300 focus-within:shadow-[0_8px_40px_rgba(0,0,0,0.08)] focus-within:border-gray-300">
+            
+            {/* File pill if uploaded */}
+            {wizardFile && (
+              <div className="flex items-center gap-1.5 bg-blue-50 text-blue-800 text-[10px] font-bold px-3 py-1.5 rounded-full border border-blue-200 w-fit mt-2 ml-4">
+                <FileText className="w-3.5 h-3.5 text-blue-600" />
+                <span className="truncate max-w-[200px]">{wizardFile.name}</span>
+                <button 
+                  type="button" 
+                  onClick={() => {
+                    setWizardFile(null);
+                    if (wizardFileInputRef.current) wizardFileInputRef.current.value = "";
+                  }}
+                  className="hover:bg-blue-100 p-0.5 rounded ml-1 cursor-pointer"
                 >
-                  <option value="en">English (EN)</option>
-                  <option value="hi">Hindi (HI)</option>
-                  <option value="ta">Tamil (TA)</option>
-                  <option value="te">Telugu (TE)</option>
-                  <option value="kn">Kannada (KN)</option>
-                </select>
+                  <X className="w-3 h-3 text-blue-800" />
+                </button>
               </div>
-            </div>
+            )}
 
-            <button
-              onClick={onSubmit}
-              disabled={(!wizardText.trim() && !wizardFile) || isLoading}
-              className="bg-black text-white rounded-full px-8 py-3 font-sans text-xs font-bold uppercase tracking-wider hover:bg-gray-800 transition-colors duration-300 flex items-center gap-2 shadow-sm disabled:opacity-40 cursor-pointer"
-            >
-              {isLoading ? (
-                <>
-                  <Loader2 className="w-3.5 h-3.5 animate-spin" />
-                  Analyzing
-                </>
-              ) : (
-                <>
-                  Analyze
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </>
-              )}
-            </button>
+            <textarea 
+              className="w-full bg-transparent border-none resize-none focus:ring-0 font-sans text-base text-gray-800 placeholder-gray-300 p-6 min-h-[140px] focus:outline-none"
+              placeholder="Describe your legal issue here..."
+              value={text}
+              onChange={(e) => {
+                setText(e.target.value);
+                setWizardText(e.target.value);
+              }}
+              disabled={isLoading}
+            />
+
+            {/* Hidden inputs */}
+            <input
+              type="file"
+              ref={wizardFileInputRef}
+              className="hidden"
+              onChange={handleFileChange}
+              accept=".pdf,.doc,.docx,.txt"
+            />
+            <input
+              type="file"
+              ref={imageInputRef}
+              className="hidden"
+              onChange={handleFileChange}
+              accept="image/*"
+            />
+
+            {/* Bottom input actions */}
+            <div className="flex justify-between items-center p-2 mt-2">
+              <div className="flex gap-2">
+                <button 
+                  type="button"
+                  onClick={() => wizardFileInputRef.current?.click()}
+                  disabled={isLoading}
+                  className="p-3 text-gray-400 hover:text-black hover:bg-gray-50 rounded-full transition-colors group cursor-pointer"
+                  title="Upload Document"
+                >
+                  <FileText className="w-5 h-5 group-hover:scale-105 transition-transform" />
+                </button>
+                <button 
+                  type="button"
+                  onClick={() => imageInputRef.current?.click()}
+                  disabled={isLoading}
+                  className="p-3 text-gray-400 hover:text-black hover:bg-gray-50 rounded-full transition-colors group cursor-pointer"
+                  title="Upload Image"
+                >
+                  <ImageIcon className="w-5 h-5 group-hover:scale-105 transition-transform" />
+                </button>
+
+                <div className="flex items-center gap-2 ml-2">
+                  <select
+                    className="text-xs border border-gray-200 bg-white px-2 py-1.5 rounded-lg focus:outline-none"
+                    value={selectedLanguage}
+                    onChange={(e) => setSelectedLanguage(e.target.value)}
+                    disabled={isLoading}
+                  >
+                    <option value="en">English (EN)</option>
+                    <option value="hi">Hindi (HI)</option>
+                    <option value="ta">Tamil (TA)</option>
+                    <option value="te">Telugu (TE)</option>
+                    <option value="kn">Kannada (KN)</option>
+                  </select>
+                </div>
+              </div>
+
+              <button
+                onClick={onSubmit}
+                disabled={(!wizardText.trim() && !wizardFile) || isLoading}
+                className="bg-black text-white rounded-full px-8 py-3 font-sans text-xs font-bold uppercase tracking-wider hover:bg-gray-800 transition-colors duration-300 flex items-center gap-2 shadow-sm disabled:opacity-40 cursor-pointer"
+              >
+                {isLoading ? (
+                  <>
+                    <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                    Analyzing
+                  </>
+                ) : (
+                  <>
+                    Analyze
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </>
+                )}
+              </button>
+            </div>
           </div>
         </div>
 

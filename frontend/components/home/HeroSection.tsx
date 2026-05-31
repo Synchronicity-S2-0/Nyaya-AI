@@ -1,8 +1,9 @@
 "use client";
-
 import { useEffect, useRef, useState } from "react";
 import { ArrowRight, Loader2 } from "lucide-react";
 import { signIn } from "@/lib/auth-client";
+import useTextStore from "@/store/useText";
+import { useRouter } from "next/navigation";
 
 const PENDING_HERO_PROMPT_KEY = "nyaya.pendingHeroPrompt";
 
@@ -10,6 +11,8 @@ export function HeroSection() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [prompt, setPrompt] = useState("");
   const [isSigningIn, setIsSigningIn] = useState(false);
+  const { setText } = useTextStore();
+  const router = useRouter();
 
   useEffect(() => {
     const video = videoRef.current;
@@ -17,11 +20,6 @@ export function HeroSection() {
       video.play().catch((e) => console.log("Video auto-play prevented:", e));
       video.classList.remove("opacity-0");
       video.classList.add("opacity-100");
-
-      const handleTimeUpdate = () => {
-        const duration = video.duration;
-        const currentTime = video.currentTime;
-        const fadeTime = 0.5;
 
       const handleTimeUpdate = () => {
         const duration = video.duration;
@@ -36,22 +34,23 @@ export function HeroSection() {
           } else {
             video.style.opacity = "1";
           }
-        };
+        }
+      };
 
-        const handleEnded = () => {
-          video.currentTime = 0;
-          video.play();
-        };
+      const handleEnded = () => {
+        video.currentTime = 0;
+        video.play().catch((e) => console.log("Video play prevented:", e));
+      };
 
-        video.addEventListener("timeupdate", handleTimeUpdate);
-        video.addEventListener("ended", handleEnded);
+      video.addEventListener("timeupdate", handleTimeUpdate);
+      video.addEventListener("ended", handleEnded);
 
-        return () => {
-          video.removeEventListener("timeupdate", handleTimeUpdate);
-          video.removeEventListener("ended", handleEnded);
-        };
-      }
-  }}}, []);
+      return () => {
+        video.removeEventListener("timeupdate", handleTimeUpdate);
+        video.removeEventListener("ended", handleEnded);
+      };
+    }
+  }, []);
 
   const handleGoogleStart = async () => {
     if (isSigningIn) return;
@@ -75,8 +74,8 @@ export function HeroSection() {
       id="home"
       className="relative w-full h-[100vh] bg-surface-container-lowest overflow-hidden flex flex-col items-center justify-center pt-[100px]"
     >
-      {/* Video Layer — starts 300px from the top */}
-      <div className="absolute inset-0 z-0 top-[300px]">
+      {/* Video Layer — occupies full height */}
+      <div className="absolute inset-0 z-0">
         <video
           ref={videoRef}
           className="w-full h-full object-cover transition-opacity duration-500"
@@ -86,7 +85,7 @@ export function HeroSection() {
           style={{ opacity: 1 }}
         >
           <source
-            src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260328_083109_283f3553-e28f-428b-a723-d639c617eb2b.mp4"
+            src="/videos/court.mp4"
             type="video/mp4"
           />
         </video>
@@ -104,21 +103,16 @@ export function HeroSection() {
           made <span className="italic text-[#6F6F6F]">clear.</span>
         </h1>
 
-        {/* Sub-headline */}
-        <p className="font-body-lg text-body-lg text-secondary max-w-2xl mt-8 animate-fade-rise-delay opacity-0">
-          Describe your problem or upload a document. Nyaya AI guides you
-          through risks, rights, opportunities and next steps.
-        </p>
-
+        
         {/* Search / input row */}
-        <div className="mt-12 w-full max-w-2xl animate-fade-rise-delay-2 opacity-0 flex items-center gap-3">
+        <div className="mt-10 mb-20 w-full max-w-2xl animate-fade-rise-delay-2 opacity-0 flex items-center gap-3">
           <div className="relative flex-1">
             <input
               className="w-full h-16 px-8 rounded-full bg-white border border-outline-variant focus:outline-none focus:border-primary font-body-md text-body-md placeholder:text-secondary-fixed-dim"
               placeholder="Describe your legal problem..."
               type="text"
               value={prompt}
-              onChange={(event) => setPrompt(event.target.value)}
+              onChange={(event) => {setText(event.target.value); setPrompt(event.target.value)}}
               onKeyDown={(event) => {
                 if (event.key === "Enter") {
                   event.preventDefault();
@@ -129,7 +123,10 @@ export function HeroSection() {
             />
           </div>
           {/* Arrow button — Material Symbols icon replaced with inline SVG */}
-          <button className="h-16 w-16 rounded-full bg-primary text-on-primary flex items-center justify-center hover:scale-[1.05] transition-transform duration-300 cursor-pointer flex-shrink-0">
+          <button className="h-16 w-16 rounded-full bg-primary text-on-primary flex items-center justify-center hover:scale-[1.05] transition-transform duration-300 cursor-pointer flex-shrink-0"
+          
+          onClick={() => router.push("/signup")}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-6 w-6"
