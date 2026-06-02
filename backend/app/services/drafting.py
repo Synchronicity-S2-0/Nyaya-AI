@@ -14,6 +14,7 @@ class DraftingAgent:
         draft_type: DraftType,
         classification: ClassificationResult,
         extraction: ExtractionResult,
+        parsed_text: str = "",
     ) -> DraftResult:
         settings = get_settings()
         api_key = settings.gemini_api_key
@@ -46,11 +47,17 @@ class DraftingAgent:
                 }
 
                 prompt = (
-                    "You are an expert Indian legal drafting assistant. "
-                    f"Generate a professional, legally-sound {draft_type} draft corresponding to a {classification.document_type} "
-                    "using the extracted entities. Pre-fill any known fields (like names, sections, dates, and obligation values) "
-                    "directly into the draft. For fields that are missing or require personal input from the citizen, "
-                    "use clear brackets like [Applicant Name], [deponent age], or [Place of verification].\n\n"
+                    "You are an expert Indian legal drafting assistant.\n\n"
+                    f"Task: Generate a highly professional, legally-sound, and context-aware {draft_type} draft "
+                    f"corresponding to a {classification.document_type}.\n\n"
+                    "Instructions:\n"
+                    "- Read the original document text provided below and directly address the specific factual specifics, claims, "
+                    "allegations, and details of the dispute or legal matter.\n"
+                    "- Avoid generic, boilerplate legal text where factual specifics can be drafted.\n"
+                    "- Pre-fill any known fields (like names, addresses, sections, dates, and monetary obligation values) directly into the draft.\n"
+                    "- For fields that are missing or require personal input from the citizen, use clear brackets "
+                    "like [Applicant Name], [deponent age], or [Place of verification].\n\n"
+                    f"Original Document Text:\n\"\"\"\n{parsed_text}\n\"\"\"\n\n"
                     f"Document Classification: {classification.document_type}\n"
                     f"Extracted Names: {', '.join(extraction.names) or 'None'}\n"
                     f"Extracted Dates & Deadlines: {', '.join(extraction.dates) or 'None'}\n"

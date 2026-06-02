@@ -57,7 +57,7 @@ class LegalWorkflowOrchestrator:
         )
         recommendations = self.recommender.recommend(classification, extraction, knowledge)
         defense = self.defense_agent.analyze(parsed.text, classification, extraction, knowledge)
-        draft = self.drafter.draft(draft_type, classification, extraction) if draft_type else None
+        draft = self.drafter.draft(draft_type, classification, extraction, parsed.text) if draft_type else None
         if not draft_type:
             self.drafter.last_source = "not_requested"
         translation = self.translator.translate(
