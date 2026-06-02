@@ -55,7 +55,7 @@ class LegalWorkflowOrchestrator:
         explanation = self.reasoning.explain(
             parsed.text, classification, extraction, knowledge, statutory_sources
         )
-        recommendations = self.recommender.recommend(classification, extraction, knowledge)
+        recommendations = self.recommender.recommend(classification, extraction, knowledge, parsed.text)
         defense = self.defense_agent.analyze(parsed.text, classification, extraction, knowledge)
         draft = self.drafter.draft(draft_type, classification, extraction, parsed.text) if draft_type else None
         if not draft_type:

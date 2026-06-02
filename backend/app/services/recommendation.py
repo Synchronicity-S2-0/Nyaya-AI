@@ -14,6 +14,7 @@ class ActionRecommendationAgent:
         classification: ClassificationResult,
         extraction: ExtractionResult,
         knowledge: list[KnowledgeSnippet],
+        parsed_text: str = "",
     ) -> ActionRecommendation:
         settings = get_settings()
         api_key = settings.gemini_api_key
@@ -55,10 +56,13 @@ class ActionRecommendationAgent:
                 knowledge_context = "\n".join([f"- {k.title}: {k.content}" for k in knowledge])
                 
                 prompt = (
-                    "You are a professional, objective legal procedural recommender in India. "
-                    "Based on the document classification, extracted entities, and relevant legal knowledge context, "
-                    "recommend actionable next steps, required documents, relevant public authorities, and formal escalation paths. "
-                    "Your recommendations must be legally sound, practical for an ordinary citizen, and tailored to the context.\n\n"
+                    "You are a professional, objective legal procedural recommender in India.\n\n"
+                    "Task: Recommend actionable next steps, required documents, relevant public authorities, and formal escalation paths.\n\n"
+                    "Instructions:\n"
+                    "- Read the original document/user text provided below to fully understand the context, especially if it relates to urgent matters like domestic violence, family disputes, threats, or personal safety.\n"
+                    "- Provide extremely specific, practical, and tailored steps. For example, if it's a safety/domestic abuse case, suggest safety steps, contact numbers for domestic violence helplines in India (like 181 or 1091), approaching the Protection Officer or local police, seeking safe shelter, and filing under the Protection of Women from Domestic Violence Act, 2005.\n"
+                    "- Ensure all suggestions are compassionate, practical, legally sound, and directly relevant to the user's situation.\n\n"
+                    f"Original User/Document Text:\n\"\"\"\n{parsed_text}\n\"\"\"\n\n"
                     f"Document Type: {classification.document_type}\n"
                     f"Extracted Legal Sections: {', '.join(extraction.legal_sections) or 'None'}\n"
                     f"Extracted Deadlines: {', '.join(extraction.deadlines) or 'None'}\n"
