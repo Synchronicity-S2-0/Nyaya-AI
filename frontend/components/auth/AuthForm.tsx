@@ -85,18 +85,26 @@ export function AuthForm() {
           return;
         }
 
-        await signUp.email({
+        const { data, error } = await signUp.email({
           name: value.fullName,
           email: value.email,
           password: value.password,
-          callbackURL: "/cases",
         });
+
+        if (error) {
+          setAuthError(error.message || "Failed to create account.");
+          return;
+        }
       } else {
-        await signIn.email({
+        const { data, error } = await signIn.email({
           email: value.email,
           password: value.password,
-          callbackURL: "/cases",
         });
+
+        if (error) {
+          setAuthError(error.message || "Failed to sign in. Please check your credentials.");
+          return;
+        }
       }
 
       router.push("/cases");

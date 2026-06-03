@@ -37,9 +37,6 @@ export default async function SignupPage() {
       </section>
 
       <section className="relative flex h-dvh items-start justify-center overflow-hidden bg-surface-container-lowest px-margin-mobile pt-12 md:pt-24 md:px-12 xl:px-margin-desktop">
-        <div className="absolute left-margin-mobile top-margin-mobile font-instrument text-4xl text-primary md:hidden">
-          Nyaya AI
-        </div>
         <Suspense>
           <AuthForm />
         </Suspense>

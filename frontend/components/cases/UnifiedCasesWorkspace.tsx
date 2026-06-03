@@ -320,6 +320,28 @@ export default function UnifiedCasesWorkspace({
       
       const newCase = await createNewCaseAction(caseTitle);
 
+      // Immediately transition screen to Case Details and show skeleton loader
+      const emptyCase: CaseWithRelations = {
+        id: newCase.id,
+        userId: newCase.userId,
+        title: newCase.title,
+        caseType: newCase.caseType,
+        status: newCase.status,
+        latestUrgency: newCase.latestUrgency,
+        createdAt: new Date(newCase.createdAt),
+        updatedAt: new Date(newCase.updatedAt),
+        documents: [],
+        messages: [],
+        events: newCase.events || [],
+      };
+
+      setCases((prev) => [emptyCase, ...prev]);
+      setSelectedCaseId(newCase.id);
+      setWizardText("");
+      setWizardFile(null);
+      if (wizardFileInputRef.current) wizardFileInputRef.current.value = "";
+
+      // Now run analysis API in background
       let result;
       if (fileToSubmit) {
         const mockFileUrl = "https://example.com/mock-file.pdf";
@@ -344,37 +366,35 @@ export default function UnifiedCasesWorkspace({
       const saveRes = await saveDocumentAnalysis(newCase.id, userId, result);
 
       if (saveRes.success && saveRes.document) {
-        const populatedCase: CaseWithRelations = {
-          id: newCase.id,
-          userId: newCase.userId,
-          title: result.case_update?.title || newCase.title,
-          caseType: result.case_update?.case_type || null,
-          status: result.case_update?.status || "open",
-          latestUrgency: result.case_update?.latest_urgency || null,
-          createdAt: new Date(),
-          updatedAt: new Date(),
-          documents: [saveRes.document as CaseDocument],
-          messages: [],
-          events: [
-            ...newCase.events,
-            ...(result.suggested_events || []).map((evt: any, i: number) => ({
-              id: `evt-wiz-${Date.now()}-${i}`,
-              caseId: newCase.id,
-              userId,
-              eventType: evt.event_type as any,
-              summary: evt.summary,
-              metadataJson: evt.metadata_json || {},
-              createdAt: new Date(),
-            })),
-          ],
-        };
-
-        setCases((prev) => [populatedCase, ...prev]);
-        setSelectedCaseId(newCase.id);
+        setCases((prevCases) =>
+          prevCases.map((c) => {
+            if (c.id === newCase.id) {
+              return {
+                ...c,
+                title: result.case_update?.title || c.title,
+                caseType: result.case_update?.case_type || null,
+                status: result.case_update?.status || "open",
+                latestUrgency: result.case_update?.latest_urgency || null,
+                documents: [saveRes.document as CaseDocument],
+                events: [
+                  ...c.events,
+                  ...(result.suggested_events || []).map((evt: any, i: number) => ({
+                    id: `evt-wiz-${Date.now()}-${i}`,
+                    caseId: newCase.id,
+                    userId,
+                    eventType: evt.event_type as any,
+                    summary: evt.summary,
+                    metadataJson: evt.metadata_json || {},
+                    createdAt: new Date(),
+                  })),
+                ],
+                updatedAt: new Date(),
+              };
+            }
+            return c;
+          })
+        );
         setSelectedDocId(saveRes.document.id);
-        setWizardText("");
-        setWizardFile(null);
-        if (wizardFileInputRef.current) wizardFileInputRef.current.value = "";
       }
     } catch (err) {
       console.error(err);
@@ -497,6 +517,7 @@ export default function UnifiedCasesWorkspace({
               isClosing={isClosing}
               activeTab={activeTab}
               setActiveTab={setActiveTab}
+              isLoading={isLoading}
             />
 
             {/* RIGHT PANEL: AI Chatbot & Attachment Interface */}

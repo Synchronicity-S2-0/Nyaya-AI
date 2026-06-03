@@ -38,11 +38,12 @@ export default function NewCaseWizard({
   };
 
   const handleStarterClick = (starterText: string) => {
+    setText(starterText);
     setWizardText(starterText);
   };
 
   const onSubmit = () => {
-    handleWizardSubmit(wizardText, wizardFile || undefined);
+    handleWizardSubmit(wizardText || text, wizardFile || undefined);
   };
 
   return (
@@ -116,30 +117,30 @@ export default function NewCaseWizard({
             />
 
             {/* Bottom input actions */}
-            <div className="flex justify-between items-center p-2 mt-2">
-              <div className="flex gap-2">
+            <div className="flex flex-wrap gap-3 justify-between items-center p-2 mt-2">
+              <div className="flex flex-wrap gap-1.5 items-center">
                 <button 
                   type="button"
                   onClick={() => wizardFileInputRef.current?.click()}
                   disabled={isLoading}
-                  className="p-3 text-gray-400 hover:text-black hover:bg-gray-50 rounded-full transition-colors group cursor-pointer"
+                  className="p-2 sm:p-3 text-gray-400 hover:text-black hover:bg-gray-50 rounded-full transition-colors group cursor-pointer"
                   title="Upload Document"
                 >
-                  <FileText className="w-5 h-5 group-hover:scale-105 transition-transform" />
+                  <FileText className="w-4 h-4 sm:w-5 sm:h-5 group-hover:scale-105 transition-transform" />
                 </button>
                 <button 
                   type="button"
                   onClick={() => imageInputRef.current?.click()}
                   disabled={isLoading}
-                  className="p-3 text-gray-400 hover:text-black hover:bg-gray-50 rounded-full transition-colors group cursor-pointer"
+                  className="p-2 sm:p-3 text-gray-400 hover:text-black hover:bg-gray-50 rounded-full transition-colors group cursor-pointer"
                   title="Upload Image"
                 >
-                  <ImageIcon className="w-5 h-5 group-hover:scale-105 transition-transform" />
+                  <ImageIcon className="w-4 h-4 sm:w-5 sm:h-5 group-hover:scale-105 transition-transform" />
                 </button>
 
-                <div className="flex items-center gap-2 ml-2">
+                <div className="flex items-center gap-2 ml-1 sm:ml-2">
                   <select
-                    className="text-xs border border-gray-200 bg-white px-2 py-1.5 rounded-lg focus:outline-none"
+                    className="text-[11px] sm:text-xs border border-gray-200 bg-white px-1.5 py-1 sm:px-2 sm:py-1.5 rounded-lg focus:outline-none"
                     value={selectedLanguage}
                     onChange={(e) => setSelectedLanguage(e.target.value)}
                     disabled={isLoading}
@@ -155,8 +156,8 @@ export default function NewCaseWizard({
 
               <button
                 onClick={onSubmit}
-                disabled={(!wizardText.trim() && !wizardFile) || isLoading}
-                className="bg-black text-white rounded-full px-8 py-3 font-sans text-xs font-bold uppercase tracking-wider hover:bg-gray-800 transition-colors duration-300 flex items-center gap-2 shadow-sm disabled:opacity-40 cursor-pointer"
+                disabled={(!wizardText.trim() && !wizardFile && !text.trim()) || isLoading}
+                className="bg-black text-white rounded-full px-4 sm:px-8 py-2.5 sm:py-3 font-sans text-[11px] sm:text-xs font-bold uppercase tracking-wider hover:bg-gray-800 transition-colors duration-300 flex items-center gap-1.5 sm:gap-2 shadow-sm disabled:opacity-40 cursor-pointer shrink-0"
               >
                 {isLoading ? (
                   <>

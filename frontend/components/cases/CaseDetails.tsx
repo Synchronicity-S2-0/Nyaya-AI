@@ -25,6 +25,7 @@ interface CaseDetailsProps {
   isClosing: boolean;
   activeTab?: "summary" | "path" | "references" | "drafts";
   setActiveTab?: (tab: "summary" | "path" | "references" | "drafts") => void;
+  isLoading?: boolean;
 }
 
 function formatRelativeTime(dateInput: Date | string) {
@@ -89,11 +90,80 @@ export default function CaseDetails({
   isClosing,
   activeTab: propActiveTab,
   setActiveTab: propSetActiveTab,
+  isLoading = false,
 }: CaseDetailsProps) {
   const [localActiveTab, setLocalActiveTab] = useState<"summary" | "path" | "references" | "drafts">("summary");
   const activeTab = propActiveTab !== undefined ? propActiveTab : localActiveTab;
   const setActiveTab = propSetActiveTab !== undefined ? propSetActiveTab : setLocalActiveTab;
   const [copiedDraft, setCopiedDraft] = useState(false);
+
+  if (isLoading) {
+    return (
+      <div className="flex-1 flex flex-col overflow-y-auto p-8 pb-20 gap-6 bg-white animate-pulse">
+        {/* Top File Pill Info Row Placeholder */}
+        <div className="flex flex-wrap items-center justify-between gap-4 border-b border-gray-100 pb-5">
+          <div className="w-48 h-8 rounded-xl shimmer animate-shimmer" />
+          <div className="w-32 h-8 rounded-xl shimmer animate-shimmer" />
+        </div>
+
+        {/* Case Main Title Placeholder */}
+        <div className="space-y-3 mt-4">
+          <div className="w-3/4 h-12 rounded-xl shimmer animate-shimmer" />
+          <div className="w-1/2 h-8 rounded-xl shimmer animate-shimmer" />
+        </div>
+
+        {/* Tab Menu Header Placeholder */}
+        <div className="flex border-b border-gray-100 gap-6 mt-4 pb-3">
+          <div className="w-20 h-4 rounded shimmer animate-shimmer" />
+          <div className="w-28 h-4 rounded shimmer animate-shimmer" />
+          <div className="w-24 h-4 rounded shimmer animate-shimmer" />
+          <div className="w-16 h-4 rounded shimmer animate-shimmer" />
+        </div>
+
+        {/* Skeleton Body */}
+        <div className="flex-grow space-y-6 mt-4">
+          {/* Overview text block */}
+          <div className="space-y-2">
+            <div className="w-24 h-3 rounded shimmer animate-shimmer" />
+            <div className="w-full h-4 rounded shimmer animate-shimmer" />
+            <div className="w-full h-4 rounded shimmer animate-shimmer" />
+            <div className="w-5/6 h-4 rounded shimmer animate-shimmer" />
+          </div>
+
+          {/* Quick Cards Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="h-32 border border-black/5 p-5 flex flex-col gap-2 rounded-xl bg-gray-50/50">
+              <div className="w-16 h-3 rounded shimmer animate-shimmer" />
+              <div className="w-32 h-6 rounded shimmer animate-shimmer mt-2" />
+            </div>
+            <div className="h-32 border border-black/5 p-5 flex flex-col gap-2 rounded-xl bg-gray-50/50">
+              <div className="w-16 h-3 rounded shimmer animate-shimmer" />
+              <div className="w-24 h-6 rounded shimmer animate-shimmer mt-2" />
+            </div>
+          </div>
+
+          {/* Checklist placeholder */}
+          <div className="border border-black/5 p-5 flex flex-col gap-4 rounded-xl bg-gray-50/50">
+            <div className="w-28 h-3 rounded shimmer animate-shimmer" />
+            <div className="space-y-3">
+              <div className="flex items-center gap-3">
+                <div className="w-5 h-5 rounded-full shimmer animate-shimmer shrink-0" />
+                <div className="w-2/3 h-4 rounded shimmer animate-shimmer" />
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="w-5 h-5 rounded-full shimmer animate-shimmer shrink-0" />
+                <div className="w-3/4 h-4 rounded shimmer animate-shimmer" />
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="w-5 h-5 rounded-full shimmer animate-shimmer shrink-0" />
+                <div className="w-1/2 h-4 rounded shimmer animate-shimmer" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   const isOpenOrPending = activeCase.status === "open" || activeCase.status === "pending" || !activeCase.status;
 
@@ -112,6 +182,10 @@ export default function CaseDetails({
 
   // Custom pre-filled legal draft based on case type
   const getDraftText = () => {
+    if (analysis?.draft?.body) {
+      return analysis.draft.body;
+    }
+
     if (caseType.toLowerCase().includes("property") || caseType.toLowerCase().includes("eviction")) {
       return `To,
 [Landlord Name / Advocate]
@@ -129,7 +203,7 @@ We hereby explicitly dispute the 7-day timeline. My client stands ready to abide
 
 Kindly acknowledge receipt of this formal objection.
 
-Yours sincerely,
+Sincerely,
 [Your Name / Authorized Counsel]`;
     }
 
@@ -147,7 +221,7 @@ It has come to our attention that service delivery and performance timelines hav
 
 We request you to suspend any adverse actions until a mutual review is completed or the agreed cure period runs its course.
 
-Yours sincerely,
+Sincerely,
 [Your Name / Authorized Representative]`;
   };
 
@@ -434,7 +508,7 @@ Yours sincerely,
         {activeTab === "drafts" && (
           <div className="space-y-4 animate-fadeIn h-full flex flex-col">
             <div className="flex justify-between items-center bg-gray-50 p-3  border border-black/5">
-              <span className="text-xs font-semibold text-gray-700">Pre-filled Legal Reply Draft</span>
+              <span className="text-xs font-semibold text-gray-700">{analysis?.draft?.title || "Pre-filled Legal Reply Draft"}</span>
               <button 
                 onClick={copyDraftToClipboard}
                 className="flex items-center gap-1.5 px-3 py-1.5 bg-white border border-black/5 text-xs font-bold text-gray-700 hover:bg-gray-50 transition-all cursor-pointer"

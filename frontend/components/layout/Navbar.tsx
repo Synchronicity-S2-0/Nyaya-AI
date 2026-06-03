@@ -5,6 +5,8 @@ import { navItems } from "@/constants";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import { Menu, X } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 // Explicit map from nav URL → actual section element id in the DOM
 const NAV_URL_TO_SECTION_ID: Record<string, string> = {
@@ -26,8 +28,13 @@ type NavbarSession = {
 
 export function Navbar({ session }: { session: NavbarSession }) {
   const [activeId, setActiveId] = useState("/");
+  const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
+
+  useEffect(() => {
+    setIsOpen(false);
+  }, [pathname]);
 
   const isCasesRoute = pathname.startsWith("/cases");
   const isAuthRoute = pathname.startsWith("/login") || pathname.startsWith("/signup");
@@ -93,7 +100,7 @@ export function Navbar({ session }: { session: NavbarSession }) {
 
   // 2. Default Public Page Navbar View
   return (
-    <nav className="fixed top-0 w-full z-50 bg-white border-b border-surface-container px-[64px] py-[16px] flex justify-between items-center transition-all duration-300">
+    <nav className="fixed top-0 w-full z-50 bg-white border-b border-surface-container px-6 md:px-[64px] py-[16px] flex justify-between items-center transition-all duration-300">
       <Link
         href="/"
         className="font-normal tracking-tight text-primary hover:text-primary transition-opacity duration-300 font-instrument italic text-headline-md"
@@ -122,7 +129,47 @@ export function Navbar({ session }: { session: NavbarSession }) {
         >
           Begin Journey
         </button>
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className="md:hidden flex items-center justify-center p-2 text-secondary hover:text-primary transition-colors focus:outline-none cursor-pointer"
+          aria-label="Toggle menu"
+        >
+          {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+        </button>
       </div>
+
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
+            className="absolute top-full left-0 w-full bg-white border-b border-surface-container px-6 py-6 md:hidden flex flex-col gap-6 shadow-lg z-40"
+          >
+            <div className="flex flex-col gap-4">
+              {navItems.map((item) => (
+                <Link
+                  key={item.id}
+                  href={item.url}
+                  className={cn(
+                    "transition-opacity duration-300 font-body-md text-[15px] hover:text-primary cursor-pointer py-2 border-b border-surface-container last:border-none",
+                    isActive(item.url) ? "text-primary font-medium" : "text-secondary"
+                  )}
+                >
+                  {item.title}
+                </Link>
+              ))}
+            </div>
+            <button
+              onClick={() => router.push("/signup")}
+              className="w-full inline-flex items-center justify-center px-4 py-3 rounded-full bg-primary text-on-primary font-body-md text-[13px] leading-[20px] hover:scale-[1.02] transition-transform duration-300 ease-out cursor-pointer"
+            >
+              Begin Journey
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   );
 }
